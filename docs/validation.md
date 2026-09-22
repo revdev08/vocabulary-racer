@@ -11,3 +11,20 @@ Fecha: 2026-09-21.
 - Se fijó ESLint a la rama 9 porque el plugin de React de la configuración Expo instalada no funciona con ESLint 10. Revisar esa compatibilidad al actualizar herramientas.
 
 Pendiente: instalación y pruebas físicas iOS/Android; gestos táctiles, hápticos y comportamiento en segundo plano en ambos sistemas; perfilado de FPS; prueba de recompensas/guardado frente a fallos de almacenamiento. No hay cuentas ni compras en esta entrega.
+
+## Escenario y movimiento — 2026-09-22
+
+- TypeScript y Expo lint correctos.
+- 9/9 pruebas: seis del juego y tres de proyección. Verifican contacto del encuentro con el carro, límites de pantalla y separación de las opciones para anchos de 320, 375, 390 y 520 píxeles.
+- Exportación web, iOS y Android correcta con ambos PNG incluidos.
+- Transparencia real de ambos sprites verificada en su canal alfa; no se entregaron las variantes con damero.
+- Inspección visual en navegador: casas detalladas junto a la carretera, opciones proyectadas y nuevo carro renderizados correctamente.
+- Rendimiento en teléfonos físicos todavía no medido.
+
+
+## Visual revision — 2026-09-22
+
+- Verified supplied sports car, neutral-blue signs, readable single-line choices, segmented lives, steering, and road-aligned dashes in browser at 375 × 812 and default 520-wide game frame.
+- House alpha checked: RGBA 0–255; new sprite is oriented and projected along the left sidewalk.
+- 10 unit tests passed, including a new check that both endpoints of each dash remain on its lane divider across viewport aspect ratios.
+- TypeScript, lint and platform export checked for this revision. Native device visual/performance verification remains outstanding.

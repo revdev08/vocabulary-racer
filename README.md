@@ -35,7 +35,7 @@ pnpm exec expo export --platform all
 - `src/game/engine.ts`: reglas puras, independientes de Expo, reloj inyectado, aleatoriedad inyectable.
 - `src/game/storage.ts`: repositorio local versionado; evita guardar dos veces el mismo resultado.
 - `src/app/`: rutas Expo Router, inicio y carrera con sus resultados.
-- `src/components/Scene.tsx`: escenario 2.5D, paisaje raster y geometría SVG; carro con Animated. Solo el escenario lleva la animación continua. Las reglas avanzan en intervalos de 50 ms, con límite de delta para evitar saltos.
+- `src/components/Scene.tsx`: escenario 2.5D, paisaje y casas PNG, carretera SVG y animación nativa de transformaciones. Comparte proyección entre objetos, opciones y carro. La escena omite renders cuando solo cambia el reloj; las reglas avanzan cada 50 ms.
 - `tests/`: reglas, puntuación, vida única, finalización y carriles.
 
 ## Evolución
@@ -48,4 +48,4 @@ pnpm exec expo export --platform all
 
 ## Arte
 
-`assets/coast.png`: imagen original generada con la herramienta integrada ImageGen. Prompt y dirección en `docs/art-direction.md`. Vehículo, asfalto y obstáculos están dibujados en SVG editable; texto/UI son nativos. La imagen conceptual anterior es una referencia, no un render del prototipo.
+`assets/coast.png`: imagen original generada con la herramienta integrada ImageGen. Prompt y dirección en `docs/art-direction.md`. Las casas transparentes están en `assets/scenery/`; sus prompts están en `docs/scenery-assets.md`. Vehículo, asfalto y obstáculos están dibujados en SVG editable; texto/UI son nativos. La imagen conceptual anterior es una referencia, no un render del prototipo.

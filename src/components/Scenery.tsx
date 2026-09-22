@@ -1,8 +1,9 @@
-import Svg, { Ellipse, G, Path, Polygon, Rect } from 'react-native-svg';
+import { Image } from 'react-native';
+import Svg, { Ellipse, Path, Polygon, Rect } from 'react-native-svg';
 import { Car } from './Car';
 
 export function Obstacle({ type }: { type: 'cones' | 'car' | 'hole' }) {
-  if (type === 'car') return <Car color="#75b5b9" width={104} />;
+  if (type === 'car') return <Car width={104} />;
   return <Svg width="110" height="105" viewBox="0 0 110 105">
     <Ellipse cx="55" cy="92" rx="48" ry="10" fill="#162b38" opacity=".28" />
     {type === 'hole' ? <><Path d="M8 83L22 66L41 62L60 66L80 61L101 79L96 95L66 100L38 94L20 99Z" fill="#859695" /><Ellipse cx="55" cy="82" rx="39" ry="14" fill="#152c3b" /><Path d="M21 76Q53 60 89 76" fill="none" stroke="#0c1e2b" strokeWidth="5" /><Path d="M16 73L6 61M90 72L103 56M46 98L39 105" stroke="#283e49" strokeWidth="3" /></> : <>
@@ -26,13 +27,12 @@ export function Palm() {
   </Svg>;
 }
 
-export function House({ alternate }: { alternate: boolean }) {
-  return <Svg width="150" height="190" viewBox="0 0 150 190">
-    <Polygon points="9,178 111,188 148,161 47,150" fill="#213d38" opacity=".18" />
-    <Path d="M21 64L99 47V173L21 163Z" fill={alternate ? '#e3ae7d' : '#f2d8a6'} />
-    <Path d="M99 47L139 65V163L99 173Z" fill="#c79468" />
-    <Path d="M10 67L60 22L99 44L99 55Z" fill="#d77b51" /><Path d="M60 22L107 27L147 67L99 55Z" fill="#b85b43" />
-    {[0, 1].map(row => <G key={row}><Rect x="34" y={78 + row * 42} width="17" height="25" rx="2" fill="#357b83" /><Rect x="67" y={70 + row * 42} width="17" height="25" rx="2" fill="#357b83" /><Rect x="110" y={80 + row * 39} width="13" height="23" fill="#496668" /></G>)}
-    <Path d="M30 104H57M63 96H90" stroke="#fff0cf" strokeWidth="4" />
-  </Svg>;
+export function House({ alternate, width, height }: { alternate: boolean; width: number; height: number }) {
+  return <Image
+    source={require('../../assets/scenery/roadside-house-v2.png')}
+    style={{ width, height, opacity: alternate ? 1 : .94 }}
+    resizeMode="contain"
+    fadeDuration={0}
+    accessible={false}
+  />;
 }
