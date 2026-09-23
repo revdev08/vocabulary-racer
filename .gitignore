@@ -39,3 +39,9 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# Local source reference and compiled test output
+basegame/
+.qa/
+public/canvaskit.wasm
+web/static/js/canvaskit.wasm

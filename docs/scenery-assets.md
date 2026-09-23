@@ -39,3 +39,8 @@ The car uses the user-supplied `assets/basic-main-car.png` unchanged. Layout com
 Supersedes the viewport-dependent house compression above: preserve the original 1312:1199 sprite ratio and use contain mode. Four houses per nine-second scenery cycle (2.25-second spacing), anchored entirely outside the road; eighteen dash pairs and seven post pairs maintain roadside rhythm. House heights alternate 190/220 world units. This is a 2D scenic approximation.
 
 Choice cards now float 22 units above the ground with translucent blue glass, diagonal highlights and cyan borders. Removed all feet, ground chevrons and shadows under the choices. Slight hover motion during approach; 650ms expansion/fade after evaluation, respecting pause. No new raster assets.
+
+
+## Spatial coherence revision
+
+Houses removed from the active scene; source PNGs retained. Sparse low coastal rocks replace them, outside the left shoulder. Palms retain their ground anchor on the right. World inverse-depth velocity now matches encounter velocity, with a common rate and a recycle depth of 1.5 (past the screen). Removed detached car shadow; tire contact is at 0.69 of rendered width, with minimal suspension movement and steering roll.

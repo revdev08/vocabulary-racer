@@ -1,0 +1,964 @@
+{
+  "type": "deterministic-simulation",
+  "stepSeconds": 0.008333333333333333,
+  "inactivityDefinition": "Driving time with no approaching obstacle or coin within 1.08 seconds. Question and feedback time is active.",
+  "config": {
+    "initialLives": 3,
+    "pointsPerCorrect": 100,
+    "firstEncounterSeconds": 2,
+    "encounterGapSeconds": 1.05,
+    "minimumEncounterGapSeconds": 0.6,
+    "gapReductionPerRound": 0.09,
+    "speedIncreasePerRound": 0.3,
+    "maximumTrafficSpeed": 3.3,
+    "encounterJitterSeconds": 0.07,
+    "burstGapFactor": 0.82,
+    "recoveryGapFactor": 1.25,
+    "roundsForBursts": 1,
+    "beginnerExtraSeconds": 0.1,
+    "doubleChangeLeadSeconds": 1.08,
+    "reactionSeconds": 0.26,
+    "gestureRepeatSeconds": 0.18,
+    "maneuverClearanceSeconds": 0.04,
+    "fallbackGapSeconds": 1.3,
+    "routeTolerance": 0.035,
+    "routeStepSeconds": 0.016666666666666666,
+    "clearAfterEncounterSeconds": 0.27,
+    "slowdownSeconds": 0.5,
+    "plannerAttempts": 8,
+    "maxObjects": 16,
+    "simpleEncounters": 6,
+    "advancedEncounters": 8,
+    "roundsForCrossovers": 2,
+    "decisionSeconds": 4,
+    "decisionSpeed": 0.18,
+    "feedbackSeconds": 1.15,
+    "wrongFeedbackSeconds": 1.75,
+    "portalExitFadeSeconds": 0.55,
+    "collisionProtectionSeconds": 1.4,
+    "collisionFeedbackSeconds": 0.75,
+    "trafficCarSpeed": 0.2,
+    "reviewDelayQuestions": 3,
+    "maxStepSeconds": 0.008333333333333333,
+    "passedObjectDistance": 0.85,
+    "coinsPerLine": 2,
+    "coinSpacingSeconds": 0.3,
+    "maxCoins": 4,
+    "coinHalfWidth": 0.11,
+    "coinDepth": 0.07,
+    "coinRadius": 0.14,
+    "maxEffects": 8,
+    "coinFlashSeconds": 0.4,
+    "answerEffectSeconds": 1.15,
+    "nitroEveryCorrect": 3,
+    "nitroSeconds": 2,
+    "playerHalfWidth": 0.38,
+    "playerFront": 0.15,
+    "playerRear": 0.055
+  },
+  "runs": [
+    {
+      "seed": 81,
+      "mode": "reward-route",
+      "seconds": 133.9,
+      "phase": "feedback",
+      "patterns": [
+        "sweep",
+        "coinDetour",
+        "stagger",
+        "coinDetour",
+        "sweep",
+        "stagger",
+        "sweep",
+        "stagger",
+        "double",
+        "coinDetour"
+      ],
+      "questionWords": [
+        "house",
+        "dog",
+        "water",
+        "sun",
+        "book",
+        "school",
+        "food",
+        "friend",
+        "moon",
+        "cold"
+      ],
+      "speeds": [
+        1.8,
+        2.1,
+        2.4,
+        2.7,
+        3,
+        3.3,
+        3.3,
+        3.3,
+        3.3,
+        3.3
+      ],
+      "encounterGaps": [
+        1.05,
+        0.9600000000000001,
+        0.8700000000000001,
+        0.78,
+        0.6900000000000001,
+        0.6000000000000001,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "laneUsage": [
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ]
+      ],
+      "requiredLaneChanges": [
+        4,
+        6,
+        6,
+        6,
+        6,
+        7,
+        6,
+        6,
+        7,
+        6
+      ],
+      "encounters": 77,
+      "obstacles": 145,
+      "avoided": 145,
+      "coins": 40,
+      "coinsSpawned": 40,
+      "correct": 10,
+      "vocabularyErrors": 0,
+      "crashes": 0,
+      "points": 1000,
+      "nitroRewards": 3,
+      "maxInactiveSeconds": 0.867,
+      "decisionWindowsSeconds": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ]
+    },
+    {
+      "seed": 81,
+      "mode": "stay-center",
+      "seconds": 14,
+      "phase": "gameOver",
+      "patterns": [
+        "sweep"
+      ],
+      "questionWords": [
+        "house"
+      ],
+      "speeds": [
+        1.8
+      ],
+      "encounterGaps": [
+        1.05
+      ],
+      "laneUsage": [
+        [
+          -1,
+          0,
+          1
+        ]
+      ],
+      "requiredLaneChanges": [
+        4
+      ],
+      "encounters": 6,
+      "obstacles": 11,
+      "avoided": 9,
+      "coins": 2,
+      "coinsSpawned": 4,
+      "correct": 0,
+      "vocabularyErrors": 1,
+      "crashes": 2,
+      "points": 0,
+      "nitroRewards": 0,
+      "maxInactiveSeconds": 0.867,
+      "decisionWindowsSeconds": [
+        4
+      ]
+    },
+    {
+      "seed": 154,
+      "mode": "reward-route",
+      "seconds": 133.267,
+      "phase": "feedback",
+      "patterns": [
+        "sweep",
+        "coinDetour",
+        "sweep",
+        "stagger",
+        "sweep",
+        "double",
+        "stagger",
+        "sweep",
+        "stagger",
+        "sweep"
+      ],
+      "questionWords": [
+        "house",
+        "dog",
+        "water",
+        "sun",
+        "book",
+        "school",
+        "food",
+        "friend",
+        "moon",
+        "cold"
+      ],
+      "speeds": [
+        1.8,
+        2.1,
+        2.4,
+        2.7,
+        3,
+        3.3,
+        3.3,
+        3.3,
+        3.3,
+        3.3
+      ],
+      "encounterGaps": [
+        1.05,
+        0.9600000000000001,
+        0.8700000000000001,
+        0.78,
+        0.6900000000000001,
+        0.6000000000000001,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "laneUsage": [
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ]
+      ],
+      "requiredLaneChanges": [
+        5,
+        5,
+        6,
+        7,
+        6,
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "encounters": 77,
+      "obstacles": 145,
+      "avoided": 145,
+      "coins": 40,
+      "coinsSpawned": 40,
+      "correct": 10,
+      "vocabularyErrors": 0,
+      "crashes": 0,
+      "points": 1000,
+      "nitroRewards": 3,
+      "maxInactiveSeconds": 0.867,
+      "decisionWindowsSeconds": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ]
+    },
+    {
+      "seed": 154,
+      "mode": "stay-center",
+      "seconds": 6.333,
+      "phase": "gameOver",
+      "patterns": [
+        "sweep"
+      ],
+      "questionWords": [],
+      "speeds": [
+        1.8
+      ],
+      "encounterGaps": [
+        1.05
+      ],
+      "laneUsage": [
+        [
+          -1,
+          0,
+          1
+        ]
+      ],
+      "requiredLaneChanges": [
+        5
+      ],
+      "encounters": 5,
+      "obstacles": 9,
+      "avoided": 5,
+      "coins": 0,
+      "coinsSpawned": 4,
+      "correct": 0,
+      "vocabularyErrors": 0,
+      "crashes": 3,
+      "points": 0,
+      "nitroRewards": 0,
+      "maxInactiveSeconds": 0.867,
+      "decisionWindowsSeconds": []
+    },
+    {
+      "seed": 751,
+      "mode": "reward-route",
+      "seconds": 133.992,
+      "phase": "feedback",
+      "patterns": [
+        "sweep",
+        "coinDetour",
+        "stagger",
+        "double",
+        "sweep",
+        "stagger",
+        "double",
+        "stagger",
+        "double",
+        "sweep"
+      ],
+      "questionWords": [
+        "house",
+        "dog",
+        "water",
+        "sun",
+        "book",
+        "school",
+        "food",
+        "friend",
+        "moon",
+        "cold"
+      ],
+      "speeds": [
+        1.8,
+        2.1,
+        2.4,
+        2.7,
+        3,
+        3.3,
+        3.3,
+        3.3,
+        3.3,
+        3.3
+      ],
+      "encounterGaps": [
+        1.05,
+        0.9600000000000001,
+        0.8700000000000001,
+        0.78,
+        0.6900000000000001,
+        0.6000000000000001,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "laneUsage": [
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ]
+      ],
+      "requiredLaneChanges": [
+        5,
+        5,
+        6,
+        7,
+        6,
+        6,
+        7,
+        7,
+        7,
+        6
+      ],
+      "encounters": 77,
+      "obstacles": 147,
+      "avoided": 147,
+      "coins": 40,
+      "coinsSpawned": 40,
+      "correct": 10,
+      "vocabularyErrors": 0,
+      "crashes": 0,
+      "points": 1000,
+      "nitroRewards": 3,
+      "maxInactiveSeconds": 0.867,
+      "decisionWindowsSeconds": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ]
+    },
+    {
+      "seed": 751,
+      "mode": "stay-center",
+      "seconds": 6.292,
+      "phase": "gameOver",
+      "patterns": [
+        "sweep"
+      ],
+      "questionWords": [],
+      "speeds": [
+        1.8
+      ],
+      "encounterGaps": [
+        1.05
+      ],
+      "laneUsage": [
+        [
+          -1,
+          0,
+          1
+        ]
+      ],
+      "requiredLaneChanges": [
+        5
+      ],
+      "encounters": 5,
+      "obstacles": 9,
+      "avoided": 5,
+      "coins": 0,
+      "coinsSpawned": 4,
+      "correct": 0,
+      "vocabularyErrors": 0,
+      "crashes": 3,
+      "points": 0,
+      "nitroRewards": 0,
+      "maxInactiveSeconds": 0.867,
+      "decisionWindowsSeconds": []
+    },
+    {
+      "seed": 2026,
+      "mode": "reward-route",
+      "seconds": 133.542,
+      "phase": "feedback",
+      "patterns": [
+        "sweep",
+        "stagger",
+        "sweep",
+        "double",
+        "stagger",
+        "sweep",
+        "double",
+        "stagger",
+        "coinDetour",
+        "double"
+      ],
+      "questionWords": [
+        "house",
+        "dog",
+        "water",
+        "sun",
+        "book",
+        "school",
+        "food",
+        "friend",
+        "moon",
+        "cold"
+      ],
+      "speeds": [
+        1.8,
+        2.1,
+        2.4,
+        2.7,
+        3,
+        3.3,
+        3.3,
+        3.3,
+        3.3,
+        3.3
+      ],
+      "encounterGaps": [
+        1.05,
+        0.9600000000000001,
+        0.8700000000000001,
+        0.78,
+        0.6900000000000001,
+        0.6000000000000001,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "laneUsage": [
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ]
+      ],
+      "requiredLaneChanges": [
+        5,
+        5,
+        6,
+        7,
+        6,
+        6,
+        7,
+        6,
+        7,
+        7
+      ],
+      "encounters": 77,
+      "obstacles": 147,
+      "avoided": 147,
+      "coins": 40,
+      "coinsSpawned": 40,
+      "correct": 10,
+      "vocabularyErrors": 0,
+      "crashes": 0,
+      "points": 1000,
+      "nitroRewards": 3,
+      "maxInactiveSeconds": 0.867,
+      "decisionWindowsSeconds": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ]
+    },
+    {
+      "seed": 2026,
+      "mode": "stay-center",
+      "seconds": 6.317,
+      "phase": "gameOver",
+      "patterns": [
+        "sweep"
+      ],
+      "questionWords": [],
+      "speeds": [
+        1.8
+      ],
+      "encounterGaps": [
+        1.05
+      ],
+      "laneUsage": [
+        [
+          -1,
+          0,
+          1
+        ]
+      ],
+      "requiredLaneChanges": [
+        5
+      ],
+      "encounters": 5,
+      "obstacles": 9,
+      "avoided": 5,
+      "coins": 0,
+      "coinsSpawned": 4,
+      "correct": 0,
+      "vocabularyErrors": 0,
+      "crashes": 3,
+      "points": 0,
+      "nitroRewards": 0,
+      "maxInactiveSeconds": 0.867,
+      "decisionWindowsSeconds": []
+    },
+    {
+      "seed": 9357,
+      "mode": "reward-route",
+      "seconds": 132.558,
+      "phase": "feedback",
+      "patterns": [
+        "sweep",
+        "coinDetour",
+        "stagger",
+        "double",
+        "coinDetour",
+        "stagger",
+        "coinDetour",
+        "double",
+        "coinDetour",
+        "double"
+      ],
+      "questionWords": [
+        "house",
+        "dog",
+        "water",
+        "sun",
+        "book",
+        "school",
+        "food",
+        "friend",
+        "moon",
+        "cold"
+      ],
+      "speeds": [
+        1.8,
+        2.1,
+        2.4,
+        2.7,
+        3,
+        3.3,
+        3.3,
+        3.3,
+        3.3,
+        3.3
+      ],
+      "encounterGaps": [
+        1.05,
+        0.9600000000000001,
+        0.8700000000000001,
+        0.78,
+        0.6900000000000001,
+        0.6000000000000001,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "laneUsage": [
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ]
+      ],
+      "requiredLaneChanges": [
+        4,
+        6,
+        6,
+        7,
+        6,
+        7,
+        6,
+        7,
+        6,
+        7
+      ],
+      "encounters": 77,
+      "obstacles": 147,
+      "avoided": 147,
+      "coins": 40,
+      "coinsSpawned": 40,
+      "correct": 10,
+      "vocabularyErrors": 0,
+      "crashes": 0,
+      "points": 1000,
+      "nitroRewards": 3,
+      "maxInactiveSeconds": 0.867,
+      "decisionWindowsSeconds": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ]
+    },
+    {
+      "seed": 9357,
+      "mode": "stay-center",
+      "seconds": 14.1,
+      "phase": "gameOver",
+      "patterns": [
+        "sweep"
+      ],
+      "questionWords": [
+        "house"
+      ],
+      "speeds": [
+        1.8
+      ],
+      "encounterGaps": [
+        1.05
+      ],
+      "laneUsage": [
+        [
+          -1,
+          0,
+          1
+        ]
+      ],
+      "requiredLaneChanges": [
+        4
+      ],
+      "encounters": 6,
+      "obstacles": 11,
+      "avoided": 9,
+      "coins": 2,
+      "coinsSpawned": 4,
+      "correct": 0,
+      "vocabularyErrors": 1,
+      "crashes": 2,
+      "points": 0,
+      "nitroRewards": 0,
+      "maxInactiveSeconds": 0.867,
+      "decisionWindowsSeconds": [
+        4
+      ]
+    }
+  ]
+}

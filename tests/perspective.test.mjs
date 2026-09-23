@@ -1,6 +1,7 @@
 import { test } from 'node:test';
+import { APPROACH_MS } from '../src/game/engine.ts';
 import assert from 'node:assert/strict';
-import { depthAt, encounterDepth, groundY, laneX, roadHalf, dividerSkew, SAMPLES } from '../src/game/perspective.ts';
+import { depthAt, encounterDepth, groundY, laneX, roadHalf, dividerSkew, WORLD_DURATION, APPROACH_DURATION, SAMPLES } from '../src/game/perspective.ts';
 
 test('encounter and vehicle share the same ground contact at evaluation', () => {
   assert.ok(Math.abs(encounterDepth(1) - .72) < 1e-9);
@@ -28,10 +29,21 @@ test('projected motion accelerates smoothly toward the viewer and clamps endpoin
 test('both endpoints of every sheared dash stay on the lane divider', () => {
   for (const w of [320, 390, 520]) for (const h of [568, 812, 932]) for (const lateral of [-1/3, 1/3]) for (const p of [.15, .4, .8]) {
     const slope = Math.tan(dividerSkew(w, h, lateral) * Math.PI / 180);
-    for (const dy of [-31 * p, 31 * p]) {
+    for (const dy of [-31 * p * p, 31 * p * p]) {
       const endpointX = w / 2 + lateral * roadHalf(w, p) + slope * dy;
       const endpointDepth = p + dy / (h * .72);
       assert.ok(Math.abs(endpointX - (w / 2 + lateral * roadHalf(w, endpointDepth))) < 1e-9);
     }
   }
+});
+
+test('roadside scenery and encounters have identical forward world velocity', () => {
+  assert.equal(APPROACH_MS, APPROACH_DURATION);
+  const rate = (1 / encounterDepth(0) - 1 / encounterDepth(1)) / APPROACH_DURATION;
+  for (const t of [.1, .3, .6, .8]) {
+    const delta = 100;
+    const sceneryRate = (1 / depthAt(t) - 1 / depthAt(t + delta / WORLD_DURATION)) / delta;
+    assert.ok(Math.abs(sceneryRate - rate) < 1e-10);
+  }
+  assert.ok(groundY(800, depthAt(1)) > 800, 'recycle beyond the screen');
 });

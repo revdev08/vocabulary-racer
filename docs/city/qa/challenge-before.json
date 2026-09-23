@@ -1,0 +1,76 @@
+{
+  "sourceCommit": "52ac49d",
+  "type": "deterministic-simulation",
+  "stepSeconds": 0.008333333333333333,
+  "method": "24 seeds times 3 starting lanes per level; same seed multiplier 5879 and added delays as scripts/record-challenge.cjs. Route and timing are those of the baseline commit.",
+  "samples": [
+    {
+      "round": 0,
+      "scenarios": 72,
+      "failures": {
+        "0": 0,
+        "0.15": 0,
+        "0.25": 0,
+        "0.4": 15
+      },
+      "speeds": [],
+      "minGap": 1.3502052291297377,
+      "maxGap": 1.4478697062925758,
+      "minDuration": 6.968325156303274,
+      "maxDuration": 7.180180642390708,
+      "speed": 1.2,
+      "encounters": 4
+    },
+    {
+      "round": 2,
+      "scenarios": 72,
+      "failures": {
+        "0": 0,
+        "0.15": 0,
+        "0.25": 0,
+        "0.4": 72
+      },
+      "speeds": [],
+      "minGap": 1.150205229129738,
+      "maxGap": 1.8957770959920142,
+      "minDuration": 7.500731320907704,
+      "maxDuration": 8.277836456204689,
+      "speed": 1.6,
+      "encounters": 5
+    },
+    {
+      "round": 4,
+      "scenarios": 72,
+      "failures": {
+        "0": 0,
+        "0.15": 0,
+        "0.25": 72,
+        "0.4": 72
+      },
+      "speeds": [],
+      "minGap": 1.050205229129738,
+      "maxGap": 1.8957770959920142,
+      "minDuration": 7.100731320907702,
+      "maxDuration": 7.977836456204688,
+      "speed": 2,
+      "encounters": 5
+    },
+    {
+      "round": 8,
+      "scenarios": 72,
+      "failures": {
+        "0": 0,
+        "0.15": 0,
+        "0.25": 72,
+        "0.4": 72
+      },
+      "speeds": [],
+      "minGap": 1.050205229129738,
+      "maxGap": 1.8957770959920142,
+      "minDuration": 7.100731320907702,
+      "maxDuration": 7.977836456204688,
+      "speed": 2,
+      "encounters": 5
+    }
+  ]
+}

@@ -35,15 +35,17 @@ export function scheduleReviews(reviews: Reviews, answers: Answer[], now = Date.
     if (!attempts.length) continue;
     const old = reviews[id];
     const failed = attempts.some(a => a.result === 'wrong');
+    const recovered = failed && attempts.at(-1)?.result === 'correct';
+    if (!failed && old && old.dueAt > now) continue;
     const stage = failed ? 0 : Math.min(4, (old?.stage ?? 0) + 1);
     const days = [0, 1, 3, 7, 14][stage];
-    next[id] = { stage, lapses: (old?.lapses ?? 0) + (failed ? 1 : 0), dueAt: now + (failed ? 10 * 60_000 : days * 86_400_000) };
+    next[id] = { stage, lapses: (old?.lapses ?? 0) + (failed ? 1 : 0), dueAt: now + (failed ? (recovered ? 10 * 60_000 : 0) : days * 86_400_000) };
   }
   return next;
 }
 export function createRace(random = Math.random, reviews: Reviews = {}, now = Date.now()): Race {
   const deck = [...WORDS];
-  // Fisherâ€“Yates, keeping the first greeting as a friendly starting point.
+  // Fisher-Yates, keeping the first greeting as a friendly starting point.
   for (let i = deck.length - 1; i > 1; i--) { const j = 1 + Math.floor(random() * i); [deck[i], deck[j]] = [deck[j], deck[i]]; }
   // Stable sorting keeps shuffled ties; overdue reviews precede new vocabulary.
   deck.sort((a, b) => {

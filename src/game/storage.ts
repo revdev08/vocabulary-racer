@@ -1,8 +1,9 @@
+import { recordLevel, type LevelRecords, type LevelResult } from './gameplay/curriculum';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Race, Reviews, scheduleReviews } from './engine';
-export type Progress = { version: 1; best: number; races: number; recentIds: string[]; practice: string[]; reviews: Reviews };
+export type Progress = { version: 1; best: number; races: number; recentIds: string[]; practice: string[]; reviews: Reviews; levels: LevelRecords };
 const KEY = 'vocab-racer:progress:v1';
-const empty = (): Progress => ({ version: 1, best: 0, races: 0, recentIds: [], practice: [], reviews: {} });
+const empty = (): Progress => ({ version: 1, best: 0, races: 0, recentIds: [], practice: [], reviews: {}, levels: {} });
 export async function readProgress(): Promise<Progress> {
   const raw = await AsyncStorage.getItem(KEY);
   if (!raw) return empty();
@@ -14,10 +15,16 @@ export async function readProgress(): Promise<Progress> {
     if (r && Number.isFinite(r.dueAt) && Number.isInteger(r.stage) && r.stage >= 0 && r.stage <= 4 && Number.isFinite(r.lapses)) reviews[id] = r;
   }
   for (const id of data.practice) if (typeof id === 'string' && !reviews[id]) reviews[id] = { dueAt: 0, stage: 0, lapses: 1 };
-  return { ...data, reviews } as Progress;
+  const levels: LevelRecords = {};
+  for (const [id, value] of Object.entries(data.levels ?? {})) {
+    const r = value as LevelRecords[string];
+    if (r && typeof r.completed === 'boolean' && Number.isInteger(r.bestFirstCorrect) && r.bestFirstCorrect >= 0 && r.bestFirstCorrect <= 10
+      && Number.isInteger(r.attempts) && r.attempts >= 0) levels[id] = r;
+  }
+  return { ...data, reviews, levels } as Progress;
 }
 let queue = Promise.resolve();
-export function saveRace(race: Race): Promise<void> {
+export function saveRace(race: Pick<Race, 'id' | 'phase' | 'answers' | 'score'> & { levelResult?: LevelResult }): Promise<void> {
   const job = queue.catch(() => {}).then(async () => {
     if (race.phase !== 'finished') return;
     const progress = await readProgress();
@@ -25,7 +32,7 @@ export function saveRace(race: Race): Promise<void> {
     const reviews = scheduleReviews(progress.reviews, race.answers);
     const practice = Object.keys(reviews).filter(id => reviews[id].stage === 0);
     await AsyncStorage.setItem(KEY, JSON.stringify({ version: 1, best: Math.max(progress.best, race.score), races: progress.races + 1,
-      recentIds: [...progress.recentIds, race.id].slice(-100), practice, reviews } satisfies Progress));
+      recentIds: [...progress.recentIds, race.id].slice(-100), practice, reviews, levels: recordLevel(progress.levels, race.levelResult) } satisfies Progress));
   });
   queue = job; return job;
 }

@@ -36,3 +36,15 @@ export function House({ alternate, width, height }: { alternate: boolean; width:
     accessible={false}
   />;
 }
+
+/** Low coastal rock: its broad base gives an unambiguous ground contact. */
+export function CoastalRock() {
+  return <Svg width="110" height="62" viewBox="0 0 110 62">
+    <Ellipse cx="55" cy="56" rx="48" ry="5" fill="#705f4340" />
+    <Path d="M6 52L15 27L36 9L63 5L94 27L104 52L80 59L29 58Z" fill="#bc9c70" />
+    <Path d="M15 27L36 9L63 5L55 30L29 43L6 52Z" fill="#eed2a0" />
+    <Path d="M55 30L63 5L94 27L104 52L75 47Z" fill="#d4b280" />
+    <Path d="M29 43L55 30L75 47L80 59L29 58L6 52Z" fill="#a78861" />
+    <Path d="M36 9L55 30L29 43" fill="none" stroke="#f8dfb3" strokeWidth="2" />
+  </Svg>;
+}

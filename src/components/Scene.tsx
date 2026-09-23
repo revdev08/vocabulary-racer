@@ -2,9 +2,9 @@ import { memo, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { AccessibilityInfo, Animated, Easing, Image, Platform, StyleSheet, Text, View } from 'react-native';
 import Svg, { Defs, G, LinearGradient, Path, Polygon, Stop } from 'react-native-svg';
 import { Car } from './Car';
-import { House, Obstacle, Palm } from './Scenery';
+import { CoastalRock, Obstacle, Palm } from './Scenery';
 import { APPROACH_MS, LANES, Race } from '../game/engine';
-import { depthAt, encounterDepth, groundY, laneX, roadHalf, dividerSkew, SAMPLES } from '../game/perspective';
+import { depthAt, encounterDepth, groundY, laneX, roadHalf, dividerSkew, WORLD_DURATION, SAMPLES } from '../game/perspective';
 
 const native = { useNativeDriver: Platform.OS !== 'web', isInteraction: false } as const;
 
@@ -16,7 +16,7 @@ function useTravel(paused: boolean) {
     let active = true;
     const run = (from: number) => {
       if (!active) return;
-      Animated.timing(travel, { toValue: 1, duration: Math.max(1, (1 - from) * 9000), easing: Easing.linear, ...native }).start(({ finished }) => {
+      Animated.timing(travel, { toValue: 1, duration: Math.max(1, (1 - from) * WORLD_DURATION), easing: Easing.linear, ...native }).start(({ finished }) => {
         if (finished && active) { travel.setValue(0); run(0); }
       });
     };
@@ -28,22 +28,21 @@ function useTravel(paused: boolean) {
 
 function WorldItem({ travel, offset, lateral, w, h, kind }: {
   travel: Animated.Value; offset: number; lateral: number; w: number; h: number;
-  kind: 'stripe' | 'post' | 'palm' | 'house';
+  kind: 'stripe' | 'post' | 'palm' | 'rock';
 }) {
   const phase = useMemo(() => Animated.modulo(Animated.add(travel, offset), 1), [travel, offset]);
   const depths = SAMPLES.map(depthAt);
   const project = (values: number[]) => phase.interpolate({ inputRange: SAMPLES, outputRange: values, extrapolate: 'clamp' });
-  const alternate = Math.round(offset * 100) % 2 === 0;
-  const height = kind === 'palm' ? 200 : kind === 'house' ? (alternate ? 190 : 220) : kind === 'post' ? 65 : 62;
-  const width = kind === 'palm' ? 130 : kind === 'house' ? height * 1312 / 1199 : kind === 'post' ? 12 : 5;
+  const height = kind === 'palm' ? 200 : kind === 'rock' ? 62 : kind === 'post' ? 65 : 62;
+  const width = kind === 'palm' ? 130 : kind === 'rock' ? 110 : kind === 'post' ? 12 : 5;
   return <Animated.View style={{ position: 'absolute', left: w / 2 - width / 2, top: -height / 2,
     opacity: phase.interpolate({ inputRange: [0, .10, .985, 1], outputRange: [0, 1, 1, 0] }),
     transform: [
-      { translateX: project(depths.map(p => kind === 'house' ? -roadHalf(w, p) - (width / 2 + 12) * p : lateral * roadHalf(w, p))) },
+      { translateX: project(depths.map(p => kind === 'rock' ? -roadHalf(w, p) - (width / 2 + 16) * p : lateral * roadHalf(w, p))) },
       { translateY: project(depths.map(p => groundY(h, p) - (kind === 'stripe' ? 0 : height * p / 2))) },
       { scale: project(depths) },
     ] }}>
-    {kind === 'palm' ? <Palm /> : kind === 'house' ? <House alternate={alternate} width={width} height={height} /> : kind === 'post' ? <View style={{ height, width, borderRadius: 3, backgroundColor: '#fff3d0', borderBottomWidth: 36, borderColor: '#d99f71' }}><View style={{ height: 9, backgroundColor: '#f58a48', marginTop: 8 }} /></View> : <View style={{ width, height, backgroundColor: '#fff0cc', opacity: .85, transform: [{ skewX: `${dividerSkew(w, h, lateral)}deg` }] }} />}
+    {kind === 'palm' ? <Palm /> : kind === 'rock' ? <CoastalRock /> : kind === 'post' ? <View style={{ height, width, borderRadius: 3, backgroundColor: '#fff3d0', borderBottomWidth: 36, borderColor: '#d99f71' }}><View style={{ height: 9, backgroundColor: '#f58a48', marginTop: 8 }} /></View> : <Animated.View style={{ width, height, backgroundColor: '#fff0cc', opacity: .85, transform: [{ skewX: `${dividerSkew(w, h, lateral)}deg` }, { scaleY: project(depths) }] }} />}
   </Animated.View>;
 }
 
@@ -91,7 +90,7 @@ function Player({ lane, paused, reduced, w, h, feedback }: { lane: number; pause
     const steer = Animated.spring(position, { toValue: lane, stiffness: 230, damping: 25, mass: .7, overshootClamping: true, ...native });
     steer.start();
     const lean = Animated.sequence([
-      Animated.timing(bank, { toValue: reduced ? 0 : direction * 6, duration: 90, ...native }),
+      Animated.timing(bank, { toValue: reduced ? 0 : direction * 2, duration: 90, ...native }),
       Animated.spring(bank, { toValue: 0, stiffness: 170, damping: 13, ...native }),
     ]);
     lean.start(); return () => { steer.stop(); lean.stop(); };
@@ -99,21 +98,21 @@ function Player({ lane, paused, reduced, w, h, feedback }: { lane: number; pause
   useEffect(() => {
     if (paused || reduced) return;
     const suspension = Animated.loop(Animated.sequence([
-      Animated.timing(bounce, { toValue: -2, duration: 190, easing: Easing.inOut(Easing.sin), ...native }),
-      Animated.timing(bounce, { toValue: 1, duration: 210, easing: Easing.inOut(Easing.sin), ...native }),
+      Animated.timing(bounce, { toValue: -.35, duration: 70, easing: Easing.inOut(Easing.sin), ...native }),
+      Animated.timing(bounce, { toValue: .35, duration: 80, easing: Easing.inOut(Easing.sin), ...native }),
     ]));
     suspension.start(); return () => suspension.stop();
   }, [paused, reduced, bounce]);
   useEffect(() => {
     if (paused || !feedback || reduced) return;
-    const values = feedback === 'correct' ? [-5, 0] : [7, -6, 4, 0];
+    const values = feedback === 'correct' ? [0] : [2, -1, 0];
     const reaction = Animated.sequence(values.map(value => Animated.timing(impact, { toValue: value, duration: 90, ...native })));
     reaction.start(); return () => reaction.stop();
   }, [feedback, paused, reduced, impact]);
   const carWidth = Math.min(140, w * .29);
   const ground = groundY(h, .72);
   const spacing = roadHalf(w, .72) * 2 / 3;
-  return <Animated.View style={{ position: 'absolute', left: w / 2 - carWidth / 2, top: ground - carWidth * .84,
+  return <Animated.View style={{ position: 'absolute', left: w / 2 - carWidth / 2, top: ground - carWidth * .69,
     transform: [{ translateX: position.interpolate({ inputRange: [0, 1, 2], outputRange: [-spacing, 0, spacing] }) }] }}>
     {feedback && <View style={[s.glow, { width: carWidth + 12, backgroundColor: feedback === 'correct' ? '#63e4ab77' : '#ff6a6177' }]} />}
     <Animated.View style={{ transform: [{ translateY: Animated.add(bounce, impact) }, { rotate: bank.interpolate({ inputRange: [-12, 12], outputRange: ['-12deg', '12deg'] }) }] }}><Car width={carWidth} braking={!!feedback && feedback !== 'correct'} /></Animated.View>
@@ -143,9 +142,9 @@ export const Scene = memo(function Scene({ race, paused = false }: { race?: Race
       <Polygon points={`${w / 2 - roadHalf(w, 0)},${horizon} ${w / 2 + roadHalf(w, 0)},${horizon} ${w / 2 + roadHalf(w, 1)},${h} ${w / 2 - roadHalf(w, 1)},${h}`} fill={`url(#${asphaltId})`} />
       {[-1, 1].map(side => <G key={side}><Path d={`M${w / 2 + side * roadHalf(w, 0) * .95} ${horizon} L${w / 2 + side * roadHalf(w, 1) * .95} ${h}`} stroke="#f8eacb" strokeWidth="3" /><Path d={`M${w / 2 + side * roadHalf(w, 0) * 1.15} ${horizon} L${w / 2 + side * roadHalf(w, 1) * 1.15} ${h}`} stroke="#b58561" strokeWidth="4" /></G>)}
     </Svg>
-    {Array.from({ length: 18 }, (_, i) => [-1, 1].map(side => <WorldItem key={`stripe-${i}-${side}`} travel={travel} offset={i / 18} lateral={side / 3} w={w} h={h} kind="stripe" />))}
-    {Array.from({ length: 7 }, (_, i) => [-1, 1].map(side => <WorldItem key={`post-${i}-${side}`} travel={travel} offset={i / 7} lateral={side * 1.12} w={w} h={h} kind="post" />))}
-    {[.04, .29, .54, .79].map((offset, i) => <WorldItem key={`house-${i}`} travel={travel} offset={offset} lateral={-1.3} w={w} h={h} kind="house" />)}
+    {Array.from({ length: 24 }, (_, i) => [-1, 1].map(side => <WorldItem key={`stripe-${i}-${side}`} travel={travel} offset={i / 24} lateral={side / 3} w={w} h={h} kind="stripe" />))}
+    {Array.from({ length: 12 }, (_, i) => [-1, 1].map(side => <WorldItem key={`post-${i}-${side}`} travel={travel} offset={i / 12} lateral={side * 1.12} w={w} h={h} kind="post" />))}
+    {[.05, .30, .55, .80].map((offset, i) => <WorldItem key={`rock-${i}`} travel={travel} offset={offset} lateral={-1.3} w={w} h={h} kind="rock" />)}
     {Array.from({ length: 4 }, (_, i) => <WorldItem key={`palm-${i}`} travel={travel} offset={i / 4 + .06} lateral={1.3} w={w} h={h} kind="palm" />)}
     {race && <EncounterLayer race={race} paused={paused} w={w} h={h} />}
     <Player lane={race?.lane ?? 1} paused={paused} reduced={reduced} w={w} h={h} feedback={feedback} />

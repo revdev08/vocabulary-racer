@@ -1,0 +1,74 @@
+{
+  "type": "deterministic-simulation",
+  "stepSeconds": 0.008333333333333333,
+  "method": "24 seeds times 3 starting lanes per level. Delay shifts the validated route inputs; normal reaction allowance remains included. Counts runs with at least one collision.",
+  "reactionSeconds": 0.26,
+  "gestureRepeatSeconds": 0.18,
+  "maneuverClearanceSeconds": 0.04,
+  "samples": [
+    {
+      "completedRounds": 0,
+      "scenarios": 72,
+      "runsWithCrash": {
+        "0": 0,
+        "0.15": 0,
+        "0.25": 0,
+        "0.4": 3
+      },
+      "minGap": 1.0501941421023546,
+      "maxGap": 1.119804510106242,
+      "minDuration": 8.209148892634152,
+      "maxDuration": 8.392990497780495,
+      "speed": 1.8,
+      "encounters": 6
+    },
+    {
+      "completedRounds": 2,
+      "scenarios": 72,
+      "runsWithCrash": {
+        "0": 0,
+        "0.15": 0,
+        "0.25": 72,
+        "0.4": 72
+      },
+      "minGap": 0.7152730779140599,
+      "maxGap": 1.1570522796546818,
+      "minDuration": 8.712033341804535,
+      "maxDuration": 9.543904350035966,
+      "speed": 2.4,
+      "encounters": 8
+    },
+    {
+      "completedRounds": 4,
+      "scenarios": 72,
+      "runsWithCrash": {
+        "0": 0,
+        "0.15": 72,
+        "0.25": 72,
+        "0.4": 72
+      },
+      "minGap": 0.6018730779140595,
+      "maxGap": 1.147313677928091,
+      "minDuration": 7.698056525053948,
+      "maxDuration": 8.753704350035965,
+      "speed": 3,
+      "encounters": 8
+    },
+    {
+      "completedRounds": 8,
+      "scenarios": 72,
+      "runsWithCrash": {
+        "0": 0,
+        "0.15": 72,
+        "0.25": 72,
+        "0.4": 72
+      },
+      "minGap": 0.6018730779140595,
+      "maxGap": 1.147313677928091,
+      "minDuration": 7.4730565250539485,
+      "maxDuration": 8.606113050107897,
+      "speed": 3.3,
+      "encounters": 8
+    }
+  ]
+}

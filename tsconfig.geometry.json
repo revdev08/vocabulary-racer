@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "Node16",
+    "strict": true,
+    "skipLibCheck": true,
+    "rootDir": "src/game",
+    "outDir": ".qa/geometry",
+    "types": []
+  },
+  "include": [
+    "src/game/geometry/*.ts",
+    "src/game/config/*.ts",
+    "src/game/motion/simulation.ts",
+    "src/game/motion/playerTurn.ts",
+    "src/game/gameplay/*.ts",
+    "src/game/data/*.ts"
+  ],
+  "exclude": [
+    "src/game/config/assets.ts",
+    "src/game/gameplay/progress.ts"
+  ]
+}
