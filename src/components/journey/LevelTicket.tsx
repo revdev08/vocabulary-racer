@@ -58,7 +58,7 @@ export function LevelTicket({ level, state, stars, selected, onPress }: { level:
   const theme = level.number % 2 === 0 ? 'city' : level.theme;
   return <Pressable onPress={onPress} accessibilityRole="button" accessibilityState={{ selected }} accessibilityLabel={`Nivel ${level.number}, ${level.title}, ${label}, ${stars} de 3 estrellas`} style={({ pressed }) => [s.ticket, active && s.activeTicket, pressed && { opacity: .85 }]}>
     <PaperSurface active={active} yellow={active} locked={locked} theme={theme} decoration={showArt && state !== 'completed'}/>
-    <View style={s.stub}><Text style={[s.number, active && { fontSize: 39 }]}>{String(level.number).padStart(2,'0')}</Text>{active && <Plane size={26}/>}</View>
+    <View style={s.stub}><Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.6} maxFontSizeMultiplier={1} style={[s.number, active && { fontSize: 36 }]}>{String(level.number).padStart(2,'0')}</Text>{active && <Plane size={26}/>}</View>
     <View style={s.content}><View style={[s.titleSlot, { minHeight: (active ? 52 : 44) * fontScale }]}><Text style={[s.title, active && { fontSize: 21, lineHeight: 26 }]}>{level.title}</Text></View><View style={s.statusRow}>{state === 'completed' && <Stars count={stars}/>}<View style={[s.badge, locked && { backgroundColor: '#79888E' }]}><Text style={s.state}>{label}</Text></View></View></View>
     {showArt && <View pointerEvents="none" style={[s.art, active && s.activeArt]}>{active ? <Image source={journeyAssets.redCar} style={s.car} resizeMode="contain"/> : <Seal locked={locked} size={state === 'completed' ? 62 : 50}/>}</View>}
     {selected && !active && <View pointerEvents="none" style={s.selection}><View style={s.selectionDot}/></View>}
@@ -67,8 +67,8 @@ export function LevelTicket({ level, state, stars, selected, onPress }: { level:
 const s = StyleSheet.create({
   ticket: { flex: 1, flexDirection: 'row', minHeight: 116, paddingVertical: 20, paddingRight: 15, filter: [{ dropShadow: { offsetX: 0, offsetY: 3, standardDeviation: 2, color: '#3D38282B' } }] },
   activeTicket: { minHeight: 148, paddingVertical: 23 },
-  stub: { width: 64, justifyContent: 'center', alignItems: 'center', gap: 3 },
-  number: { fontSize: 34, fontWeight: '900', color: ink, fontVariant: ['tabular-nums'], letterSpacing: -2 },
+  stub: { width: 64, flexShrink: 0, paddingLeft: 12, paddingRight: 2, justifyContent: 'center', alignItems: 'center', gap: 3 },
+  number: { width: '100%', textAlign: 'center', fontSize: 34, fontWeight: '900', color: ink, fontVariant: ['tabular-nums'], letterSpacing: -2 },
   content: { flex: 1, justifyContent: 'center', paddingLeft: 12, gap: 9, zIndex: 1 },
   titleSlot: { justifyContent: 'center' },
   title: { fontSize: 17, lineHeight: 22, fontWeight: '900', color: ink, letterSpacing: -.5 },
