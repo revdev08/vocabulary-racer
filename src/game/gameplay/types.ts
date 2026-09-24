@@ -1,10 +1,14 @@
 import type { Lane } from '../motion/simulation';
+import type { TrafficVariant } from '../config/traffic';
 
 export type Phase = 'traffic' | 'question' | 'feedback' | 'gameOver';
 export type ObjectKind = 'traffic' | 'barrier';
-export type WorldObject = { id: number; kind: ObjectKind; lane: Lane; position: number; speed: number; contacted: boolean };
+export type TrafficManeuver = { from: Lane; start: number; duration: number };
+export type EncounterObject = { kind: ObjectKind; lane: Lane; speed?: number; maneuver?: TrafficManeuver };
+export type WorldObject = EncounterObject & { id: number; position: number; speed: number; contacted: boolean;
+  appearance?: TrafficVariant; lateral?: number };
 export type PatternId = 'sweep' | 'stagger' | 'coinDetour' | 'double';
-export type Encounter = { time: number; obstacles: { kind: ObjectKind; lane: Lane }[] };
+export type Encounter = { time: number; obstacles: EncounterObject[] };
 export type TrafficPlan = { pattern: PatternId; encounters: Encounter[]; route: Lane[]; duration: number; seed: number; initialLateral: number;
   cruiseSpeed: number; encounterGap: number; paceLevel: number };
 export type ReviewWord = { index: number; due: number };

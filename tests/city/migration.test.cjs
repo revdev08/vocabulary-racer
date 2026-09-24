@@ -7,7 +7,7 @@ test('every city asset resolves inside the app and is a PNG', () => {
   const config = path.join(root, 'src/game/config/assets.ts');
   const source = fs.readFileSync(config, 'utf8');
   const paths = [...source.matchAll(/require\('([^']+)'\)/g)].map(m => m[1]);
-  assert.equal(paths.length, 9);
+  assert.equal(paths.length, 12);
   for (const asset of paths) {
     const target = path.resolve(path.dirname(config), asset);
     assert.ok(target.startsWith(path.join(root, 'assets/game') + path.sep));

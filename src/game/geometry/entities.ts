@@ -7,7 +7,7 @@ export function objectProjection(layout: SceneLayout, object: WorldObject, trave
   const depth = layout.playerDepth + object.position - travelled;
   const safeDepth = Math.max(0.25, depth);
   const bounds = objectVisuals[object.kind];
-  const foot = projectWorld(layout.camera, { lateral: object.lane, distance: safeDepth });
+  const foot = projectWorld(layout.camera, { lateral: object.lateral ?? object.lane, distance: safeDepth });
   const size = bounds.visibleWidth / (bounds.right - bounds.left) * layout.camera.nearLaneWidth / safeDepth;
   return { x: foot.x - size * (bounds.left + bounds.right) / 2, y: foot.y - size * bounds.bottom,
     size, depth, foot, visibleWidth: size * (bounds.right - bounds.left),
