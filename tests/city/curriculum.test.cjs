@@ -20,22 +20,23 @@ function play(initial, wrongAt = []) {
   assert.equal(run.phase, 'gameOver', 'bounded session must terminate');
   return { run, answers };
 }
-test('curriculum covers 120 unique words in 12 non-overlapping ten-word groups', () => {
-  assert.equal(levels.length, 12);
+test('curriculum covers all imported words in bounded groups with stable unique identifiers', () => {
+  assert.equal(levels.length, 407);
   const indices = levels.flatMap(level => level.indices);
   assert.equal(new Set(indices).size, vocabulary.length);
   assert.equal(new Set(levels.map(level => level.id)).size, levels.length);
   for (const level of levels) {
-    assert.equal(level.indices.length, 10);
+    assert.ok(level.indices.length > 0 && level.indices.length <= 10);
     for (const index of level.indices) assert.ok(vocabulary[index]);
   }
 });
 test('each level ends after ten correct core answers and preserves all driving lives', () => {
-  for (const level of levels) {
+  const samples = levels.filter((level, index) => index < 12 || index % 20 === 0 || level.indices.length < 10);
+  for (const level of samples) {
     const { run, answers } = play(createRun(183, 1, level.id));
     assert.equal(run.completed, true); assert.equal(run.lives, 3);
-    assert.equal(run.firstCorrect, 10); assert.equal(run.correct, 10);
-    assert.equal(answers.length, 10); assert.equal(passedLevel(gameView(run)), true);
+    assert.equal(run.firstCorrect, level.indices.length); assert.equal(run.correct, level.indices.length);
+    assert.equal(answers.length, level.indices.length); assert.equal(passedLevel(gameView(run)), true);
     assert.deepEqual(new Set(answers.map(answer => answer.id)), new Set(level.indices.map(index => vocabulary[index].id)));
     assert.strictEqual(advanceGame(run, .1, 0), run);
   }

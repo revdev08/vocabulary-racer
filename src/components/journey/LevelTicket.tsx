@@ -28,15 +28,15 @@ export function PaperSurface({ active = false, yellow = false, locked = false, t
   const [size, setSize] = useState({ width: 320, height: 110 });
   const w = size.width, h = size.height, outline = ticketPath(w,h,4);
   return <View pointerEvents="none" style={StyleSheet.absoluteFill} onLayout={e => setSize(e.nativeEvent.layout)}>
-    <Svg width="100%" height="100%" {...decorativeSvgProps}>
+    <Svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} {...decorativeSvgProps}>
       <Defs><LinearGradient id={`${id}p`} x2="0" y2="1"><Stop stopColor={locked ? theme === 'city' ? '#F1DEDA' : '#E9EDED' : '#FFFAEB'}/><Stop offset="1" stopColor={locked ? theme === 'city' ? '#E6CFC8' : '#D8E0DD' : '#EDE2CD'}/></LinearGradient>
         <Pattern id={`${id}g`} width="29" height="23" patternUnits="userSpaceOnUse"><Circle cx="4" cy="7" r=".65" fill="#907E54" opacity=".22"/><Circle cx="19" cy="17" r=".45" fill="#FFFDF6" opacity=".8"/><Path d="M16 21h5M23 4l3 1M7 19h2" stroke="#907E54" strokeWidth=".5" opacity=".19"/></Pattern>
         <ClipPath id={`${id}c`}><Path d={outline}/></ClipPath></Defs>
       <Path d={outline} fill={`url(#${id}p)`}/>
       <G clipPath={`url(#${id}c)`}>
-        {yellow && <Rect width="64" height="100%" fill="#F7C641"/>}
+        {yellow && <Rect x={0} y={0} width={64} height={h} fill="#F7C641"/>}
         {decoration && <Landscape w={w} h={h} theme={theme} active={yellow}/>}
-        <Rect width="100%" height="100%" fill={`url(#${id}g)`}/>
+        <Rect x={0} y={0} width={w} height={h} fill={`url(#${id}g)`}/>
       </G>
       <Path d={outline} fill="none" stroke={active ? green : '#CFC6B4'} strokeWidth={active ? 6 : 1.5}/>
       <Path d={ticketPath(w,h,10)} fill="none" stroke={active ? '#80AD7B' : '#D6CDBB'} strokeWidth="1"/>
@@ -59,21 +59,22 @@ export function LevelTicket({ level, state, stars, selected, onPress }: { level:
   return <Pressable onPress={onPress} accessibilityRole="button" accessibilityState={{ selected }} accessibilityLabel={`Nivel ${level.number}, ${level.title}, ${label}, ${stars} de 3 estrellas`} style={({ pressed }) => [s.ticket, active && s.activeTicket, pressed && { opacity: .85 }]}>
     <PaperSurface active={active} yellow={active} locked={locked} theme={theme} decoration={showArt && state !== 'completed'}/>
     <View style={s.stub}><Text style={[s.number, active && { fontSize: 39 }]}>{String(level.number).padStart(2,'0')}</Text>{active && <Plane size={26}/>}</View>
-    <View style={s.content}><Text style={[s.title, active && { fontSize: 21 }]}>{level.title}</Text><View style={s.statusRow}>{state === 'completed' && <Stars count={stars}/>}<View style={[s.badge, locked && { backgroundColor: '#79888E' }]}><Text style={s.state}>{label}</Text></View></View></View>
+    <View style={s.content}><View style={[s.titleSlot, { minHeight: (active ? 52 : 44) * fontScale }]}><Text style={[s.title, active && { fontSize: 21, lineHeight: 26 }]}>{level.title}</Text></View><View style={s.statusRow}>{state === 'completed' && <Stars count={stars}/>}<View style={[s.badge, locked && { backgroundColor: '#79888E' }]}><Text style={s.state}>{label}</Text></View></View></View>
     {showArt && <View pointerEvents="none" style={[s.art, active && s.activeArt]}>{active ? <Image source={journeyAssets.redCar} style={s.car} resizeMode="contain"/> : <Seal locked={locked} size={state === 'completed' ? 62 : 50}/>}</View>}
     {selected && !active && <View pointerEvents="none" style={s.selection}><View style={s.selectionDot}/></View>}
   </Pressable>;
 }
 const s = StyleSheet.create({
-  ticket: { flex: 1, flexDirection: 'row', minHeight: 102, paddingVertical: 20, paddingRight: 15, filter: [{ dropShadow: { offsetX: 0, offsetY: 3, standardDeviation: 2, color: '#3D38282B' } }] },
-  activeTicket: { minHeight: 136, paddingVertical: 23 },
+  ticket: { flex: 1, flexDirection: 'row', minHeight: 116, paddingVertical: 20, paddingRight: 15, filter: [{ dropShadow: { offsetX: 0, offsetY: 3, standardDeviation: 2, color: '#3D38282B' } }] },
+  activeTicket: { minHeight: 148, paddingVertical: 23 },
   stub: { width: 64, justifyContent: 'center', alignItems: 'center', gap: 3 },
   number: { fontSize: 34, fontWeight: '900', color: ink, fontVariant: ['tabular-nums'], letterSpacing: -2 },
   content: { flex: 1, justifyContent: 'center', paddingLeft: 12, gap: 9, zIndex: 1 },
-  title: { fontSize: 17, fontWeight: '900', color: ink, letterSpacing: -.5 },
+  titleSlot: { justifyContent: 'center' },
+  title: { fontSize: 17, lineHeight: 22, fontWeight: '900', color: ink, letterSpacing: -.5 },
   statusRow: { flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', gap: 5 },
   badge: { backgroundColor: '#269466', borderRadius: 12, paddingHorizontal: 10, paddingVertical: 4 },
-  state: { fontSize: 10, fontWeight: '700', color: '#FFFDF3' },
+  state: { fontSize: 10, lineHeight: 14, fontWeight: '700', color: '#FFFDF3' },
   art: { width: 61, alignItems: 'center', justifyContent: 'center', marginLeft: 5 },
   activeArt: { width: 102, justifyContent: 'flex-end', marginLeft: 0 },
   car: { width: 112, height: 80, marginRight: 3, marginBottom: -4 },

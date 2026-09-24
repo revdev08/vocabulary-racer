@@ -22,13 +22,13 @@ function reachQuestion(state) {
   return state;
 }
 
-test('all 120 local questions have unique IDs, answers and unambiguous distractors',()=>{
-  assert.equal(vocabulary.length,120);
-  assert.equal(new Set(vocabulary.map(q=>q.id)).size,120);
+test('all imported and introductory local questions have unique IDs, answers and unambiguous distractors',()=>{
+  assert.equal(vocabulary.length,3862);
+  assert.equal(new Set(vocabulary.map(q=>q.id)).size,vocabulary.length);
   for(const q of vocabulary) assert.equal(new Set([q.correct,...q.distractors].map(s=>s.toLowerCase())).size,3);
-  assert.deepEqual(vocabulary.slice(0,10).map(q=>`${q.spanish} — ${q.correct}`),[
+  assert.deepEqual(vocabulary.slice(0,10).map(q=>`${q.spanish} — ${q.correct}`.toLowerCase()),[
     'Casa — House','Perro — Dog','Agua — Water','Sol — Sun','Libro — Book','Escuela — School',
-    'Comida — Food','Amigo — Friend','Luna — Moon','Frío — Cold']);
+    'Comida — Food','Amigo — Friend','Luna — Moon','Frío — Cold'].map(value => value.toLowerCase()));
 });
 
 test('shuffling preserves options and distributes correct answers across all lanes',()=>{

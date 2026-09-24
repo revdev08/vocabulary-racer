@@ -1,4 +1,4 @@
-import { levels, vocabulary } from './vocabulary';
+import { levels, vocabulary, importedUnits } from './vocabulary';
 import type { LevelRecords } from '../gameplay/curriculum';
 
 export type JourneyLevel = { id: string; sourceId: string; title: string; number: number; theme: 'coast' | 'city' | 'mountain'; development?: boolean };
@@ -9,13 +9,18 @@ const definitions = [
   { key: 'everyday', title: 'Vida cotidiana', theme: 'city' as const, ids: ['meals', 'city', 'time', 'actions'] },
   { key: 'horizons', title: 'Nuevos horizontes', theme: 'mountain' as const, ids: ['descriptions', 'travel', 'feelings', 'ideas'] },
 ];
-export const journeyUnits: JourneyUnit[] = definitions.map((unit, index) => ({ key: unit.key, title: unit.title, number: index + 1,
+const introductoryUnits: JourneyUnit[] = definitions.map((unit, index) => ({ key: unit.key, title: unit.title, number: index + 1,
   data: unit.ids.map((id, i) => {
     const level = levels.find(item => item.id === id);
     if (!level || level.indices.some(word => !vocabulary[word])) throw new Error(`Invalid journey vocabulary: ${id}`);
     return { id, sourceId: id, title: level.title, number: i + 1, theme: unit.theme };
   }),
 }));
+export const journeyUnits: JourneyUnit[] = [...introductoryUnits, ...importedUnits.map((unit, index) => ({
+  key: `es-en-unit-${unit.id}`, title: unit.title, number: introductoryUnits.length + index + 1,
+  data: unit.levels.map((level, position) => ({ id: level.id, sourceId: level.id, title: level.title,
+    number: position + 1, theme: (['coast', 'city', 'mountain'] as const)[index % 3] })),
+}))];
 // Local pages today; a future repository can implement this same cursor contract.
 export function readJourneyPage(cursor = 0, size = 2): { units: JourneyUnit[]; nextCursor: number | null } {
   const end = Math.min(cursor + size, journeyUnits.length);

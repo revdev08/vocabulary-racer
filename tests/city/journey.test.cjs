@@ -6,9 +6,9 @@ test('initial page contains two genuine four-level units and retains remaining c
   const page = readJourneyPage();
   assert.deepEqual(page.units.map(unit => unit.data.length), [4,4]);
   assert.equal(page.nextCursor, 2);
-  assert.equal(readJourneyPage(page.nextCursor).units.length, 1);
-  assert.equal(new Set(journeyUnits.flatMap(unit => unit.data.map(level => level.id))).size, 12);
-  assert.ok(vocabularyGroups.every(group => group.indices.length === 10));
+  assert.equal(readJourneyPage(page.nextCursor).units.length, 2);
+  assert.equal(new Set(journeyUnits.flatMap(unit => unit.data.map(level => level.id))).size, 407);
+  assert.ok(vocabularyGroups.every(group => group.indices.length > 0 && group.indices.length <= 10));
 });
 test('selection cannot change progression; completion unlocks next level', () => {
   assert.equal(levelState('essentials', {}), 'available');

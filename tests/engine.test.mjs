@@ -76,7 +76,7 @@ test('late errors are first in the next race; recovery schedules a ten-minute re
 test('review intervals advance only when due; driving collisions do not penalize memory', () => {
   const correct = [{ wordId:'hello', result:'correct' }];
   let now = 1000000; let reviews = {};
-  for (const days of [1, 3, 7, 14]) {
+  for (const days of [1, 3, 7, 14, 14]) {
     reviews = scheduleReviews(reviews, correct, now);
     assert.equal(reviews.hello.dueAt, now + days * 86400000);
     assert.deepEqual(scheduleReviews(reviews, correct, now + 1), reviews);
