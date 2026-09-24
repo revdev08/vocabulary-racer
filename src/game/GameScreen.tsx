@@ -1,3 +1,5 @@
+// @refresh reset
+// A development refresh must reset React and the UI-thread race together.
 import { router, useLocalSearchParams } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { PixelRatio, Pressable, Text, StyleSheet, View, type LayoutChangeEvent } from 'react-native';

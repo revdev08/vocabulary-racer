@@ -126,9 +126,13 @@ export function useDrivingSimulation(levelId = 'essentials', review = false) {
   }, [lastTimestamp, running, holding, holdSeconds]);
 
   useEffect(() => {
+    // Fast Refresh reruns effects while preserving refs and the UI-thread run.
+    // Rehydrating here would reset React to run 1 while event guards still expect a later run.
+    if (hydratedRef.current) return;
     let active = true;
-    loadCityRun(initial.seed, 1, initial, levelId, review).then(fresh => {
+    loadCityRun(initial.seed, runIdRef.current, initial, levelId, review).then(fresh => {
       if (!active) return;
+      runIdRef.current = fresh.runId;
       game.set(fresh); overRef.current = fresh.phase === 'gameOver'; revisionRef.current = fresh.revision; setView(gameView(fresh));
     }).catch(() => {}).finally(() => {
       if (active) { hydratedRef.current = true; updateRunning(); }
