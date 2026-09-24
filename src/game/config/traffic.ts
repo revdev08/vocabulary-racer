@@ -27,3 +27,16 @@ function registerSprite(bounds: SpriteBounds) {
 // Compute once. Every model retains its aspect ratio, lane width and tire baseline.
 export const trafficFrames = Object.fromEntries(trafficVariants.map(variant =>
   [variant, registerSprite(trafficSpriteBounds[variant])])) as Record<TrafficVariant, ReturnType<typeof registerSprite>>;
+
+// Amber indicators sit on each model's rear lamps, following its sprite registration.
+const sourceLamps = { yellow: { x: 190, y: 650 }, blue: { x: 210, y: 655 },
+  white: { x: 180, y: 617 }, green: { x: 190, y: 653 } };
+export const trafficLampFrames = Object.fromEntries(trafficVariants.map(variant => {
+  const frame = trafficFrames[variant], lamp = sourceLamps[variant];
+  const width = frame.width * 0.08, height = frame.height * 0.025;
+  const left = { x: frame.x + frame.width * lamp.x / trafficSourceSize - width / 2,
+    y: frame.y + frame.height * lamp.y / trafficSourceSize - height / 2, width, height };
+  const right = { ...left, x: frame.x + frame.width * (1 - lamp.x / trafficSourceSize) - width / 2 };
+  return [variant, { left: { rect: left, rx: .008, ry: .008 }, right: { rect: right, rx: .008, ry: .008 } }];
+})) as Record<TrafficVariant, { left: { rect: ReturnType<typeof registerSprite>; rx: number; ry: number };
+  right: { rect: ReturnType<typeof registerSprite>; rx: number; ry: number } }>;

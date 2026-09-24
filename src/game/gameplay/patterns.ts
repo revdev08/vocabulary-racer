@@ -1,9 +1,11 @@
 import { gameplay, objectVisuals } from '../config/gameplay';
 import { driving } from '../config/driving';
+import { trafficMotion } from '../config/trafficMotion';
 import { advanceLateral, type Lane } from '../motion/simulation';
 import { sweptContact } from './collision';
 import { random } from './random';
 import { trafficAppearanceOrder } from './trafficAppearance';
+import { obstacleLateralAt, obstacleSpeed, trafficTrajectoriesClear } from './trafficMotion';
 import type { Encounter, PatternId, TrafficPlan, WorldObject } from './types';
 
 export function trafficPace(completedRounds: number) {
@@ -30,7 +32,7 @@ export function maneuverStart(encounters: Encounter[], rowIndex: number, cruiseS
   const previous = encounters[rowIndex - 1];
   let clearance = 0;
   for (const object of previous.obstacles) {
-    const relativeSpeed = cruiseSpeed - (object.kind === 'traffic' ? gameplay.trafficCarSpeed : 0);
+    const relativeSpeed = cruiseSpeed - obstacleSpeed(object);
     clearance = Math.max(clearance, (gameplay.playerRear + objectVisuals[object.kind].front) / relativeSpeed);
   }
   return previous.time + clearance + gameplay.maneuverClearanceSeconds + gameplay.reactionSeconds;
@@ -55,9 +57,9 @@ export function objectsForPlan(plan: TrafficPlan, distance: number, firstId: num
   const appearances = trafficAppearanceOrder(plan.seed, firstId);
   let trafficIndex = 0;
   for (const row of plan.encounters) for (const item of row.obstacles) {
-    const speed = item.kind === 'traffic' ? gameplay.trafficCarSpeed : 0;
+    const speed = obstacleSpeed(item);
     objects.push({ ...item, ...(item.kind === 'traffic' ? { appearance: appearances[trafficIndex++ % appearances.length] } : {}),
-      id: firstId + objects.length, speed,
+      id: firstId + objects.length, speed, lateral: obstacleLateralAt(item, 0),
       position: distance + (plan.cruiseSpeed - speed) * row.time, contacted: false });
   }
   return objects;
@@ -84,9 +86,9 @@ export function validateRoute(encounters: Encounter[], initial: number, forcedFi
           const target = turnTarget(previous.lateral, lane, t - start);
           const next = advanceLateral(lateral, target, dt);
           for (const other of encounters) for (const object of other.obstacles) {
-            const speed = cruiseSpeed - (object.kind === 'traffic' ? gameplay.trafficCarSpeed : 0);
+            const speed = cruiseSpeed - obstacleSpeed(object);
             const b = objectVisuals[object.kind];
-            if (sweptContact(lateral - object.lane, next - object.lane, (t - other.time) * speed,
+            if (sweptContact(lateral - obstacleLateralAt(object, t), next - obstacleLateralAt(object, t + dt), (t - other.time) * speed,
               (t + dt - other.time) * speed, gameplay.playerHalfWidth + b.halfWidth,
               gameplay.playerFront + b.rear, gameplay.playerRear + b.front)) safe = false;
           }
@@ -105,6 +107,51 @@ export function validateRoute(encounters: Encounter[], initial: number, forcedFi
   }
   states.sort((a, b) => a.cost - b.cost);
   return states[0]?.route ?? null;
+}
+
+/** Enrich a proven corridor, retaining its arrival rhythm. Invalid maneuvers are simply omitted. */
+function animateTraffic(encounters: Encounter[], initial: number, cruiseSpeed: number, rounds: number, seed: number,
+  originalRoute: Lane[]) {
+  'worklet';
+  let moving = encounters.map(row => ({ ...row, obstacles: row.obstacles.map(object => {
+    if (object.kind !== 'traffic') return object;
+    const r = random(seed); seed = r.seed;
+    return { ...object, speed: trafficMotion.speeds[Math.floor(r.value * trafficMotion.speeds.length)] };
+  }) }));
+  let route = trafficTrajectoriesClear(moving, cruiseSpeed) ? validateRoute(moving, initial, undefined, cruiseSpeed) : null;
+  if (!route) { moving = encounters; route = originalRoute; }
+  const maximum = rounds >= trafficMotion.advancedAfterRounds ? trafficMotion.advancedChanges : trafficMotion.beginnerChanges;
+  const windows: { start: number; end: number }[] = [];
+  const first = random(seed); seed = first.seed;
+  // Alternate the order of attempts so the same row/car is not always the one that changes lanes.
+  const offset = Math.floor(first.value * moving.length);
+  for (let index = 0; index < moving.length && windows.length < maximum; index++) {
+    const rowIndex = (index + offset) % moving.length;
+    const row = moving[rowIndex];
+    const carIndex = row.obstacles.findIndex(object => object.kind === 'traffic');
+    if (carIndex < 0) continue;
+    const car = row.obstacles[carIndex];
+    const contactLead = (gameplay.playerFront + objectVisuals.traffic.rear) / (cruiseSpeed - obstacleSpeed(car));
+    const end = row.time - contactLead - trafficMotion.settledBeforeContactSeconds;
+    const start = end - trafficMotion.changeSeconds;
+    const warning = start - trafficMotion.signalSeconds;
+    if (warning < 0 || windows.some(w => warning < w.end + trafficMotion.betweenManeuversSeconds
+      && end + trafficMotion.betweenManeuversSeconds > w.start)) continue;
+    const r = random(seed); seed = r.seed;
+    const neighbors = (r.value < .5 ? [-1, 0, 1] : [1, 0, -1]) as Lane[];
+    for (const from of neighbors) {
+      if (Math.abs(from - car.lane) !== 1) continue;
+      const candidate = moving.map((item, i) => i !== rowIndex ? item : { ...item,
+        obstacles: item.obstacles.map((object, j) => j !== carIndex ? object : { ...object,
+          maneuver: { from, start, duration: trafficMotion.changeSeconds } }) });
+      if (!trafficTrajectoriesClear(candidate, cruiseSpeed)) continue;
+      const safeRoute = validateRoute(candidate, initial, undefined, cruiseSpeed);
+      if (!safeRoute) continue;
+      moving = candidate; route = safeRoute; windows.push({ start: warning, end });
+      break;
+    }
+  }
+  return { encounters: moving, route };
 }
 
 /** Seeded lane variations and short bursts prevent a fixed left/right metronome. */
@@ -175,7 +222,8 @@ export function makeTrafficPlan(seed: number, initial: number, completedRounds: 
     seed = built.seed;
     const { encounters } = built;
     const route = validateRoute(encounters, initial, undefined, pace.cruiseSpeed);
-    if (route) return { pattern, encounters, route, seed, initialLateral: initial, ...pace,
+    if (route) return { pattern, ...animateTraffic(encounters, initial, pace.cruiseSpeed, completedRounds, seed, route),
+      seed, initialLateral: initial, ...pace,
       duration: encounters[count - 1].time + gameplay.clearAfterEncounterSeconds + gameplay.slowdownSeconds };
   }
   // A deterministic adjacent-lane corridor with extra clearance, never a stationary safe lane.

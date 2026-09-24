@@ -9,6 +9,7 @@ import { sweptContact } from './collision';
 import { makeTrafficPlan, objectsForPlan, phaseSpeed, trafficPace } from './patterns';
 import { makeCoins } from './coins';
 import { feedbackDuration } from './answerFeedback';
+import { obstacleLateralAt, obstacleSpeed } from './trafficMotion';
 export { sweptContact } from './collision';
 
 export function makeQuestion(index: number, seed: number, previousLane: number) {
@@ -101,9 +102,10 @@ function tick(state: RunState, seconds: number, target: Lane): RunState {
     }
     const objects: WorldObject[] = [];
     for (const object of state.objects) {
-      let moved = { ...object, position: object.position + object.speed * seconds };
+      let moved = { ...object, position: object.position + object.speed * seconds,
+        lateral: obstacleLateralAt(object, next.phaseTime) };
       const bounds = objectVisuals[object.kind];
-      if (!object.contacted && sweptContact(state.lateral - object.lane, next.lateral - object.lane,
+      if (!object.contacted && sweptContact(state.lateral - obstacleLateralAt(object, state.phaseTime), next.lateral - moved.lateral,
         state.distance - object.position, next.distance - moved.position,
         gameplay.playerHalfWidth + bounds.halfWidth, gameplay.playerFront + bounds.rear, gameplay.playerRear + bounds.front)) {
         moved = { ...moved, contacted: true };
@@ -120,7 +122,7 @@ function tick(state: RunState, seconds: number, target: Lane): RunState {
     while (encounterCursor < state.plan.encounters.length) {
       const row = state.plan.encounters[encounterCursor];
       const contactLead = Math.max(...row.obstacles.map(o => (gameplay.playerFront + objectVisuals[o.kind].rear)
-        / (state.plan.cruiseSpeed - (o.kind === 'traffic' ? gameplay.trafficCarSpeed : 0))));
+        / (state.plan.cruiseSpeed - obstacleSpeed(o))));
       if (next.phaseTime < row.time - contactLead) break;
       metrics.encounters++; metrics.obstacles += row.obstacles.length;
       encounterCursor++;
