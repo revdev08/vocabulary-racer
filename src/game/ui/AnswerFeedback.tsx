@@ -30,7 +30,7 @@ export function AnswerFeedback({ layout, simulation }: { layout: SceneLayout; si
   const announcement = correct ? `Correcto. ${word} significa ${translation}. Más ${gameplay.pointsPerCorrect} puntos. Racha ${view.streak}.`
     : `Incorrecto. Elegiste ${selected}. ${word} significa ${translation}. Menos una vida.`;
   return <Animated.View accessible accessibilityRole="alert" accessibilityLiveRegion="polite"
-    accessibilityLabel={announcement} style={[styles.card, answerCardLayout(layout), { borderColor: correct ? '#8CDEC0' : '#F4B2BF' }, card]}>
+    accessibilityLabel={announcement} style={[styles.card, answerCardLayout(layout), { height: 'auto', minHeight: answerCardLayout(layout).height, borderColor: correct ? '#8CDEC0' : '#F4B2BF' }, card]}>
     <View style={styles.header}>
       <Animated.View style={[styles.symbol, { backgroundColor: light }, symbol]}>
         <Svg width={58} height={58} viewBox="0 0 58 58" {...decorativeSvgProps}>
@@ -50,16 +50,15 @@ export function AnswerFeedback({ layout, simulation }: { layout: SceneLayout; si
     </View>
     <View style={[styles.translation, { backgroundColor: correct ? '#E8F9F2' : '#F0F6FA' }]}>
       {!correct && <Text maxFontSizeMultiplier={1.1} style={styles.caption}>TRADUCCIÓN CORRECTA</Text>}
-      <Text adjustsFontSizeToFit numberOfLines={1} maxFontSizeMultiplier={1.1} style={styles.pair}>
-        <Text style={styles.spanish}>{word}</Text><Text style={styles.arrow}> → </Text>{translation}
-      </Text>
+      <Text maxFontSizeMultiplier={1.2} style={styles.spanish}>{word}</Text>
+      <Text maxFontSizeMultiplier={1.2} style={styles.pair}>{translation}</Text>
     </View>
   </Animated.View>;
 }
 
 const styles = StyleSheet.create({
   card: { pointerEvents: 'none', position: 'absolute', padding: 14, borderRadius: 25, borderWidth: 1.5, backgroundColor: '#FAFEFF',
-    justifyContent: 'space-between', boxShadow: '0px 9px 24px rgba(10, 32, 48, 0.22)' },
+    justifyContent: 'space-between', gap: 10, boxShadow: '0px 9px 24px rgba(10, 32, 48, 0.22)' },
   header: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   symbol: { width: 60, height: 60, borderRadius: 20, alignItems: 'center', justifyContent: 'center' },
   heading: { flex: 1, gap: 3 },
@@ -68,7 +67,7 @@ const styles = StyleSheet.create({
   missed: { color: '#AA314A', textDecorationLine: 'line-through' },
   translation: { minHeight: 51, borderRadius: 14, paddingHorizontal: 10, paddingVertical: 7, alignItems: 'center', justifyContent: 'center' },
   caption: { fontSize: 9, fontWeight: '800', letterSpacing: 1, color: '#526A7B', marginBottom: 2 },
-  pair: { fontSize: 26, fontWeight: '900', color: '#123D46' },
-  spanish: { fontWeight: '600', color: '#496778' },
+  pair: { width: '100%', textAlign: 'center', flexShrink: 1, fontSize: 26, fontWeight: '900', color: '#123D46' },
+  spanish: { width: '100%', textAlign: 'center', fontSize: 17, fontWeight: '600', color: '#496778' },
   arrow: { color: '#8BA6B3', fontWeight: '500' },
 });

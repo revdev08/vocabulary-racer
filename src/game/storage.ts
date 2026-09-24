@@ -19,7 +19,7 @@ export async function readProgress(): Promise<Progress> {
   for (const [id, value] of Object.entries(data.levels ?? {})) {
     const r = value as LevelRecords[string];
     if (r && typeof r.completed === 'boolean' && Number.isInteger(r.bestFirstCorrect) && r.bestFirstCorrect >= 0 && r.bestFirstCorrect <= 10
-      && Number.isInteger(r.attempts) && r.attempts >= 0) levels[id] = r;
+      && Number.isInteger(r.attempts) && r.attempts >= 0) levels[id] = { ...r, bestStars: Number.isInteger(r.bestStars) && r.bestStars! >= 0 && r.bestStars! <= 3 ? r.bestStars : r.completed ? 1 : 0, bestScore: Number.isFinite(r.bestScore) && r.bestScore! >= 0 ? r.bestScore : 0 };
   }
   return { ...data, reviews, levels } as Progress;
 }
@@ -32,7 +32,7 @@ export function saveRace(race: Pick<Race, 'id' | 'phase' | 'answers' | 'score'> 
     const reviews = scheduleReviews(progress.reviews, race.answers);
     const practice = Object.keys(reviews).filter(id => reviews[id].stage === 0);
     await AsyncStorage.setItem(KEY, JSON.stringify({ version: 1, best: Math.max(progress.best, race.score), races: progress.races + 1,
-      recentIds: [...progress.recentIds, race.id].slice(-100), practice, reviews, levels: recordLevel(progress.levels, race.levelResult) } satisfies Progress));
+      recentIds: [...progress.recentIds, race.id].slice(-100), practice, reviews, levels: recordLevel(progress.levels, race.levelResult ? { ...race.levelResult, score: race.score } : undefined) } satisfies Progress));
   });
   queue = job; return job;
 }

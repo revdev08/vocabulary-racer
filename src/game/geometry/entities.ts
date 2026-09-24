@@ -21,7 +21,7 @@ export function portalProjection(layout: SceneLayout, state: RunState, lane: num
   const foot = projectWorld(layout.camera, { lateral: lane, distance: depth });
   const laneWidth = layout.camera.nearLaneWidth / depth;
   const width = laneWidth * 0.88, height = laneWidth * 1.16;
-  const labelHeight = clamp(width * 0.48, 30, 50);
+  const labelHeight = clamp(width * 0.58, 38, 68);
   const active = state.phase === 'question' || state.phase === 'feedback';
   const opacity = !active ? 0 : state.phase === 'feedback'
     ? clamp(1 - state.phaseTime / gameplay.portalExitFadeSeconds, 0, 1) : 1;

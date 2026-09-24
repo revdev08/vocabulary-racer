@@ -28,6 +28,8 @@ export function useDrivingSimulation(levelId = 'essentials', review = false) {
   const target = useSharedValue<Lane>(0);
   const lastTimestamp = useSharedValue<number | null>(null);
   const running = useSharedValue(false);
+  const holding = useSharedValue(false);
+  const holdSeconds = useSharedValue(0);
   const reducedMotion = useSharedValue(true);
   const [paused, setPaused] = useState(false);
   const [targetLane, setTargetLane] = useState<Lane>(0);
@@ -84,7 +86,9 @@ export function useDrivingSimulation(levelId = 'essentials', review = false) {
     if (clock.seconds === 0 && !captureInterval) return;
     const previous = game.value;
     const engineStart = profiling ? performance.now() : 0;
-    const next = advanceGame(previous, clock.seconds, target.value);
+    holdSeconds.set(holding.value && previous.phase === 'question' ? holdSeconds.value + clock.seconds : 0);
+    const next = advanceGame(previous, clock.seconds, target.value, holdSeconds.value >= .15);
+    if (next.phase !== previous.phase) { holding.set(false); holdSeconds.set(0); }
     if (captureInterval && profile.value) {
       const engineMs = performance.now() - engineStart;
       profile.modify(sample => {
@@ -109,16 +113,17 @@ export function useDrivingSimulation(levelId = 'essentials', review = false) {
       next.elapsed - previous.elapsed, reducedMotion.value));
     if (next.revision !== previous.revision) scheduleOnRN(receiveEvent, gameView(next));
     if (next.phase === 'gameOver') { running.set(false); lastTimestamp.set(null); }
-  }, [game, distance, lateral, playerTurn, reducedMotion, target, lastTimestamp, running, receiveEvent, profiling, profile, receiveProfile]);
+  }, [game, distance, lateral, playerTurn, reducedMotion, target, lastTimestamp, running, holding, holdSeconds, receiveEvent, profiling, profile, receiveProfile]);
   const frame = useFrameCallback(onFrame, false);
   useEffect(() => { frameRef.current = frame; return () => { frame.setActive(false); }; }, [frame]);
 
   const updateRunning = useCallback(() => {
     lastTimestamp.set(null);
+    holding.set(false); holdSeconds.set(0);
     const enabled = activeRef.current && readyRef.current && hydratedRef.current && !pausedRef.current && !overRef.current;
     running.set(enabled);
     frameRef.current?.setActive(enabled);
-  }, [lastTimestamp, running]);
+  }, [lastTimestamp, running, holding, holdSeconds]);
 
   useEffect(() => {
     let active = true;
@@ -168,6 +173,11 @@ export function useDrivingSimulation(levelId = 'essentials', review = false) {
       frameRef.current?.setActive(false);
     };
   }, [lastTimestamp, running, updateRunning, stopAudio]);
+
+  const setHolding = useCallback((pressed: boolean) => {
+    holding.set(pressed && activeRef.current && !pausedRef.current && !overRef.current);
+    holdSeconds.set(0);
+  }, [holding, holdSeconds]);
 
   const steer = useCallback((direction: -1 | 1) => {
     if (pausedRef.current || !activeRef.current || !readyRef.current || !hydratedRef.current || overRef.current) return;
@@ -219,7 +229,7 @@ export function useDrivingSimulation(levelId = 'essentials', review = false) {
   const world = useMemo(() => ({ distance, lateral, playerTurn, game, reducedMotion, setReady }),
     [distance, lateral, playerTurn, game, reducedMotion, setReady]);
   return { distance, lateral, game, view, paused, targetLane, steer, togglePause, restart, setReady, reducedMotion,
-    world, profiling, profileReport, saveStatus, audio };
+    world, profiling, profileReport, saveStatus, audio, setHolding, holdSeconds };
 }
 
 export type DrivingSimulation = ReturnType<typeof useDrivingSimulation>;

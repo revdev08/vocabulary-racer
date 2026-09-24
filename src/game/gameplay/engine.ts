@@ -185,13 +185,23 @@ function tick(state: RunState, seconds: number, target: Lane): RunState {
 }
 
 /** Fixed upper bound per integration step; clock discards background gaps first. */
-export function advanceGame(state: RunState, seconds: number, target: Lane): RunState {
+export function advanceGame(state: RunState, seconds: number, target: Lane, fastQuestion = false): RunState {
   'worklet';
   if (state.phase === 'gameOver' || seconds <= 0 || !Number.isFinite(seconds)) return state;
   let next = state, remaining = Math.min(seconds, driving.maxFrameGapMs / 1000);
   while (remaining > 1e-9 && next.phase !== 'gameOver') {
     const step = Math.min(gameplay.maxStepSeconds, remaining);
-    next = tick(next, step, target); remaining -= step;
+    // Speed up only the question; feedback and traffic retain their normal duration.
+    const multiplier = fastQuestion && next.phase === 'question' ? 8 : 1;
+    const simulated = step * multiplier;
+    let budget = simulated;
+    while (budget > 1e-9) {
+      const slice = Math.min(gameplay.maxStepSeconds, budget);
+      const phase: RunState['phase'] = next.phase;
+      next = tick(next, slice, target); budget -= slice;
+      if (phase !== next.phase) break;
+    }
+    remaining -= step;
   }
   return next;
 }

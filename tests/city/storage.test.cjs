@@ -37,6 +37,8 @@ test('saving updates SRS and level records atomically, and duplicate runs are id
   const progress = await api.readProgress();
   assert.equal(api.writes(), 1); assert.equal(progress.races, 1);
   assert.equal(progress.levels.essentials.completed, true);
+  assert.equal(progress.levels.essentials.bestStars, 2);
+  assert.equal(progress.levels.essentials.bestScore, 1000);
   assert.equal(progress.reviews.hello.stage, 0);
   assert.ok(progress.practice.includes('hello'));
   await api.saveRace({ ...race, id: 'run-2', levelResult: { ...result, mode: 'review' }, answers: [{ wordId: 'hello', result: 'correct' }] });
@@ -56,4 +58,17 @@ test('abandoned runs do not grant completion or change the spaced-repetition sch
   const api = storage();
   await api.saveRace({ ...race, phase: 'approach' });
   assert.equal(api.writes(), 0);
+});
+
+test('legacy completions migrate conservatively and repeated runs keep earned records after reload', async () => {
+  const api = storage({ version: 1, best: 1100, races: 4, recentIds: ['old'], practice: [], levels: {
+    essentials: { completed: true, bestFirstCorrect: 10, attempts: 2 },
+  } });
+  assert.equal((await api.readProgress()).levels.essentials.bestStars, 1);
+  await api.saveRace({ ...race, levelResult: { ...result, firstCorrect: 10 } });
+  await api.saveRace({ ...race, id: 'failed-repeat', score: 100, levelResult: { ...result, completed: false, firstCorrect: 1 } });
+  const restored = await api.readProgress();
+  assert.equal(restored.levels.essentials.bestStars, 3);
+  assert.equal(restored.levels.essentials.bestScore, 1000);
+  assert.equal(restored.levels.essentials.completed, true);
 });

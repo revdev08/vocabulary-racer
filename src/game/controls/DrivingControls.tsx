@@ -1,4 +1,4 @@
-import { useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { PanResponder, Platform, StyleSheet, View, type ViewStyle } from 'react-native';
 import type { SceneLayout } from '../geometry/perspective';
 import { swipeDirection } from '../motion/simulation';
@@ -7,12 +7,13 @@ import type { DrivingSimulation } from '../motion/useDrivingSimulation';
 export function DrivingControls({ layout, simulation }: { layout: SceneLayout; simulation: DrivingSimulation }) {
   const consumed = useRef(false);
   const pendingDirection = useRef<-1 | 0 | 1>(0);
-  const { steer, targetLane } = simulation;
+  const { steer, targetLane, setHolding } = simulation;
   const paused = simulation.paused || simulation.view.phase === 'gameOver';
+  useEffect(() => () => setHolding(false), [setHolding]);
   // PanResponder registers these callbacks; ref reads happen only during gestures.
   // eslint-disable-next-line react-hooks/refs
   const responder = useMemo(() => PanResponder.create({
-    onStartShouldSetPanResponder: () => false,
+    onStartShouldSetPanResponder: (_, gesture) => !paused && gesture.numberActiveTouches === 1,
     onMoveShouldSetPanResponder: (_, gesture) => {
       if (paused || gesture.numberActiveTouches !== 1) return false;
       pendingDirection.current = swipeDirection(gesture.dx, gesture.dy);
@@ -20,25 +21,29 @@ export function DrivingControls({ layout, simulation }: { layout: SceneLayout; s
     },
     onPanResponderGrant: () => {
       // PanResponder resets dx/dy on grant, so retain the recognized intent.
+      consumed.current = false;
+      setHolding(true);
       const direction = pendingDirection.current;
       if (direction) { steer(direction); consumed.current = true; }
     },
     onPanResponderMove: (_, gesture) => {
+      if (gesture.numberActiveTouches !== 1 || Math.abs(gesture.dx) > 8 || Math.abs(gesture.dy) > 8) setHolding(false);
       if (consumed.current) return;
       const direction = swipeDirection(gesture.dx, gesture.dy);
       if (direction) { steer(direction); consumed.current = true; }
     },
-    onPanResponderRelease: () => { consumed.current = false; pendingDirection.current = 0; },
-    onPanResponderTerminate: () => { consumed.current = false; pendingDirection.current = 0; },
+    onPanResponderRelease: () => { setHolding(false); consumed.current = false; pendingDirection.current = 0; },
+    onPanResponderTerminate: () => { setHolding(false); consumed.current = false; pendingDirection.current = 0; },
+    onPanResponderStart: (_, gesture) => { if (gesture.numberActiveTouches !== 1) setHolding(false); },
     onPanResponderTerminationRequest: () => true,
-  }), [paused, steer]);
+  }), [paused, steer, setHolding]);
 
   return <View
     testID="driving-controls"
     accessible
     accessibilityRole="adjustable"
     accessibilityLabel="Cambiar de carril"
-    accessibilityHint="Desliza a izquierda o derecha para cambiar un carril"
+    accessibilityHint="Desliza para cambiar de carril. Mantén pulsada la carretera para acelerar la pregunta"
     accessibilityValue={{ min: 1, max: 3, now: targetLane + 2, text: `Carril ${targetLane + 2} de 3` }}
     aria-valuemin={1}
     aria-valuemax={3}

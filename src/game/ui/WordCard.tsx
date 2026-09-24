@@ -19,12 +19,12 @@ export function WordCard({ layout, simulation }: { layout: SceneLayout; simulati
   </View>;
   const word = game.question.word.split(' (')[0];
   const context = game.question.word.includes(' (') ? game.question.word.slice(word.length + 2, -1) : '';
-  const caption = `${game.currentIsReview ? 'Repaso' : `Palabra ${game.vocabularyCursor}/${game.wordTarget}`} · Cruza la traducción`;
+  const caption = `${game.currentIsReview ? 'Repaso' : `Palabra ${game.vocabularyCursor}/${game.wordTarget}`} · Mantén pulsado para acelerar`;
   const fontSize = Math.min(41, (layout.prompt.width - 87) / (Math.max(5, word.length) * 0.6));
   return (
     <Animated.View style={[styles.card, { left: layout.prompt.x, top: layout.prompt.y, width: layout.prompt.width, height: layout.prompt.height }, transition]}>
       <View style={styles.copy}>
-        <Text numberOfLines={1} accessibilityLabel={`Palabra a traducir: ${word}`} maxFontSizeMultiplier={1.1} style={[styles.word, { fontSize }]}>{word}</Text>
+        <Text numberOfLines={2} accessibilityLabel={`Palabra a traducir: ${word}`} maxFontSizeMultiplier={1.1} style={[styles.word, { fontSize }]}>{word}</Text>
         {!!context && <Text maxFontSizeMultiplier={1.05} style={styles.caption}>{context}</Text>}
         <Text maxFontSizeMultiplier={1.05} style={styles.caption}>{caption}</Text>
       </View>
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   card: { position: 'absolute', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10, paddingHorizontal: 14, backgroundColor: 'rgba(250,253,255,0.96)', borderColor: '#FFFFFF', borderWidth: 1.5, borderRadius: 25, boxShadow: '0px 8px 26px rgba(20, 57, 90, 0.14)' },
   copy: { flex: 1, alignItems: 'center' },
   caption: { color: '#48657B', fontSize: 11, textAlign: 'center', marginTop: 3 },
-  word: { fontSize: 41, fontWeight: '800', color: palette.ink, letterSpacing: -1.7 },
+  word: { textAlign: 'center', fontSize: 41, fontWeight: '800', color: palette.ink, letterSpacing: -1.7 },
   divider: { height: 33, width: 1, backgroundColor: '#D6E5EF' },
   audio: { width: 46, height: 46, borderRadius: 16, backgroundColor: '#E9F3FB', alignItems: 'center', justifyContent: 'center' },
 });
