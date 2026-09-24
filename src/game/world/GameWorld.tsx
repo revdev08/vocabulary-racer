@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { Canvas, LinearGradient, Rect, useImage, vec } from '@shopify/react-native-skia';
 import { palette } from '../config/visual';
@@ -10,7 +10,7 @@ import { CityBackdrop } from './CityBackdrop';
 import { PlayerCar } from './PlayerCar';
 import { ScenerySurfaces } from './ScenerySurfaces';
 import { RoadsideTrees } from './RoadsideTrees';
-import { TrafficObjects } from './TrafficObjects';
+import { TrafficObjects, type TrafficImages } from './TrafficObjects';
 import { RewardEffects } from './RewardEffects';
 import { NitroEffect } from './NitroEffect';
 import type { WorldSimulation } from '../motion/useDrivingSimulation';
@@ -28,14 +28,20 @@ export const GameWorld = memo(function GameWorld({ layout, simulation }: { layou
   const facades = useImage(gameAssets.facades, onAssetError);
   const tree = useImage(gameAssets.tree, onAssetError);
   const traffic = useImage(gameAssets.traffic, onAssetError);
+  const trafficBlue = useImage(gameAssets.trafficBlue, onAssetError);
+  const trafficWhite = useImage(gameAssets.trafficWhite, onAssetError);
+  const trafficGreen = useImage(gameAssets.trafficGreen, onAssetError);
+  const trafficImages = useMemo<TrafficImages | null>(() => traffic && trafficBlue && trafficWhite && trafficGreen
+    ? { yellow: traffic, blue: trafficBlue, white: trafficWhite, green: trafficGreen } : null,
+  [traffic, trafficBlue, trafficWhite, trafficGreen]);
   const barrier = useImage(gameAssets.barrier, onAssetError);
   const { game } = simulation;
   const entities = useDerivedValue(() => projectEntities(layout, game.value), [layout, game]);
-  const ready = !assetError && !!city && !!player && !!playerLeft && !!playerRight && !!asphalt && !!facades && !!tree && !!traffic && !!barrier;
+  const ready = !assetError && !!city && !!player && !!playerLeft && !!playerRight && !!asphalt && !!facades && !!tree && !!trafficImages && !!barrier;
   const { setReady } = simulation;
   useEffect(() => { setReady(ready); return () => setReady(false); }, [ready, setReady]);
 
-  if (assetError || !city || !player || !playerLeft || !playerRight || !asphalt || !facades || !tree || !traffic || !barrier) {
+  if (assetError || !city || !player || !playerLeft || !playerRight || !asphalt || !facades || !tree || !trafficImages || !barrier) {
     return <View style={styles.loading}>
       {assetError ? <Text accessibilityRole="alert" style={styles.error}>No se pudo cargar un asset del escenario. Revisa assets/game.</Text> : <ActivityIndicator accessibilityLabel="Cargando escenario" color={palette.navy} />}
     </View>;
@@ -48,12 +54,12 @@ export const GameWorld = memo(function GameWorld({ layout, simulation }: { layou
     <ScenerySurfaces layout={layout} image={facades} distance={simulation.distance} />
     <Road layout={layout} asphalt={asphalt} distance={simulation.distance} />
     <RoadsideTrees layout={layout} image={tree} distance={simulation.distance} />
-    <TrafficObjects entities={entities} traffic={traffic} barrier={barrier} front={false} />
+    <TrafficObjects entities={entities} traffic={trafficImages} barrier={barrier} front={false} />
     <PortalFrames layout={layout} simulation={simulation} />
     <NitroEffect layout={layout} simulation={simulation} />
     <PlayerCar layout={layout} image={player} leftImage={playerLeft} rightImage={playerRight}
       lateral={simulation.lateral} turn={simulation.playerTurn} game={simulation.game} reducedMotion={simulation.reducedMotion} />
-    <TrafficObjects entities={entities} traffic={traffic} barrier={barrier} front />
+    <TrafficObjects entities={entities} traffic={trafficImages} barrier={barrier} front />
     <RewardEffects layout={layout} simulation={simulation} />
     <Rect x={0} y={height - 80} width={width} height={80}>
       <LinearGradient start={vec(0, height - 80)} end={vec(0, height)} colors={['#132C4500', '#132C4529']} />

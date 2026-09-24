@@ -1,8 +1,9 @@
 import type { Lane } from '../motion/simulation';
+import type { TrafficVariant } from '../config/traffic';
 
 export type Phase = 'traffic' | 'question' | 'feedback' | 'gameOver';
 export type ObjectKind = 'traffic' | 'barrier';
-export type WorldObject = { id: number; kind: ObjectKind; lane: Lane; position: number; speed: number; contacted: boolean };
+export type WorldObject = { id: number; kind: ObjectKind; lane: Lane; position: number; speed: number; contacted: boolean; appearance?: TrafficVariant };
 export type PatternId = 'sweep' | 'stagger' | 'coinDetour' | 'double';
 export type Encounter = { time: number; obstacles: { kind: ObjectKind; lane: Lane }[] };
 export type TrafficPlan = { pattern: PatternId; encounters: Encounter[]; route: Lane[]; duration: number; seed: number; initialLateral: number;

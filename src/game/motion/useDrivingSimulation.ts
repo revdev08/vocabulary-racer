@@ -200,15 +200,32 @@ export function useDrivingSimulation(levelId = 'essentials', review = false) {
     setPaused(pausedRef.current);
   }, [updateRunning, stopAudio]);
 
+  // Explicit resume keeps rapid taps or a modal dismissal from reopening pause.
+  const resume = useCallback(() => {
+    if (!pausedRef.current || overRef.current) return;
+    pausedRef.current = false;
+    updateRunning();
+    setPaused(false);
+  }, [updateRunning]);
+
   useEffect(() => {
     if (Platform.OS !== 'web') return;
     const onKey = (event: KeyboardEvent) => {
       if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
         event.preventDefault(); steer(event.key === 'ArrowLeft' ? -1 : 1);
-      } else if (event.key === 'Escape' && !event.repeat) togglePause();
+      }
+    };
+    // RN Web's Modal consumes Escape on keyup. Opening on keydown would let
+    // that same keyup immediately close it. The modal owns Escape while paused.
+    const onKeyUp = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && !event.repeat && !pausedRef.current) togglePause();
     };
     window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
+    window.addEventListener('keyup', onKeyUp);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      window.removeEventListener('keyup', onKeyUp);
+    };
   }, [steer, togglePause]);
 
   const restart = useCallback(async () => {
@@ -232,7 +249,7 @@ export function useDrivingSimulation(levelId = 'essentials', review = false) {
   // Counters and input events must not reconcile the Skia scene graph.
   const world = useMemo(() => ({ distance, lateral, playerTurn, game, reducedMotion, setReady }),
     [distance, lateral, playerTurn, game, reducedMotion, setReady]);
-  return { distance, lateral, game, view, paused, targetLane, steer, togglePause, restart, setReady, reducedMotion,
+  return { distance, lateral, game, view, paused, targetLane, steer, togglePause, resume, restart, setReady, reducedMotion,
     world, profiling, profileReport, saveStatus, audio, setHolding, holdSeconds };
 }
 

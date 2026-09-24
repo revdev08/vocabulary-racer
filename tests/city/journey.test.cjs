@@ -1,6 +1,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { journeyUnits, readJourneyPage, levelState, developmentJourney, vocabularyGroups } = require('../../.qa/geometry/data/journey.js');
+const { journeyUnits, buildJourneyUnits, readJourneyPage, levelState, developmentJourney, vocabularyGroups } = require('../../.qa/geometry/data/journey.js');
+const { levels } = require('../../.qa/geometry/data/vocabulary.js');
 const { recordLevel, earnedStars, unlockedLevelIndex } = require('../../.qa/geometry/gameplay/curriculum.js');
 test('initial page contains two genuine four-level units and retains remaining catalog', () => {
   const page = readJourneyPage();
@@ -33,4 +34,29 @@ test('stress catalog has 1000 unique non-playable development entries and long t
   assert.equal(new Set(entries.map(level => level.id)).size,1000);
   assert.ok(entries.every(level => level.development));
   assert.ok(entries.some(level => level.title.length > 60));
+  assert.equal(entries.at(-1).number, 1000);
+});
+
+test('journey numbers remain sequential across units and source IDs retain saved progress', () => {
+  const entries = journeyUnits.flatMap(unit => unit.data);
+  assert.deepEqual(entries.map(level => level.number), Array.from({ length: 12 }, (_, i) => i + 1));
+  assert.deepEqual(entries.map(level => level.sourceId), levels.map(level => level.id));
+});
+
+test('extending the catalog creates units without changing existing keys or numbering', () => {
+  const extra = Array.from({ length: 989 }, (_, i) => ({ ...levels[0], id: `future-${i}`, title: `Future ${i}` }));
+  const extended = buildJourneyUnits([...levels, ...extra]);
+  assert.deepEqual(extended.slice(0, 3), journeyUnits);
+  assert.equal(extended.length, 251);
+  assert.equal(extended.at(-1).data.length, 1);
+  assert.equal(extended.at(-1).data[0].number, 1001);
+  assert.equal(new Set(extended.map(unit => unit.key)).size, 251);
+  assert.deepEqual(buildJourneyUnits([]), []);
+});
+
+test('catalog pagination stops at real content and rejects invalid cursors', () => {
+  assert.equal(readJourneyPage(2).nextCursor, null);
+  assert.deepEqual(readJourneyPage(3), { units: [], nextCursor: null });
+  assert.throws(() => readJourneyPage(-1), RangeError);
+  assert.throws(() => readJourneyPage(0, 0), RangeError);
 });

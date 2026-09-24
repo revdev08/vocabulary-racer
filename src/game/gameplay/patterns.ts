@@ -3,6 +3,7 @@ import { driving } from '../config/driving';
 import { advanceLateral, type Lane } from '../motion/simulation';
 import { sweptContact } from './collision';
 import { random } from './random';
+import { trafficAppearanceOrder } from './trafficAppearance';
 import type { Encounter, PatternId, TrafficPlan, WorldObject } from './types';
 
 export function trafficPace(completedRounds: number) {
@@ -51,9 +52,12 @@ export function routeTarget(plan: TrafficPlan, from: number, time: number): Lane
 export function objectsForPlan(plan: TrafficPlan, distance: number, firstId: number): WorldObject[] {
   'worklet';
   const objects: WorldObject[] = [];
+  const appearances = trafficAppearanceOrder(plan.seed, firstId);
+  let trafficIndex = 0;
   for (const row of plan.encounters) for (const item of row.obstacles) {
     const speed = item.kind === 'traffic' ? gameplay.trafficCarSpeed : 0;
-    objects.push({ ...item, id: firstId + objects.length, speed,
+    objects.push({ ...item, ...(item.kind === 'traffic' ? { appearance: appearances[trafficIndex++ % appearances.length] } : {}),
+      id: firstId + objects.length, speed,
       position: distance + (plan.cruiseSpeed - speed) * row.time, contacted: false });
   }
   return objects;

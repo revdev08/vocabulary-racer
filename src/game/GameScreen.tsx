@@ -2,7 +2,7 @@
 // A development refresh must reset React and the UI-thread race together.
 import { router, useLocalSearchParams } from 'expo-router';
 import { useMemo, useState } from 'react';
-import { PixelRatio, Pressable, Text, StyleSheet, View, type LayoutChangeEvent } from 'react-native';
+import { PixelRatio, StyleSheet, View, type LayoutChangeEvent } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { palette, scene } from './config/visual';
 import { createSceneLayout } from './geometry/perspective';
@@ -17,6 +17,7 @@ import { GameOver } from './ui/GameOver';
 import { ActionReward } from './ui/ActionReward';
 import { FrameDiagnostics } from './ui/FrameDiagnostics';
 import { AnswerFeedback } from './ui/AnswerFeedback';
+import { PauseMenu } from './ui/PauseMenu';
 export default function GameScreen() {
   const params = useLocalSearchParams<{ level?: string; mode?: string }>();
   return <RaceSession key={`${params.level ?? 'essentials'}:${params.mode ?? 'level'}`} level={params.level} review={params.mode === 'review'} />;
@@ -43,19 +44,11 @@ function RaceSession({ level, review }: { level?: string; review: boolean }) {
         <RunFeedback layout={layout} game={simulation.view} paused={simulation.paused} />
         <GameOver game={simulation.view} onRestart={simulation.restart} saveStatus={simulation.saveStatus} lastWord={simulation.audio.lastWord} onReplay={() => simulation.audio.speak(simulation.audio.lastWord, true)} />
         <FrameDiagnostics simulation={simulation} />
-        {simulation.paused && <View style={{ position: 'absolute', bottom: Math.max(24, insets.bottom + 12), left: 20, right: 20, gap: 8, backgroundColor: '#142D49', padding: 16, borderRadius: 14 }}>
-          <Pressable accessibilityRole="button" onPress={simulation.audio.toggle} style={{ padding: 10 }}>
-            <Text style={{ color: '#fff', textAlign: 'center' }}>Pronunciación: {simulation.audio.enabled ? 'activada' : 'desactivada'}</Text>
-          </Pressable>
-          {!!simulation.audio.lastWord && <Pressable accessibilityRole="button" onPress={() => simulation.audio.speak(simulation.audio.lastWord, true)} style={{ padding: 10 }}>
-            <Text style={{ color: '#A5F2DA', textAlign: 'center' }}>Escuchar de nuevo: {simulation.audio.lastWord}</Text>
-          </Pressable>}
-          {!!simulation.audio.error && <Text style={{ color: '#FFD7A8' }}>{simulation.audio.error}</Text>}
-          <Pressable accessibilityRole="button" onPress={() => router.replace('/')} style={{ padding: 10 }}>
-            <Text style={{ color: '#fff', fontWeight: '700', textAlign: 'center' }}>Salir al inicio · descartar partida</Text>
-          </Pressable>
-        </View>}
-
+        <PauseMenu visible={simulation.paused && simulation.view.phase !== 'gameOver'}
+          audioEnabled={simulation.audio.enabled} lastWord={simulation.audio.lastWord} audioError={simulation.audio.error}
+          onResume={simulation.resume} onToggleAudio={simulation.audio.toggle}
+          onReplay={() => simulation.audio.speak(simulation.audio.lastWord, true)}
+          onExit={() => { simulation.audio.stop(); router.replace('/'); }} />
       </>}
     </View>
   </View>;
