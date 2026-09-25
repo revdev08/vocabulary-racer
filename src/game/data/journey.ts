@@ -1,4 +1,4 @@
-import { levels, vocabulary, importedUnits } from './vocabulary';
+import { levels, vocabulary } from './vocabulary';
 import type { LevelRecords } from '../gameplay/curriculum';
 
 export type JourneyLevel = { id: string; sourceId: string; title: string; number: number; theme: 'coast' | 'city' | 'mountain'; development?: boolean };
