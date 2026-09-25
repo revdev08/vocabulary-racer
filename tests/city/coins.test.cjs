@@ -28,7 +28,7 @@ test('coin routes are collectible without damage across patterns, seeds and star
   assert.ok(detours>0);
 });
 
-test('one coin gives one reward, uses actual position, and stays separate from answer points',()=>{
+test('one coin gives one reward and its points, uses actual position, and leaves the answer streak alone',()=>{
   let state=createRun(1);
   state={...state,objects:[],coins:[{id:10,lane:-1,position:0.01}],lateral:1};
   state=advanceGame(state,1/120,-1);
@@ -36,7 +36,7 @@ test('one coin gives one reward, uses actual position, and stays separate from a
   state={...state,lateral:-1};
   state=advanceGame(state,1/120,-1);
   assert.equal(state.coinsCollected,1); assert.equal(state.coins.length,0);
-  assert.equal(state.score,0); assert.equal(state.streak,0);
+  assert.equal(state.score,gameplay.pointsPerCoin); assert.equal(state.streak,0);
   for(let i=0;i<100;i++) state=advanceGame(state,1/120,-1);
   assert.equal(state.coinsCollected,1); assert.equal(state.effects.length,0);
 });

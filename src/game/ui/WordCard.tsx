@@ -20,7 +20,7 @@ export function WordCard({ layout, simulation }: { layout: SceneLayout; simulati
   const word = game.question.word.split(' (')[0];
   const context = game.question.word.includes(' (') ? game.question.word.slice(word.length + 2, -1) : '';
   // The hold-to-accelerate hint is learned quickly; later cards keep only the progress.
-  const hint = game.correct + game.errors < 2 ? ' · Mantén pulsado para acelerar' : '';
+  const hint = game.correct + game.errors < 2 ? ' · Mantén pulsado para responder rápido (+50)' : '';
   const caption = `${game.currentIsReview ? 'Repaso' : `Palabra ${game.vocabularyCursor}/${game.wordTarget}`}${hint}`;
   const fontSize = Math.min(41, (layout.prompt.width - 87) / (Math.max(5, word.length) * 0.6));
   return (

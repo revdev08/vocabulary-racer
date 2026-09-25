@@ -38,11 +38,21 @@ function startTraffic(state: RunState): RunState {
   const plan = makeTrafficPlan(state.seed, state.lateral, state.round, state.previousPattern, state.plan);
   const objects = objectsForPlan(plan, state.distance, state.nextObjectId);
   const rewards = makeCoins(plan, state.distance, state.nextObjectId + objects.length);
+  // An active nitro covers the whole section that follows the answer that earned it.
+  const nitroUntil = state.nitroUntil > state.elapsed ? Math.max(state.nitroUntil, state.elapsed + plan.duration) : state.nitroUntil;
   return { ...state, phase: 'traffic', phaseTime: 0, objects, plan, seed: plan.seed,
     previousPattern: plan.pattern, encounterCursor: 0,
     round: state.round + 1, nextObjectId: state.nextObjectId + objects.length + rewards.coins.length,
     coins: rewards.coins, coinRoute: rewards.route, coinsSpawned: state.coinsSpawned + rewards.coins.length,
-    question: null, selectedLane: null, answered: false, feedback: null, revision: state.revision + 1 };
+    question: null, selectedLane: null, answered: false, feedback: null, nitroUntil,
+    sectionCrashes: 0, sectionBonus: null, award: null, boosted: false, revision: state.revision + 1 };
+}
+
+/** Consecutive correct answers multiply the base points of the next correct answer. */
+export function streakMultiplier(streak: number) {
+  'worklet';
+  for (const step of gameplay.streakMultipliers) if (streak >= step.streak) return step.multiplier;
+  return 1;
 }
 
 export function createRun(seed = 1, runId = 1, levelId = 'essentials', reviewDeck?: number[]): RunState {
@@ -58,16 +68,21 @@ export function createRun(seed = 1, runId = 1, levelId = 'essentials', reviewDec
     round: 0, encounterCursor: 0, previousPattern: null,
     vocabularyCursor: 0, questionIndex: 0, reviews: [],
     metrics: { encounters: 0, obstacles: 0, avoided: 0, maxInactiveSeconds: 0, inactiveSeconds: 0 },
-    coins: [], coinsCollected: 0, coinsSpawned: 0, coinRoute: [], effects: [], nextEffectId: 1, nitroUntil: 0, nitroCount: 0 });
+    coins: [], coinsCollected: 0, coinsSpawned: 0, coinRoute: [], effects: [], nextEffectId: 1, nitroUntil: 0, nitroCount: 0, nitroStart: 0,
+    boosted: false, sectionCrashes: 0, sections: 0, cleanSections: 0, sectionBonus: null,
+    quickAnswers: 0, bestStreak: 0, coinsLost: 0, award: null });
   return run.deck.length ? run : { ...run, phase: 'gameOver', completed: true };
 }
 
 export function gameView(state: RunState): GameView {
   'worklet';
   const { runId, revision, phase, lives, score, streak, correct, errors, crashes, question, selectedLane, feedback,
-    coinsCollected, coinsSpawned, metrics, nitroCount, nitroUntil, levelId, mode, completed, firstCorrect, reviewCount, currentIsReview, vocabularyCursor } = state;
+    coinsCollected, coinsSpawned, metrics, nitroCount, nitroUntil, levelId, mode, completed, firstCorrect, reviewCount, currentIsReview, vocabularyCursor,
+    sections, cleanSections, sectionBonus, quickAnswers, bestStreak, coinsLost, award } = state;
   return { runId, revision, phase, lives, score, streak, correct, errors, crashes, question, selectedLane, feedback,
-    coinsCollected, coinsSpawned, metrics, nitroCount, nitroUntil, levelId, mode, completed, firstCorrect, reviewCount, currentIsReview, vocabularyCursor, wordTarget: state.deck.length, paceLevel: state.plan.paceLevel };
+    coinsCollected, coinsSpawned, metrics, nitroCount, nitroUntil, levelId, mode, completed, firstCorrect, reviewCount, currentIsReview, vocabularyCursor,
+    sections, cleanSections, sectionBonus, quickAnswers, bestStreak, coinsLost, award,
+    wordTarget: state.deck.length, paceLevel: state.plan.paceLevel };
 }
 
 function finishIfNeeded(state: RunState): RunState {
@@ -89,16 +104,28 @@ function tick(state: RunState, seconds: number, target: Lane): RunState {
     next = { ...next, feedback: null, revision: next.revision + 1 };
   }
   if (state.phase === 'traffic') {
+    const nitro = next.elapsed < next.nitroUntil;
     next.coins = [];
+    // Closing speed of every (static) coin toward the car during this step, and where contact starts.
+    const closing = Math.max(0.1, (next.distance - state.distance) / seconds);
+    const reach = gameplay.playerFront + gameplay.coinDepth;
     for (const coin of state.coins) {
-      const collected = sweptContact(state.lateral - coin.lane, next.lateral - coin.lane,
+      // Nitro magnet: once captured (lateral set), a coin homes into the car and never drifts back,
+      // even if the nitro ends first. It closes the remaining gap in proportion to the time left
+      // before contact, so it arrives exactly at the car instead of chasing its lane changes.
+      const from = coin.lateral ?? coin.lane;
+      const ahead = coin.position - next.distance;
+      const captured = coin.lateral !== undefined || (nitro && ahead > 0 && ahead < gameplay.magnetRange);
+      const lateral = captured && ahead > 0
+        ? from + (next.lateral - from) * Math.min(1, seconds / Math.max(seconds, (ahead - reach) / closing)) : from;
+      const collected = sweptContact(state.lateral - from, next.lateral - lateral,
         state.distance - coin.position, next.distance - coin.position,
         gameplay.playerHalfWidth + gameplay.coinHalfWidth, gameplay.playerFront + gameplay.coinDepth, gameplay.playerRear + gameplay.coinDepth);
       if (collected) {
-        next.coinsCollected++; next.revision++;
-        next.effects = [...next.effects, { id: next.nextEffectId++, kind: 'coin' as const, lateral: coin.lane,
+        next.coinsCollected++; next.score += gameplay.pointsPerCoin; next.revision++;
+        next.effects = [...next.effects, { id: next.nextEffectId++, kind: 'coin' as const, lateral,
           at: next.elapsed, duration: gameplay.coinFlashSeconds }].slice(-gameplay.maxEffects);
-      } else if (coin.position - next.distance > -gameplay.passedObjectDistance) next.coins.push(coin);
+      } else if (coin.position - next.distance > -gameplay.passedObjectDistance) next.coins.push(captured ? { ...coin, lateral } : coin);
     }
     const objects: WorldObject[] = [];
     for (const object of state.objects) {
@@ -109,13 +136,20 @@ function tick(state: RunState, seconds: number, target: Lane): RunState {
         state.distance - object.position, next.distance - moved.position,
         gameplay.playerHalfWidth + bounds.halfWidth, gameplay.playerFront + bounds.rear, gameplay.playerRear + bounds.front)) {
         moved = { ...moved, contacted: true };
-        if (next.elapsed >= next.invulnerableUntil) {
-          next = { ...next, lives: next.lives - 1, crashes: next.crashes + 1,
+        // Crashes never cost lives: those measure vocabulary. They drop coins and the clean-section bonus.
+        if (next.elapsed >= next.invulnerableUntil && !nitro) {
+          const lost = Math.min(gameplay.crashCoinPenalty, next.coinsCollected);
+          const crash = { id: next.nextEffectId, kind: 'crash' as const, lateral: next.lateral,
+            at: next.elapsed, duration: gameplay.collisionFeedbackSeconds };
+          const dropped = { ...crash, id: next.nextEffectId + 1, kind: 'coinLoss' as const };
+          next = { ...next, crashes: next.crashes + 1, sectionCrashes: next.sectionCrashes + 1,
+            coinsCollected: next.coinsCollected - lost, coinsLost: next.coinsLost + lost,
+            score: next.score - lost * gameplay.pointsPerCoin,
             invulnerableUntil: next.elapsed + gameplay.collisionProtectionSeconds,
-            feedback: { kind: 'collision', until: next.elapsed + gameplay.collisionFeedbackSeconds, message: 'Choque · −1 vida' },
-            effects: [...next.effects, { id: next.nextEffectId, kind: 'crash' as const, lateral: next.lateral,
-              at: next.elapsed, duration: gameplay.collisionFeedbackSeconds }].slice(-gameplay.maxEffects),
-            nextEffectId: next.nextEffectId + 1,
+            feedback: { kind: 'collision', until: next.elapsed + gameplay.collisionFeedbackSeconds,
+              message: lost ? `Choque · −${lost} ${lost === 1 ? 'moneda' : 'monedas'}` : 'Choque' },
+            effects: [...next.effects, crash, ...(lost ? [dropped] : [])].slice(-gameplay.maxEffects),
+            nextEffectId: next.nextEffectId + 2,
             revision: next.revision + 1 };
         }
       }
@@ -146,6 +180,10 @@ function tick(state: RunState, seconds: number, target: Lane): RunState {
       const review = next.reviewCount < 3 ? next.reviews.find(item => item.due <= questionNumber && item.index !== next.questionIndex) : undefined;
       const questionIndex = review?.index ?? next.deck[next.vocabularyCursor];
       const generated = makeQuestion(questionIndex, next.seed, next.previousCorrectLane);
+      const clean = next.sectionCrashes === 0;
+      next = { ...next, sections: next.sections + 1, cleanSections: next.cleanSections + (clean ? 1 : 0),
+        score: next.score + (clean ? gameplay.cleanDriveBonus : 0),
+        sectionBonus: clean ? { points: gameplay.cleanDriveBonus, at: next.elapsed } : null, boosted: false };
       next = { ...next, phase: 'question', phaseTime: 0, seed: generated.seed, question: generated.question,
         previousCorrectLane: generated.question.correctLane, objects: [], coins: [], answered: false, selectedLane: null,
         portalPosition: next.distance + gameplay.decisionSpeed * gameplay.decisionSeconds,
@@ -161,14 +199,20 @@ function tick(state: RunState, seconds: number, target: Lane): RunState {
     const crossingLateral = state.lateral + (next.lateral - state.lateral) * fraction;
     const selectedLane = clamp(Math.round(crossingLateral), -1, 1) as Lane;
     const correct = selectedLane === state.question.correctLane;
-    const nitro = correct && (state.streak + 1) % gameplay.nitroEveryCorrect === 0;
+    const streak = correct ? state.streak + 1 : 0;
+    const nitro = correct && streak % gameplay.nitroEveryCorrect === 0;
+    const multiplier = streakMultiplier(streak);
+    const quick = correct && state.boosted;
+    const points = correct ? Math.round(gameplay.pointsPerCorrect * multiplier) + (quick ? gameplay.quickAnswerBonus : 0) : 0;
     const confirmationSeconds = feedbackDuration(correct ? 'correct' : 'wrong');
     next = { ...next, phase: 'feedback', phaseTime: 0, answered: true, selectedLane,
       firstCorrect: state.firstCorrect + (correct && !state.currentIsReview ? 1 : 0),
       correct: state.correct + (correct ? 1 : 0), errors: state.errors + (correct ? 0 : 1),
-      lives: state.lives - (correct ? 0 : 1), score: state.score + (correct ? gameplay.pointsPerCorrect : 0),
-      streak: correct ? state.streak + 1 : 0,
+      lives: state.lives - (correct ? 0 : 1), score: state.score + points,
+      streak, bestStreak: Math.max(state.bestStreak, streak),
+      quickAnswers: state.quickAnswers + (quick ? 1 : 0), award: correct ? { points, multiplier, quick } : null,
       nitroUntil: nitro ? next.elapsed + gameplay.nitroSeconds : state.nitroUntil,
+      nitroStart: nitro && state.nitroUntil <= next.elapsed ? next.elapsed : state.nitroStart,
       nitroCount: state.nitroCount + (nitro ? 1 : 0),
       effects: [...next.effects, { id: next.nextEffectId, kind: correct ? 'correct' as const : 'wrong' as const,
         lateral: crossingLateral, at: next.elapsed, duration: confirmationSeconds }].slice(-gameplay.maxEffects),
@@ -198,6 +242,8 @@ export function advanceGame(state: RunState, seconds: number, target: Lane, fast
     const step = Math.min(gameplay.maxStepSeconds, remaining);
     // Speed up only the question; feedback and traffic retain their normal duration.
     const multiplier = fastQuestion && next.phase === 'question' ? 8 : 1;
+    // Holding before the portal is a confident answer and earns the quick bonus if correct.
+    if (multiplier > 1 && !next.answered && !next.boosted) next = { ...next, boosted: true };
     const simulated = step * multiplier;
     let budget = simulated;
     while (budget > 1e-9) {

@@ -16,7 +16,7 @@ import { useDrivingSimulation } from './motion/useDrivingSimulation';
 import { DrivingControls } from './controls/DrivingControls';
 import { RunFeedback } from './ui/RunFeedback';
 import { GameOver } from './ui/GameOver';
-import { ActionReward } from './ui/ActionReward';
+import { ActionReward, SectionBonusToast } from './ui/ActionReward';
 import { FrameDiagnostics } from './ui/FrameDiagnostics';
 import { AnswerFeedback } from './ui/AnswerFeedback';
 import { PauseMenu } from './ui/PauseMenu';
@@ -50,6 +50,7 @@ function RaceSession({ level, review, map }: { level?: string; review: boolean; 
           <WordCard layout={layout} simulation={simulation} />
           <AnswerPortals layout={layout} simulation={simulation} />
           <ActionReward layout={layout} simulation={simulation} />
+          <SectionBonusToast layout={layout} simulation={simulation} />
           <AnswerFeedback layout={layout} simulation={simulation} />
           <RunFeedback layout={layout} game={simulation.view} paused={simulation.paused} />
           <Countdown layout={layout} value={simulation.paused ? null : simulation.countdown} />

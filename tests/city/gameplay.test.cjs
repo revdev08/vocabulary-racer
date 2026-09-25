@@ -2,7 +2,7 @@ const assert = require('node:assert/strict');
 const { test } = require('node:test');
 const { vocabulary } = require('../../.qa/geometry/data/vocabulary.js');
 const { gameplay, objectVisuals } = require('../../.qa/geometry/config/gameplay.js');
-const { createRun, advanceGame, makeQuestion, sweptContact } = require('../../.qa/geometry/gameplay/engine.js');
+const { createRun, advanceGame, makeQuestion, sweptContact, streakMultiplier } = require('../../.qa/geometry/gameplay/engine.js');
 const { createSceneLayout } = require('../../.qa/geometry/geometry/perspective.js');
 const { objectProjection, portalProjection, portalTone } = require('../../.qa/geometry/geometry/entities.js');
 const { advanceClock } = require('../../.qa/geometry/motion/simulation.js');
@@ -46,8 +46,8 @@ test('shuffling preserves options and distributes correct answers across all lan
 test('safe traffic generation leaves a reachable route for hundreds of seeds',()=>{
   for(let seed=1;seed<=200;seed++) {
     let state=createRun(seed*971);
-    assert.equal(state.plan.encounters.length,6);
-    assert.equal(state.plan.route.length,6);
+    assert.equal(state.plan.encounters.length,gameplay.firstRoundEncounters);
+    assert.equal(state.plan.route.length,gameplay.firstRoundEncounters);
     const times=state.plan.encounters.map(o=>o.time);
     assert.ok(times[0]>=2.1 && times[1]-times[0]>=gameplay.encounterGapSeconds);
     state=reachQuestion(state);
@@ -58,14 +58,15 @@ test('safe traffic generation leaves a reachable route for hundreds of seeds',()
 
 test('four legible seconds are reserved and changing lane is not an answer',()=>{
   let state=reachQuestion(createRun(81));
-  const question=state.question;
+  const question=state.question, startScore=state.score;
   state=advance(state,1.8,-1); assert.equal(state.correct+state.errors,0);
   state=advance(state,1.8,1); assert.equal(state.correct+state.errors,0);
   state=advance(state,0.39,question.correctLane);
   assert.equal(state.phase,'question'); assert.equal(state.objects.length,0);
   state=advance(state,0.02,question.correctLane);
   assert.equal(state.phase,'feedback'); assert.equal(state.correct,1);
-  assert.equal(state.score,100); assert.equal(state.streak,1);
+  assert.equal(state.score-startScore,gameplay.pointsPerCorrect); assert.equal(state.streak,1);
+  assert.deepEqual(state.award,{points:gameplay.pointsPerCorrect,multiplier:1,quick:false});
   const answered=state.correct+state.errors;
   state=advance(state,0.7,-question.correctLane);
   assert.equal(state.correct+state.errors,answered,'row may be scored only once');
@@ -83,23 +84,67 @@ test('wrong translations consume a life, reset streak and reveal the correction'
   let state=reachQuestion(createRun(2));
   const wrong=state.question.correctLane===1?0:1;
   state={...state,streak:4};
+  const startScore=state.score;
   state=advance(state,4.01,wrong);
   assert.equal(state.errors,1); assert.equal(state.crashes,0); assert.equal(state.lives,2);
-  assert.equal(state.streak,0); assert.equal(state.score,0);
+  assert.equal(state.streak,0); assert.equal(state.score,startScore); assert.equal(state.award,null);
   assert.equal(state.feedback.kind,'wrong');
   assert.ok(state.feedback.message.includes(state.question.correct));
 });
 
-test('contact removes only one life and protects against overlapping repeated contacts',()=>{
+test('contact never costs lives: it drops up to three coins with their points, once per protected window',()=>{
   let state=createRun(1);
-  state={...state,objects:[0,1].map(id=>({id,kind:'barrier',lane:0,position:0.22,speed:0,contacted:false}))};
+  state={...state,coins:[],coinsCollected:5,score:500,objects:[0,1].map(id=>({id,kind:'barrier',lane:0,position:0.22,speed:0,contacted:false}))};
   state=advance(state,0.4,0);
-  assert.equal(state.crashes,1); assert.equal(state.lives,2);
+  assert.equal(state.crashes,1); assert.equal(state.lives,3);
+  assert.equal(state.coinsCollected,2); assert.equal(state.coinsLost,3);
+  assert.equal(state.score,500-3*gameplay.pointsPerCoin);
+  assert.equal(state.feedback.message,'Choque · −3 monedas');
+  assert.ok(state.effects.some(e=>e.kind==='crash') && state.effects.some(e=>e.kind==='coinLoss'));
   state=advance(state,1.3,0);
-  assert.equal(state.crashes,1);
+  assert.equal(state.crashes,1,'overlapping contacts inside the protection window count once');
   state={...state,objects:[{id:3,kind:'traffic',lane:0,position:state.distance+0.22,speed:0,contacted:false}]};
   state=advance(state,0.2,0);
-  assert.equal(state.crashes,2); assert.equal(state.lives,1);
+  assert.equal(state.crashes,2); assert.equal(state.lives,3);
+  assert.equal(state.coinsCollected,0,'only the coins you have can be lost');
+  assert.equal(state.score,500-5*gameplay.pointsPerCoin);
+  state=advance({...state,objects:[]},gameplay.collisionProtectionSeconds+0.05,0);
+  state={...state,objects:[{id:4,kind:'barrier',lane:0,position:state.distance+0.22,speed:0,contacted:false}]};
+  state=advance(state,0.3,0);
+  assert.equal(state.crashes,3); assert.equal(state.coinsCollected,0); assert.equal(state.feedback.message,'Choque');
+  assert.notEqual(state.phase,'gameOver');
+});
+
+test('a traffic section without crashes adds the clean-driving bonus; one crash cancels it',()=>{
+  const clean=reachQuestion(createRun(58));
+  assert.equal(clean.sections,1); assert.equal(clean.cleanSections,1);
+  assert.deepEqual(clean.sectionBonus,{points:gameplay.cleanDriveBonus,at:clean.sectionBonus.at});
+  assert.equal(clean.score,clean.coinsCollected*gameplay.pointsPerCoin+gameplay.cleanDriveBonus);
+  let crashed=createRun(58);
+  crashed={...crashed,objects:[{id:900,kind:'barrier',lane:0,position:0.22,speed:0,contacted:false},...crashed.objects]};
+  crashed=advance(crashed,0.3,0);
+  assert.equal(crashed.crashes,1);
+  crashed=reachQuestion(crashed);
+  assert.equal(crashed.sections,1); assert.equal(crashed.cleanSections,0); assert.equal(crashed.sectionBonus,null);
+  assert.equal(crashed.score,crashed.coinsCollected*gameplay.pointsPerCoin);
+});
+
+test('streak multiplies answer points and holding before the portal adds the quick bonus',()=>{
+  assert.deepEqual([1,2,3,4,5,9,10,14].map(streakMultiplier),[1,1,1.5,1.5,2,2,3,3]);
+  let state=reachQuestion(createRun(77));
+  state={...state,streak:4};
+  const before=state.score;
+  // A held press speeds the question up eightfold; the portal arrives within the first half second.
+  for(let i=0;i<240 && state.phase==='question';i++) state=advanceGame(state,1/120,state.question.correctLane,true);
+  assert.equal(state.phase,'feedback'); assert.equal(state.streak,5);
+  const expected=Math.round(gameplay.pointsPerCorrect*2)+gameplay.quickAnswerBonus;
+  assert.equal(state.score-before,expected);
+  assert.deepEqual(state.award,{points:expected,multiplier:2,quick:true});
+  assert.equal(state.quickAnswers,1); assert.equal(state.bestStreak,5);
+  let slow=reachQuestion(createRun(77));
+  const slowStart=slow.score;
+  slow=advance(slow,4.02,slow.question.correctLane);
+  assert.equal(slow.score-slowStart,gameplay.pointsPerCorrect); assert.equal(slow.quickAnswers,0);
 });
 
 test('swept collision catches contact between frames and ignores transparent margins',()=>{
@@ -150,7 +195,7 @@ test('a full run ends at three vocabulary errors, freezes and restarts cleanly',
   assert.equal(fresh.question,null); assert.equal(fresh.feedback,null); assert.equal(fresh.invulnerableUntil,0);
 });
 
-test('ten correct rounds remain survivable and award 1000 points with no errors',()=>{
+test('ten correct rounds remain survivable and award streak-multiplied points with no errors',()=>{
   let state=createRun(103);
   const seen=[];
   for(let i=0;i<10;i++) {
@@ -161,14 +206,18 @@ test('ten correct rounds remain survivable and award 1000 points with no errors'
   }
   assert.equal(new Set(seen).size,10);
   assert.equal(state.lives,3); assert.equal(state.crashes+state.errors,0);
-  assert.equal(state.score,1000); assert.equal(state.streak,10);
+  // x1, x1, x1.5, x1.5, then x2 from five in a row and x3 on the tenth.
+  const answerPoints=100+100+150+150+200+200+200+200+200+300;
+  assert.equal(state.cleanSections,10); assert.equal(state.sections,10);
+  assert.equal(state.score,answerPoints+state.coinsCollected*gameplay.pointsPerCoin+10*gameplay.cleanDriveBonus);
+  assert.equal(state.streak,10); assert.equal(state.bestStreak,10);
 });
 
 test('question timing and scoring agree at 30, 60 and 120 Hz',()=>{
   const initial=reachQuestion(createRun(192));
   const runs=[30,60,120].map(hz=>advance(initial,4.2,initial.question.correctLane,hz));
   for(const state of runs) {
-    assert.equal(state.correct,1); assert.equal(state.score,100); assert.equal(state.lives,3);
+    assert.equal(state.correct,1); assert.equal(state.score-initial.score,gameplay.pointsPerCorrect); assert.equal(state.lives,3);
     assert.equal(state.phase,'feedback');
     close(state.distance,runs[0].distance);
     close(state.phaseTime,runs[0].phaseTime);

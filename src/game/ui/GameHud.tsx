@@ -5,6 +5,7 @@ import { palette } from '../config/visual';
 import { gameplay, rewardVisuals } from '../config/gameplay';
 import { clamp, type SceneLayout } from '../geometry/perspective';
 import type { DrivingSimulation } from '../motion/useDrivingSimulation';
+import { streakMultiplier } from '../gameplay/engine';
 import { GameIcon } from './GameIcon';
 import { HudCoin, HudFlame, HudHeart, HudPlate } from './HudArtwork';
 
@@ -19,6 +20,22 @@ function HeartSlot({ size, filled }: { size: number; filled: boolean }) {
   }, [filled, hit, reduced]);
   const style = useAnimatedStyle(() => ({ transform: [{ translateY: -6 * hit.value }, { scale: 1 + hit.value * .5 }, { rotate: `${-16 * hit.value}deg` }] }));
   return <Animated.View style={style}><HudHeart size={size} filled={filled} /></Animated.View>;
+}
+
+/** Coins bounce when gained and shake red when a crash drops them (not on restart). */
+function useCoinReaction(coins: number, runId: number) {
+  const reduced = useReducedMotion();
+  const gain = useSharedValue(0), loss = useSharedValue(0);
+  const previous = useRef({ coins, runId });
+  useEffect(() => {
+    const before = previous.current;
+    if (!reduced && before.runId === runId && coins > before.coins) gain.set(withSequence(withTiming(1, { duration: 90 }), withTiming(0, { duration: 260 })));
+    if (!reduced && before.runId === runId && coins < before.coins) loss.set(withSequence(withTiming(1, { duration: 80 }), withTiming(0, { duration: 560 })));
+    previous.current = { coins, runId };
+  }, [coins, runId, gain, loss, reduced]);
+  const plate = useAnimatedStyle(() => ({ transform: [{ translateX: Math.sin(loss.value * 22) * 6 * loss.value }, { scale: 1 + gain.value * .1 }] }));
+  const flash = useAnimatedStyle(() => ({ opacity: loss.value * .85 }));
+  return { plate, flash };
 }
 
 export function GameHud({ layout, simulation }: { layout: SceneLayout; simulation: DrivingSimulation }) {
@@ -37,26 +54,32 @@ export function GameHud({ layout, simulation }: { layout: SceneLayout; simulatio
     return { transform: [{ scale: 1 + pulse }] };
   });
   const nitroStyle = useAnimatedStyle(() => ({ opacity: game.value.elapsed < game.value.nitroUntil ? 1 : 0 }));
+  const coinReaction = useCoinReaction(view.coinsCollected, view.runId);
+  const multiplier = streakMultiplier(view.streak);
 
   return <View testID="game-hud"
     style={[styles.hud, { top: layout.hudTop, left: layout.hudLeft, right: layout.hudRight }]}>
     <View style={styles.topRow}>
-      <View accessible accessibilityLabel={`${view.coinsCollected} monedas`} style={[styles.counterPlate, { width: counterWidth }]}>
+      <Animated.View accessible accessibilityLabel={`${view.coinsCollected} monedas`} style={[styles.counterPlate, { width: counterWidth }, coinReaction.plate]}>
         <View style={styles.plateArtwork}><HudPlate width={counterWidth - 12} warm /></View>
+        <Animated.View style={[styles.lossFlash, { width: counterWidth - 16 }, coinReaction.flash]} />
         <View style={styles.coinArtwork}><HudCoin size={iconSize} /></View>
         <View style={[styles.counterCopy, { paddingLeft: iconSize - 3 }]}>
           <Text numberOfLines={1} adjustsFontSizeToFit maxFontSizeMultiplier={1.1} style={[styles.caption, captionSize]}>MONEDAS</Text>
           <Text numberOfLines={1} adjustsFontSizeToFit maxFontSizeMultiplier={1.1} style={styles.counter}>{view.coinsCollected}</Text>
         </View>
-      </View>
-      <Animated.View accessible accessibilityLabel={`Racha de ${view.streak}`} style={[styles.counterPlate, { width: counterWidth }, streakPulse]}>
+      </Animated.View>
+      <Animated.View accessible accessibilityLabel={`Racha de ${view.streak}${multiplier > 1 ? `, puntos por ${multiplier}` : ''}`} style={[styles.counterPlate, { width: counterWidth }, streakPulse]}>
         <View style={styles.plateArtwork}><HudPlate width={counterWidth - 12} warm /></View>
         <View style={styles.flameArtwork}><HudFlame size={iconSize} /></View>
         <View style={[styles.counterCopy, { paddingLeft: iconSize - 5 }]}>
           <Text numberOfLines={1} adjustsFontSizeToFit maxFontSizeMultiplier={1.1} style={[styles.caption, captionSize, styles.streakCaption]}>RACHA</Text>
           <Text numberOfLines={1} adjustsFontSizeToFit maxFontSizeMultiplier={1.1} style={[styles.counter, styles.streakCount]}>{view.streak}</Text>
         </View>
-        {view.nitroUntil > 0 && <Animated.View accessible accessibilityLabel="Recompensa de racha: nitro visual" style={[styles.nitro, nitroStyle]}>
+        {multiplier > 1 && <View style={styles.multiplier}>
+          <Text maxFontSizeMultiplier={1.1} style={styles.multiplierText}>x{String(multiplier).replace('.', ',')}</Text>
+        </View>}
+        {view.nitroUntil > 0 && <Animated.View accessible accessibilityLabel="Nitro: sin choques e imán de monedas" style={[styles.nitro, nitroStyle]}>
           <Text maxFontSizeMultiplier={1.1} style={styles.nitroText}>NITRO</Text>
         </Animated.View>}
       </Animated.View>
@@ -106,6 +129,9 @@ const styles = StyleSheet.create({
   streakCaption: { color: '#FFE6A4' },
   streakCount: { color: '#FFCF48', fontStyle: 'italic' },
   hearts: { flexDirection: 'row', gap: 2, alignItems: 'center', justifyContent: 'center' },
+  lossFlash: { position: 'absolute', left: 14, top: 4, height: 38, borderRadius: 10, backgroundColor: '#E02038' },
+  multiplier: { position: 'absolute', right: 2, top: -7, paddingHorizontal: 5, borderRadius: 6, backgroundColor: '#FFCF48', borderWidth: 1, borderColor: '#FFF1B8', borderBottomWidth: 2, borderBottomColor: '#C98A12' },
+  multiplierText: { color: '#4A2600', fontWeight: '900', fontSize: 11, lineHeight: 14 },
   nitro: { position: 'absolute', right: 9, bottom: -4, backgroundColor: '#144F71', borderColor: '#83E3FF', borderWidth: 1, borderRadius: 4, paddingHorizontal: 5 },
   nitroText: { color: '#D9F8FF', fontWeight: '900', fontSize: 9, lineHeight: 12, letterSpacing: .8 },
   subRow: { pointerEvents: 'none', height: 32, marginTop: 4, paddingRight: 52, flexDirection: 'row', alignItems: 'center', gap: 10 },

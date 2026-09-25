@@ -203,7 +203,9 @@ export function makeTrafficPlan(seed: number, initial: number, completedRounds: 
   previousPlan?: TrafficPlan): TrafficPlan {
   'worklet';
   const pace = trafficPace(completedRounds);
-  const count = Math.min(gameplay.advancedEncounters, gameplay.simpleEncounters + Math.max(0, Math.floor(completedRounds)));
+  const round = Math.max(0, Math.floor(completedRounds));
+  const count = round === 0 ? gameplay.firstRoundEncounters
+    : Math.min(gameplay.advancedEncounters, gameplay.simpleEncounters + round - 1);
   const choices: PatternId[] = ['sweep', 'stagger', 'coinDetour'];
   if (completedRounds >= gameplay.roundsForCrossovers) choices.push('double');
   const available = choices.filter(p => p !== previous);

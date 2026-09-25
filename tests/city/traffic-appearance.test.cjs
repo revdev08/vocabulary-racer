@@ -3,9 +3,9 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { trafficVariants, trafficSpriteBounds, trafficFrames, trafficSourceSize } = require('../../.qa/geometry/config/traffic.js');
-const { objectVisuals } = require('../../.qa/geometry/config/gameplay.js');
+const { gameplay, objectVisuals } = require('../../.qa/geometry/config/gameplay.js');
 const { createRun, advanceGame } = require('../../.qa/geometry/gameplay/engine.js');
-const { objectsForPlan } = require('../../.qa/geometry/gameplay/patterns.js');
+const { makeTrafficPlan, objectsForPlan } = require('../../.qa/geometry/gameplay/patterns.js');
 const { trafficAppearanceOrder } = require('../../.qa/geometry/gameplay/trafficAppearance.js');
 const { createSceneLayout } = require('../../.qa/geometry/geometry/perspective.js');
 const { objectProjection } = require('../../.qa/geometry/geometry/entities.js');
@@ -16,12 +16,14 @@ const withoutAppearance = state => ({ ...state, objects: state.objects.map(({ ap
 
 test('every traffic block mixes all four models without immediate repeats or changing its plan', () => {
   const orders = new Set();
-  for (let seed = 1; seed <= 80; seed++) {
-    const { plan } = createRun(seed * 94661);
+  // The short first block holds fewer cars; each car still gets a different model until all four appear.
+  for (let seed = 1; seed <= 80; seed++) for (const plan of [createRun(seed * 94661).plan, makeTrafficPlan(seed * 94661, 0, 3, null)]) {
     const snapshot = structuredClone(plan);
     const objects = objectsForPlan(plan, 13, 7);
     const cars = objects.filter(object => object.kind === 'traffic');
-    assert.deepEqual([...new Set(cars.map(car => car.appearance))].sort(), [...trafficVariants].sort());
+    assert.equal(new Set(cars.map(car => car.appearance)).size, Math.min(cars.length, trafficVariants.length));
+    if (plan.encounters.length === gameplay.advancedEncounters)
+      assert.deepEqual([...new Set(cars.map(car => car.appearance))].sort(), [...trafficVariants].sort());
     cars.forEach((car, i) => { if (i) assert.notEqual(car.appearance, cars[i - 1].appearance); });
     assert.ok(objects.filter(object => object.kind === 'barrier').every(object => object.appearance === undefined));
     assert.deepEqual(objects, objectsForPlan(plan, 13, 7));

@@ -144,6 +144,11 @@ function Results({ game, onRestart, saveStatus, onSpeak, mistakes, previousBest 
             <Text style={styles.score}>{score}</Text>
             {newRecord && <RecordBadge />}
           </View>
+          {game.sections > 0 && <View style={styles.highlights}>
+            <Text style={styles.highlight}>Mejor racha <Text style={styles.highlightValue}>{game.bestStreak}</Text></Text>
+            <Text style={styles.highlight}>Tramos limpios <Text style={styles.highlightValue}>{game.cleanSections}/{game.sections}</Text></Text>
+            {game.quickAnswers > 0 && <Text style={styles.highlight}>Rápidas <Text style={styles.highlightValue}>{game.quickAnswers}</Text></Text>}
+          </View>}
 
           <View style={styles.stats}>
             <Stat icon={<GameIcon name="check" size={20} color="#FFFFFF" />} value={game.correct} label="Aciertos" tint="#1F9B6E" />
@@ -222,6 +227,9 @@ const styles = StyleSheet.create({
   score: { fontSize: 52, lineHeight: 58, fontWeight: '900', color: colors.ink, letterSpacing: -1.5, fontVariant: ['tabular-nums'] },
   record: { marginTop: 2, paddingVertical: 5, paddingHorizontal: 12, borderRadius: 10, backgroundColor: colors.gold, borderBottomWidth: 3, borderBottomColor: '#D39A22' },
   recordText: { fontSize: 13, fontWeight: '900', letterSpacing: .8, color: '#5A3A00' },
+  highlights: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 6, marginTop: 10 },
+  highlight: { fontSize: 13, fontWeight: '700', color: colors.muted, paddingVertical: 4, paddingHorizontal: 9, borderRadius: 10, backgroundColor: '#EEF2EF', overflow: 'hidden' },
+  highlightValue: { fontWeight: '900', color: colors.ink },
   stats: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 16 },
   stat: { flexBasis: '47%', flexGrow: 1, flexDirection: 'row', alignItems: 'center', gap: 10, padding: 9, borderRadius: 16, backgroundColor: '#FFFFFF', borderWidth: 1, borderColor: colors.line },
   statIcon: { width: 34, height: 34, borderRadius: 11, alignItems: 'center', justifyContent: 'center' },

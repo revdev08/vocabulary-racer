@@ -14,6 +14,18 @@ function Burst({ layout, simulation, index }: { layout: SceneLayout; simulation:
     const builder = Skia.PathBuilder.Make().setIsVolatile(true);
     const progress = Math.min(1, (game.value.elapsed - effect.at) / effect.duration);
     const point = projectWorld(layout.camera, { lateral: effect.lateral, distance: layout.playerDepth });
+    if (effect.kind === 'coinLoss') {
+      // Lost coins pop out of the car and fall behind it.
+      const originY = point.y - layout.player.height * 0.5;
+      if (reducedMotion.value) return builder.detach();
+      for (let i = 0; i < 6; i++) {
+        const angle = -Math.PI * (0.18 + 0.64 * i / 5);
+        const reach = (i % 2 ? 58 : 44) * progress;
+        builder.addCircle(point.x + Math.cos(angle) * reach, originY + Math.sin(angle) * reach * 1.3 + progress * progress * 90,
+          6 * (1 - progress * .35));
+      }
+      return builder.detach();
+    }
     if (effect.kind === 'crash') {
       // Sparks leave the car's front bumper, where every contact happens.
       const originY = point.y - layout.player.height * 0.62;
@@ -50,7 +62,7 @@ function Burst({ layout, simulation, index }: { layout: SceneLayout; simulation:
   });
   const ring = useDerivedValue(() => {
     const e = game.value.effects[index];
-    if (!e || e.kind === 'coin') return empty;
+    if (!e || e.kind === 'coin' || e.kind === 'coinLoss') return empty;
     const p = Math.min(1, (game.value.elapsed - e.at) / e.duration);
     const point = projectWorld(layout.camera, { lateral: e.lateral, distance: layout.playerDepth });
     const originY = point.y - layout.player.height * (e.kind === 'crash' ? .62 : .55);
@@ -67,7 +79,10 @@ function Burst({ layout, simulation, index }: { layout: SceneLayout; simulation:
     const kind = game.value.effects[index]?.kind;
     return kind === 'wrong' ? '#FF8296' : kind === 'crash' ? '#FF7A3D' : '#76FFD0';
   });
-  const particleColor = useDerivedValue(() => game.value.effects[index]?.kind === 'crash' ? '#FFC24D' : '#FFE391');
+  const particleColor = useDerivedValue(() => {
+    const kind = game.value.effects[index]?.kind;
+    return kind === 'crash' ? '#FFC24D' : kind === 'coinLoss' ? '#FFD04A' : '#FFE391';
+  });
   return <Group opacity={opacity}>
     <Path path={path} color={particleColor} />
     <Path path={ring} color={color} style="stroke" strokeWidth={2.5} opacity={.65} />

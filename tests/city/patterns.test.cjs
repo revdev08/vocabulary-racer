@@ -44,16 +44,18 @@ test('validator rejects no-free-lane rows and impossible opposite-lane transitio
     {time:4.4,obstacles:[-1,0].map(obstacle)}],-1));
 });
 
-test('driving blocks sustain six, seven, then eight encounters instead of ending after a few moves',()=>{
+test('driving blocks stay short so words come often: three, four, five, then six encounters',()=>{
   for(let seed=1;seed<70;seed++) {
     const intro=makeTrafficPlan(seed*41,0,0,null);
-    assert.ok(intro.duration>=8.1 && intro.duration<=8.5);
-    assert.equal(intro.encounters.length,6);
-    assert.equal(intro.encounters.filter(e=>e.obstacles.length===2).length,5);
-    assert.equal(makeTrafficPlan(seed*41,0,1,null).encounters.length,7);
-    const more=makeTrafficPlan(seed*41,0,2,null);
-    assert.equal(more.encounters.length,8);
-    assert.ok(more.encounters.filter(e=>e.obstacles.length===2).length>=7);
+    assert.ok(intro.duration>=4.9 && intro.duration<=5.2);
+    assert.equal(intro.encounters.length,gameplay.firstRoundEncounters);
+    assert.equal(intro.encounters.filter(e=>e.obstacles.length===2).length,2);
+    assert.equal(makeTrafficPlan(seed*41,0,1,null).encounters.length,4);
+    assert.equal(makeTrafficPlan(seed*41,0,2,null).encounters.length,5);
+    const more=makeTrafficPlan(seed*41,0,3,null);
+    assert.equal(more.encounters.length,gameplay.advancedEncounters);
+    assert.equal(makeTrafficPlan(seed*41,0,9,null).encounters.length,gameplay.advancedEncounters);
+    assert.ok(more.encounters.filter(e=>e.obstacles.length===2).length>=5);
     assert.ok(more.encounters.flatMap(e=>e.obstacles).length<=gameplay.maxObjects);
     assert.equal(phaseSpeed('traffic',0,intro.duration),driving.speed);
     assert.equal(phaseSpeed('question',0,intro.duration),gameplay.decisionSpeed);
@@ -189,6 +191,7 @@ test('top-speed silhouettes are at least 24 px wide 900 ms before contact on a n
 
 test('advanced sequences contain fast adjacent bursts with readable gaps and safe double gestures',()=>{
   const variants=new Set();
+  let demanding=0;
   for(let seed=1;seed<=100;seed++) {
     const plan=makeTrafficPlan(seed*1789,0,8,null);
     variants.add(plan.route.join(','));
@@ -199,10 +202,12 @@ test('advanced sequences contain fast adjacent bursts with readable gaps and saf
       if(Math.abs(plan.route[i]-plan.route[i-1])===1 && gap<.7) quickChanges++;
       if(gap>.74) releaseGaps++;
     }
-    assert.ok(quickChanges>=2,'a high-level block must actually demand fast consecutive changes');
+    assert.ok(quickChanges>=1,'a high-level block must actually demand fast consecutive changes');
+    if(quickChanges>=2) demanding++;
     assert.ok(releaseGaps>=1,'bursts must have relief or room for a double swipe');
-    assert.ok(plan.duration>=7 && plan.duration<=10.5,'driving must remain sustained, without excessive empty time');
+    assert.ok(plan.duration>=5.5 && plan.duration<=8,'short sections keep words frequent without an empty road');
   }
+  assert.ok(demanding>=90,'almost every high-level block asks for two or more quick changes');
   assert.ok(variants.size>=20,'the route cannot be memorized as four fixed templates');
 });
 

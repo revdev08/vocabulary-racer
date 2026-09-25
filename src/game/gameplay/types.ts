@@ -12,8 +12,12 @@ export type Encounter = { time: number; obstacles: EncounterObject[] };
 export type TrafficPlan = { pattern: PatternId; encounters: Encounter[]; route: Lane[]; duration: number; seed: number; initialLateral: number;
   cruiseSpeed: number; encounterGap: number; paceLevel: number };
 export type ReviewWord = { index: number; due: number };
-export type WorldCoin = { id: number; lane: Lane; position: number };
-export type RewardEffect = { id: number; kind: 'coin' | 'correct' | 'wrong' | 'crash'; lateral: number; at: number; duration: number };
+/** lateral differs from lane only while the nitro magnet pulls the coin toward the car. */
+export type WorldCoin = { id: number; lane: Lane; position: number; lateral?: number };
+export type RewardEffect = { id: number; kind: 'coin' | 'correct' | 'wrong' | 'crash' | 'coinLoss'; lateral: number; at: number; duration: number };
+/** Breakdown of the last correct answer, for the floating reward. */
+export type Award = { points: number; multiplier: number; quick: boolean };
+export type SectionBonus = { points: number; at: number };
 export type RunMetrics = { encounters: number; obstacles: number; avoided: number; maxInactiveSeconds: number; inactiveSeconds: number };
 export type Question = { id: string; word: string; correct: string; options: [string, string, string]; correctLane: Lane };
 export type Feedback = { kind: 'correct' | 'wrong' | 'collision'; until: number; message: string };
@@ -34,6 +38,13 @@ export type RunState = {
   coins: WorldCoin[]; coinsCollected: number; coinsSpawned: number; coinRoute: Lane[];
   effects: RewardEffect[]; nextEffectId: number;
   nitroUntil: number; nitroCount: number;
+  /** When the current nitro began; its fade-in is measured from here, not from nitroUntil. */
+  nitroStart: number;
+  /** Hold-to-accelerate was used during the current question. */
+  boosted: boolean;
+  sectionCrashes: number; sections: number; cleanSections: number; sectionBonus: SectionBonus | null;
+  quickAnswers: number; bestStreak: number; coinsLost: number; award: Award | null;
 };
 export type GameView = Pick<RunState, 'levelId' | 'mode' | 'completed' | 'firstCorrect' | 'reviewCount' | 'currentIsReview' | 'vocabularyCursor' | 'runId' | 'revision' | 'phase' | 'lives' | 'score' | 'streak' |
-  'correct' | 'errors' | 'crashes' | 'question' | 'selectedLane' | 'feedback' | 'coinsCollected' | 'coinsSpawned' | 'metrics' | 'nitroCount' | 'nitroUntil'> & { paceLevel: number; wordTarget: number };
+  'correct' | 'errors' | 'crashes' | 'question' | 'selectedLane' | 'feedback' | 'coinsCollected' | 'coinsSpawned' | 'metrics' | 'nitroCount' | 'nitroUntil' |
+  'sections' | 'cleanSections' | 'sectionBonus' | 'quickAnswers' | 'bestStreak' | 'coinsLost' | 'award'> & { paceLevel: number; wordTarget: number };
