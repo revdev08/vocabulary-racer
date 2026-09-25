@@ -72,4 +72,11 @@ export const rewardVisuals = {
   nitroLines: 6,
   nitroFadeInSeconds: 0.12,
   nitroFadeOutSeconds: 0.3,
+  crashParticles: 14,
+  crashShakeSeconds: 0.38,
+  crashShakePixels: 7,
+  crashFlashSeconds: 0.5,
+  crashFlashOpacity: 0.42,
+  countdownStepMs: 650,
+  countdownGoMs: 600,
 } as const;

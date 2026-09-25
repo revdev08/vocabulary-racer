@@ -13,7 +13,7 @@ export type TrafficPlan = { pattern: PatternId; encounters: Encounter[]; route: 
   cruiseSpeed: number; encounterGap: number; paceLevel: number };
 export type ReviewWord = { index: number; due: number };
 export type WorldCoin = { id: number; lane: Lane; position: number };
-export type RewardEffect = { id: number; kind: 'coin' | 'correct' | 'wrong'; lateral: number; at: number; duration: number };
+export type RewardEffect = { id: number; kind: 'coin' | 'correct' | 'wrong' | 'crash'; lateral: number; at: number; duration: number };
 export type RunMetrics = { encounters: number; obstacles: number; avoided: number; maxInactiveSeconds: number; inactiveSeconds: number };
 export type Question = { id: string; word: string; correct: string; options: [string, string, string]; correctLane: Lane };
 export type Feedback = { kind: 'correct' | 'wrong' | 'collision'; until: number; message: string };

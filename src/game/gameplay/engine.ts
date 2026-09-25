@@ -113,6 +113,9 @@ function tick(state: RunState, seconds: number, target: Lane): RunState {
           next = { ...next, lives: next.lives - 1, crashes: next.crashes + 1,
             invulnerableUntil: next.elapsed + gameplay.collisionProtectionSeconds,
             feedback: { kind: 'collision', until: next.elapsed + gameplay.collisionFeedbackSeconds, message: 'Choque · −1 vida' },
+            effects: [...next.effects, { id: next.nextEffectId, kind: 'crash' as const, lateral: next.lateral,
+              at: next.elapsed, duration: gameplay.collisionFeedbackSeconds }].slice(-gameplay.maxEffects),
+            nextEffectId: next.nextEffectId + 1,
             revision: next.revision + 1 };
         }
       }

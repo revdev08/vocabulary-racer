@@ -6,6 +6,7 @@ import { PixelRatio, StyleSheet, View, type LayoutChangeEvent } from 'react-nati
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { palette, scene } from './config/visual';
 import { createSceneLayout } from './geometry/perspective';
+import { levels } from './data/vocabulary';
 import { GameWorld } from './world/GameWorld';
 import { GameHud } from './ui/GameHud';
 import { WordCard } from './ui/WordCard';
@@ -18,6 +19,7 @@ import { ActionReward } from './ui/ActionReward';
 import { FrameDiagnostics } from './ui/FrameDiagnostics';
 import { AnswerFeedback } from './ui/AnswerFeedback';
 import { PauseMenu } from './ui/PauseMenu';
+import { Countdown } from './ui/Countdown';
 export default function GameScreen() {
   const params = useLocalSearchParams<{ level?: string; mode?: string }>();
   return <RaceSession key={`${params.level ?? 'essentials'}:${params.mode ?? 'level'}`} level={params.level} review={params.mode === 'review'} />;
@@ -31,19 +33,27 @@ function RaceSession({ level, review }: { level?: string; review: boolean }) {
     const { width, height } = nativeEvent.layout;
     setSize((previous) => previous.width === width && previous.height === height ? previous : { width, height });
   };
+  const levelIndex = levels.findIndex(item => item.id === (level ?? simulation.view.levelId));
+  const eyebrow = review ? 'REPASO' : levelIndex >= 0 ? `NIVEL ${String(levelIndex + 1).padStart(2, '0')}` : undefined;
+  const title = review ? 'Palabras pendientes' : levels[levelIndex]?.title;
+  const ready = simulation.worldReady;
   return <View style={styles.root}>
     <View testID="game-screen" style={styles.viewport} onLayout={onLayout}>
       {size.width > 0 && size.height > 0 && <>
-        <GameWorld layout={layout} simulation={simulation.world} />
-        <DrivingControls layout={layout} simulation={simulation} />
-        <GameHud layout={layout} simulation={simulation} />
-        <WordCard layout={layout} simulation={simulation} />
-        <AnswerPortals layout={layout} simulation={simulation} />
-        <ActionReward layout={layout} simulation={simulation} />
-        <AnswerFeedback layout={layout} simulation={simulation} />
-        <RunFeedback layout={layout} game={simulation.view} paused={simulation.paused} />
-        <GameOver game={simulation.view} onRestart={simulation.restart} saveStatus={simulation.saveStatus} lastWord={simulation.audio.lastWord} onReplay={() => simulation.audio.speak(simulation.audio.lastWord, true)} />
-        <FrameDiagnostics simulation={simulation} />
+        <GameWorld layout={layout} simulation={simulation.world} eyebrow={eyebrow} title={title} />
+        {ready && <>
+          <DrivingControls layout={layout} simulation={simulation} />
+          <GameHud layout={layout} simulation={simulation} />
+          <WordCard layout={layout} simulation={simulation} />
+          <AnswerPortals layout={layout} simulation={simulation} />
+          <ActionReward layout={layout} simulation={simulation} />
+          <AnswerFeedback layout={layout} simulation={simulation} />
+          <RunFeedback layout={layout} game={simulation.view} paused={simulation.paused} />
+          <Countdown layout={layout} value={simulation.paused ? null : simulation.countdown} />
+          <GameOver game={simulation.view} onRestart={simulation.restart} saveStatus={simulation.saveStatus}
+            onSpeak={word => simulation.audio.speak(word, true)} mistakes={simulation.mistakes} previousBest={simulation.previousBest} />
+          <FrameDiagnostics simulation={simulation} />
+        </>}
         <PauseMenu visible={simulation.paused && simulation.view.phase !== 'gameOver'}
           audioEnabled={simulation.audio.enabled} lastWord={simulation.audio.lastWord} audioError={simulation.audio.error}
           onResume={simulation.resume} onToggleAudio={simulation.audio.toggle}

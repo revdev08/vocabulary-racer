@@ -19,7 +19,9 @@ export function WordCard({ layout, simulation }: { layout: SceneLayout; simulati
   </View>;
   const word = game.question.word.split(' (')[0];
   const context = game.question.word.includes(' (') ? game.question.word.slice(word.length + 2, -1) : '';
-  const caption = `${game.currentIsReview ? 'Repaso' : `Palabra ${game.vocabularyCursor}/${game.wordTarget}`} · Mantén pulsado para acelerar`;
+  // The hold-to-accelerate hint is learned quickly; later cards keep only the progress.
+  const hint = game.correct + game.errors < 2 ? ' · Mantén pulsado para acelerar' : '';
+  const caption = `${game.currentIsReview ? 'Repaso' : `Palabra ${game.vocabularyCursor}/${game.wordTarget}`}${hint}`;
   const fontSize = Math.min(41, (layout.prompt.width - 87) / (Math.max(5, word.length) * 0.6));
   return (
     <Animated.View style={[styles.card, { left: layout.prompt.x, top: layout.prompt.y, width: layout.prompt.width, height: layout.prompt.height }, transition]}>

@@ -39,5 +39,7 @@ export function usePronunciation() {
     settingQueue.current = settingQueue.current.catch(() => {}).then(() => AsyncStorage.setItem(KEY, value));
     void settingQueue.current.catch(() => { if (mounted.current) setError('No se pudo guardar la preferencia de audio.'); });
   }, [stop]);
-  return { enabled, error, lastWord, speak, stop, toggle };
+  // A restarted run must not offer the previous run's word.
+  const forget = useCallback(() => { setLastWord(''); setError(''); }, []);
+  return { enabled, error, lastWord, speak, stop, toggle, forget };
 }
