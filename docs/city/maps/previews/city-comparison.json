@@ -1,0 +1,83 @@
+[
+  {
+    "width": 320,
+    "height": 568,
+    "pose": "traffic",
+    "meanChannelDifference": 0.003000293427230047,
+    "max": 16,
+    "changedPixels": 197,
+    "significantPixels": 83
+  },
+  {
+    "width": 320,
+    "height": 568,
+    "pose": "question",
+    "meanChannelDifference": 0.03349288438967136,
+    "max": 23,
+    "changedPixels": 2185,
+    "significantPixels": 973
+  },
+  {
+    "width": 320,
+    "height": 568,
+    "pose": "right",
+    "meanChannelDifference": 0.03349288438967136,
+    "max": 23,
+    "changedPixels": 2185,
+    "significantPixels": 973
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "pose": "traffic",
+    "meanChannelDifference": 0.00666545145218131,
+    "max": 16,
+    "changedPixels": 885,
+    "significantPixels": 376
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "pose": "question",
+    "meanChannelDifference": 0.02548811115161826,
+    "max": 22,
+    "changedPixels": 2546,
+    "significantPixels": 1302
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "pose": "right",
+    "meanChannelDifference": 0.02548811115161826,
+    "max": 22,
+    "changedPixels": 2546,
+    "significantPixels": 1302
+  },
+  {
+    "width": 430,
+    "height": 932,
+    "pose": "traffic",
+    "meanChannelDifference": 0.004366703263798783,
+    "max": 18,
+    "changedPixels": 681,
+    "significantPixels": 273
+  },
+  {
+    "width": 430,
+    "height": 932,
+    "pose": "question",
+    "meanChannelDifference": 0.024480154373357287,
+    "max": 19,
+    "changedPixels": 3122,
+    "significantPixels": 1621
+  },
+  {
+    "width": 430,
+    "height": 932,
+    "pose": "right",
+    "meanChannelDifference": 0.024480154373357287,
+    "max": 19,
+    "changedPixels": 3122,
+    "significantPixels": 1621
+  }
+]

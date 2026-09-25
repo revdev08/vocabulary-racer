@@ -38,7 +38,7 @@ export function portalTone(state: RunState, lane: number) {
 export function coinProjection(layout: SceneLayout, coin: WorldCoin, travelled: number) {
   'worklet';
   const depth = layout.playerDepth + coin.position - travelled;
-  const foot = projectWorld(layout.camera, { lateral: coin.lane, distance: Math.max(0.4, depth) });
+  const foot = projectWorld(layout.camera, { lateral: coin.lateral ?? coin.lane, distance: Math.max(0.4, depth) });
   const radius = gameplay.coinRadius * layout.camera.nearLaneWidth / Math.max(0.4, depth);
   return { x: foot.x, y: foot.y - radius * 1.35, footY: foot.y, radius, opacity: depth > 0.5 ? 1 : 0 };
 }

@@ -25,8 +25,10 @@ export const gameplay = {
   slowdownSeconds: 0.5,
   plannerAttempts: 8,
   maxObjects: 16,
-  simpleEncounters: 6,
-  advancedEncounters: 8,
+  // Short traffic sections keep words coming: 3 rows first, then 4, 5 and at most 6.
+  firstRoundEncounters: 3,
+  simpleEncounters: 4,
+  advancedEncounters: 6,
   roundsForCrossovers: 2,
   decisionSeconds: 4,
   decisionSpeed: 0.18,
@@ -49,7 +51,18 @@ export const gameplay = {
   coinFlashSeconds: 0.4,
   answerEffectSeconds: 1.15,
   nitroEveryCorrect: 3,
+  // Covers the answer confirmation; the next traffic section then extends it to its end.
   nitroSeconds: 2,
+  // Coins this close ahead during nitro are captured and home into the car.
+  magnetRange: 1.4,
+  // Lives belong to vocabulary. Driving only moves points and coins.
+  crashCoinPenalty: 3,
+  pointsPerCoin: 10,
+  cleanDriveBonus: 50,
+  quickAnswerBonus: 50,
+  // Highest threshold first: consecutive correct answers → points multiplier.
+  streakMultipliers: [{ streak: 10, multiplier: 3 }, { streak: 5, multiplier: 2 }, { streak: 3, multiplier: 1.5 }],
+  bonusToastSeconds: 1.4,
   playerHalfWidth: 0.38,
   playerFront: 0.15,
   playerRear: 0.055,
@@ -72,4 +85,11 @@ export const rewardVisuals = {
   nitroLines: 6,
   nitroFadeInSeconds: 0.12,
   nitroFadeOutSeconds: 0.3,
+  crashParticles: 14,
+  crashShakeSeconds: 0.38,
+  crashShakePixels: 7,
+  crashFlashSeconds: 0.5,
+  crashFlashOpacity: 0.42,
+  countdownStepMs: 650,
+  countdownGoMs: 600,
 } as const;

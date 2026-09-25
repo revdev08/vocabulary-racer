@@ -1,5 +1,7 @@
 # Desafío de evasión
 
+> Vidas, puntuación, nitro y longitud de tramo actualizados en [vidas, puntos y nitro](scoring-and-lives.md).
+
 El estado previo quedó guardado en el commit `52ac49d`. Se revisó la grabación `Grabación 2026-09-22 151016.mp4` (32,4 segundos): el jugador ya había llegado al antiguo Ritmo 5 y racha 11–13. Los cinco encuentros por tramo, los intervalos casi uniformes y los cruces entre extremos con mucha espera permitían anticipar las maniobras con calma.
 
 ## Cambios

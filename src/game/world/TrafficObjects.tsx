@@ -1,4 +1,4 @@
-import { BlurMask, Group, Image, Oval, RoundedRect, type SkImage, type SkRect } from '@shopify/react-native-skia';
+import { BlurMask, Circle, Group, Image, Oval, RadialGradient, RoundedRect, vec, type SkImage, type SkRect } from '@shopify/react-native-skia';
 import { useDerivedValue, type SharedValue } from 'react-native-reanimated';
 import { gameplay, objectVisuals } from '../config/gameplay';
 import { CoinArtwork } from './WorldCoins';
@@ -51,6 +51,8 @@ function ObjectSlot({ traffic, barrier, front, entities, rank }: Props & { rank:
     const p = entities.value[rank];
     return p?.kind === 'coin' && p.front === front ? p.opacity : 0;
   });
+  // Coins captured by the nitro magnet glow so their sideways flight reads as attraction.
+  const magnetAlpha = useDerivedValue(() => entities.value[rank]?.magnet ? 1 : 0);
   return <Group transform={transform}>
     <Group opacity={trafficAlpha}>
       <VehicleArtwork kind="traffic" image={trafficImage} rect={trafficRect} />
@@ -61,6 +63,12 @@ function ObjectSlot({ traffic, barrier, front, entities, rank }: Props & { rank:
     </Group>
     <Group opacity={barrierAlpha}><VehicleArtwork kind="barrier" image={barrier} /></Group>
     <Group opacity={coinAlpha}>
+      <Group opacity={magnetAlpha}>
+        {/* Gradient halo instead of BlurMask: the coin's size changes every frame. */}
+        <Circle cx={.5} cy={.5} r={.9}>
+          <RadialGradient c={vec(.5, .5)} r={.9} colors={['#7FE3FFCC', '#7FE3FF66', '#7FE3FF00']} positions={[0.35, 0.6, 1]} />
+        </Circle>
+      </Group>
       <Oval x={0} y={1.115} width={1} height={.13} color="#071725" opacity={.22} />
       <Group transform={[{ translateX: .5 }, { translateY: .5 }, { scale: .5 }]}><CoinArtwork /></Group>
     </Group>

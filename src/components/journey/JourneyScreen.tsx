@@ -105,6 +105,10 @@ export default function JourneyScreen() {
         <JourneyAction title="Mi nivel ↓" onPress={returnToCurrent}/>
       </View>
       {!!due.length && !stress && <JourneyAction title={`Repasar ${due.length} palabras pendientes →`} onPress={() => router.push({ pathname: '/race', params: { mode: 'review', level: currentLevelId } })}/>}
+      {__DEV__ && !stress && <JourneyAction title="Probar montaña →" onPress={() => router.push({ pathname: '/race', params: { map: 'mountain' } })}/>}
+      {__DEV__ && !stress && <JourneyAction title="Probar desierto →" onPress={() => router.push({ pathname: '/race', params: { map: 'desert' } })}/>}
+      {__DEV__ && !stress && <JourneyAction title="Probar atardecer →" onPress={() => router.push({ pathname: '/race', params: { map: 'sunset' } })}/>}
+      {__DEV__ && !stress && <JourneyAction title="Probar nieve →" onPress={() => router.push({ pathname: '/race', params: { map: 'snow' } })}/>}
       {error && <Text accessibilityRole="alert" style={s.error}>No pudimos cargar el progreso. Abre de nuevo esta pantalla para reintentar.</Text>}
       {!progress && !error && <ActivityIndicator accessibilityLabel="Cargando tu viaje" color={c.green}/>}
       {stress && <View><Text style={s.error}>DESARROLLO · 1.000 niveles · no guarda progreso</Text><JourneyAction title="Probar salto al nivel 981" onPress={() => goToUnit(49)}/></View>}
@@ -139,7 +143,7 @@ export default function JourneyScreen() {
           <Text accessibilityRole="header" style={s.modalTitle}>{modal === 'words' ? source.title : 'Guía de viaje'}</Text>
           <ScrollView>
             {modal === 'words' ? source.indices.map((index, i) => <View key={vocabulary[index].id} style={s.wordRow}><Text style={s.wordNumber}>{String(i + 1).padStart(2, '0')}</Text><Text style={s.spanish}>{vocabulary[index].spanish}</Text><Text style={s.english}>{vocabulary[index].correct}</Text></View>)
-              : <Text style={s.helpCopy}>Elige la traducción y esquiva los obstáculos. Cada carrera empieza con 3 vidas.{ '\n\n' }Para aprobar, termina la carrera con al menos 8 de las 10 preguntas base correctas al primer intento. Obtienes 1 estrella con 8, 2 con 9 y 3 con 10.{ '\n\n' }Los errores vuelven después de otras preguntas, con hasta 3 repasos extra. Los pendientes reaparecen en futuras sesiones. Repetir conserva tus mejores resultados.</Text>}
+              : <Text style={s.helpCopy}>Elige la traducción y esquiva los obstáculos. Cada carrera empieza con 3 vidas, que solo se pierden al fallar una palabra. Chocar te quita monedas.{ '\n\n' }Los aciertos seguidos multiplican los puntos (x1,5, x2 y x3). Cada 3 aciertos ganas nitro: el siguiente tramo no chocas y atraes las monedas.{ '\n\n' }Para aprobar, termina la carrera con al menos 8 de las 10 preguntas base correctas al primer intento. Obtienes 1 estrella con 8, 2 con 9 y 3 con 10.{ '\n\n' }Los errores vuelven después de otras preguntas, con hasta 3 repasos extra. Los pendientes reaparecen en futuras sesiones. Repetir conserva tus mejores resultados.</Text>}
           </ScrollView>
           <JourneyAction title="Cerrar" onPress={() => setModalVisible(false)}/>
         </View>

@@ -1,6 +1,9 @@
 import { answerEvent } from '../gameplay/answerEvent';
 import { usePronunciation } from '../audio/usePronunciation';
+import { playRunHaptics } from '../audio/haptics';
 import { loadCityRun, saveCityRun } from '../gameplay/progress';
+import { readProgress } from '../storage';
+import { rewardVisuals } from '../config/gameplay';
 import type { Answer } from '../engine';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AccessibilityInfo, AppState, Platform } from 'react-native';
@@ -14,7 +17,7 @@ import { frameReport, newFrameProfile, type FrameProfile, type FrameReport } fro
 
 export function useDrivingSimulation(levelId = 'essentials', review = false) {
   const audio = usePronunciation();
-  const { speak, stop: stopAudio } = audio;
+  const { speak, stop: stopAudio, forget: forgetWord } = audio;
   const profiling = useMemo(() => Platform.OS === 'web' && typeof window !== 'undefined'
     && new URLSearchParams(window.location.search).get('profile') === '1', []);
   const [initial] = useState(() => createRun(profiling ? 2026 : Math.floor(Math.random() * 2147483646) + 1));
@@ -49,6 +52,19 @@ export function useDrivingSimulation(levelId = 'essentials', review = false) {
   const frameRef = useRef<{ setActive: (active: boolean) => void } | null>(null);
   const activeRef = useRef(AppState.currentState === 'active' || AppState.currentState === null);
   const targetRef = useRef<Lane>(0);
+  const [worldReady, setWorldReady] = useState(false);
+  // 3-2-1 before every run. It restarts if the run is paused or hidden before "¡Ya!".
+  const [countdown, setCountdown] = useState<number | null>(null);
+  const countdownRef = useRef<'pending' | 'running' | 'done'>('pending');
+  const countdownTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const updateRunningRef = useRef<() => void>(() => {});
+  const lastViewRef = useRef(gameView(initial));
+  const [previousBest, setPreviousBest] = useState<number | null>(null);
+  const [mistakes, setMistakes] = useState<{ wordId: string; recovered: boolean }[]>([]);
+  const loadPreviousBest = useCallback((levelId: string) => {
+    setPreviousBest(null);
+    readProgress().then(progress => setPreviousBest(progress.levels[levelId]?.bestScore ?? 0)).catch(() => setPreviousBest(0));
+  }, []);
 
   useEffect(() => {
     let mounted = true;
@@ -64,12 +80,21 @@ export function useDrivingSimulation(levelId = 'essentials', review = false) {
     revisionRef.current = snapshot.revision;
     overRef.current = snapshot.phase === 'gameOver';
     if (overRef.current) frameRef.current?.setActive(false);
+    playRunHaptics(lastViewRef.current, snapshot);
+    lastViewRef.current = snapshot;
     const answer = answerEvent(snapshot, answersRef.current.length);
     if (answer) {
       if (activeRef.current && !pausedRef.current) speak(answer.translation);
       answersRef.current.push({ wordId: answer.wordId, result: answer.result, selected: answer.selected, elapsedMs: answer.elapsedMs });
     }
     if (overRef.current) {
+      // A missed word counts as recovered when a later review in this run got it right.
+      const missed = new Map<string, boolean>();
+      for (const item of answersRef.current) {
+        if (item.result === 'wrong') missed.set(item.wordId, false);
+        else if (missed.has(item.wordId)) missed.set(item.wordId, true);
+      }
+      setMistakes([...missed].map(([wordId, recovered]) => ({ wordId, recovered })));
       setSaveStatus('saving');
       saveRef.current = saveCityRun(storageIdRef.current, snapshot, [...answersRef.current]);
       void saveRef.current.then(() => setSaveStatus('saved')).catch(() => setSaveStatus('error'));
@@ -117,13 +142,38 @@ export function useDrivingSimulation(levelId = 'essentials', review = false) {
   const frame = useFrameCallback(onFrame, false);
   useEffect(() => { frameRef.current = frame; return () => { frame.setActive(false); }; }, [frame]);
 
+  const cancelCountdown = useCallback(() => {
+    if (countdownTimer.current) clearTimeout(countdownTimer.current);
+    countdownTimer.current = null;
+    if (countdownRef.current === 'running') countdownRef.current = 'pending';
+    setCountdown(null);
+  }, []);
+
+  const startCountdown = useCallback(() => {
+    countdownRef.current = 'running';
+    const step = (value: number) => {
+      setCountdown(value);
+      // The car starts on "¡Ya!"; the label then fades while driving.
+      if (value === 0) { countdownRef.current = 'done'; updateRunningRef.current(); }
+      countdownTimer.current = setTimeout(() => {
+        if (value > 0) step(value - 1);
+        else { countdownTimer.current = null; setCountdown(null); }
+      }, value > 0 ? rewardVisuals.countdownStepMs : rewardVisuals.countdownGoMs);
+    };
+    step(3);
+  }, []);
+
   const updateRunning = useCallback(() => {
     lastTimestamp.set(null);
     holding.set(false); holdSeconds.set(0);
-    const enabled = activeRef.current && readyRef.current && hydratedRef.current && !pausedRef.current && !overRef.current;
+    const canRun = activeRef.current && readyRef.current && hydratedRef.current && !pausedRef.current && !overRef.current;
+    if (!canRun) { if (countdownRef.current === 'running' || countdownTimer.current) cancelCountdown(); }
+    else if (countdownRef.current === 'pending') startCountdown();
+    const enabled = canRun && countdownRef.current === 'done';
     running.set(enabled);
     frameRef.current?.setActive(enabled);
-  }, [lastTimestamp, running, holding, holdSeconds]);
+  }, [lastTimestamp, running, holding, holdSeconds, cancelCountdown, startCountdown]);
+  useEffect(() => { updateRunningRef.current = updateRunning; }, [updateRunning]);  useEffect(() => () => { if (countdownTimer.current) clearTimeout(countdownTimer.current); }, []);
 
   useEffect(() => {
     // Fast Refresh reruns effects while preserving refs and the UI-thread run.
@@ -133,16 +183,19 @@ export function useDrivingSimulation(levelId = 'essentials', review = false) {
     loadCityRun(initial.seed, runIdRef.current, initial, levelId, review).then(fresh => {
       if (!active) return;
       runIdRef.current = fresh.runId;
-      game.set(fresh); overRef.current = fresh.phase === 'gameOver'; revisionRef.current = fresh.revision; setView(gameView(fresh));
+      game.set(fresh); overRef.current = fresh.phase === 'gameOver'; revisionRef.current = fresh.revision;
+      lastViewRef.current = gameView(fresh); setView(lastViewRef.current);
+      loadPreviousBest(fresh.levelId);
     }).catch(() => {}).finally(() => {
       if (active) { hydratedRef.current = true; updateRunning(); }
     });
     return () => { active = false; };
-  }, [initial, game, updateRunning, levelId, review]);
+  }, [initial, game, updateRunning, levelId, review, loadPreviousBest]);
 
   const setReady = useCallback((ready: boolean) => {
     if (readyRef.current === ready) return;
     readyRef.current = ready;
+    setWorldReady(ready);
     updateRunning();
   }, [updateRunning]);
 
@@ -184,7 +237,8 @@ export function useDrivingSimulation(levelId = 'essentials', review = false) {
   }, [holding, holdSeconds]);
 
   const steer = useCallback((direction: -1 | 1) => {
-    if (pausedRef.current || !activeRef.current || !readyRef.current || !hydratedRef.current || overRef.current) return;
+    if (pausedRef.current || !activeRef.current || !readyRef.current || !hydratedRef.current || overRef.current
+      || countdownRef.current !== 'done') return;
     const next = changeLane(targetRef.current, direction);
     targetRef.current = next;
     target.set(next);
@@ -231,7 +285,8 @@ export function useDrivingSimulation(levelId = 'essentials', review = false) {
   const restart = useCallback(async () => {
     if (restartingRef.current) return;
     restartingRef.current = true;
-    stopAudio();
+    stopAudio(); forgetWord();
+    cancelCountdown(); countdownRef.current = 'pending';
     await saveRef.current.catch(() => {});
     runIdRef.current += 1;
     const seed = Math.floor(Math.random() * 2147483646) + 1;
@@ -242,15 +297,17 @@ export function useDrivingSimulation(levelId = 'essentials', review = false) {
     distance.set(0); lateral.set(0); target.set(0); playerTurn.set(0);
     targetRef.current = 0; pausedRef.current = false; overRef.current = fresh.phase === 'gameOver';
     revisionRef.current = fresh.revision;
-    setPaused(false); setTargetLane(0); setView(gameView(fresh));
+    lastViewRef.current = gameView(fresh); setMistakes([]); loadPreviousBest(fresh.levelId);
+    setPaused(false); setTargetLane(0); setView(lastViewRef.current);
     updateRunning();
-  }, [game, distance, lateral, target, playerTurn, updateRunning, levelId, review, stopAudio]);
+  }, [game, distance, lateral, target, playerTurn, updateRunning, levelId, review, stopAudio, forgetWord, cancelCountdown, loadPreviousBest]);
 
   // Counters and input events must not reconcile the Skia scene graph.
   const world = useMemo(() => ({ distance, lateral, playerTurn, game, reducedMotion, setReady }),
     [distance, lateral, playerTurn, game, reducedMotion, setReady]);
   return { distance, lateral, game, view, paused, targetLane, steer, togglePause, resume, restart, setReady, reducedMotion,
-    world, profiling, profileReport, saveStatus, audio, setHolding, holdSeconds };
+    world, profiling, profileReport, saveStatus, audio, setHolding, holdSeconds,
+    worldReady, countdown, previousBest, mistakes };
 }
 
 export type DrivingSimulation = ReturnType<typeof useDrivingSimulation>;

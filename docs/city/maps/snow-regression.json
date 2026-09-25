@@ -1,0 +1,62 @@
+[
+  {
+    "file": "city-390x844-a.png",
+    "before": "911e839b807730b6b9f29da6674e26cae07b0bf717d2efe35150417a6aa00ca6",
+    "after": "911e839b807730b6b9f29da6674e26cae07b0bf717d2efe35150417a6aa00ca6",
+    "identical": true
+  },
+  {
+    "file": "city-390x844-b.png",
+    "before": "931de3b40d8aeb4dd75c3e49f73006b64b3dda99f769a8f25a61597b49b1dce8",
+    "after": "931de3b40d8aeb4dd75c3e49f73006b64b3dda99f769a8f25a61597b49b1dce8",
+    "identical": true
+  },
+  {
+    "file": "coast-390x844-a.png",
+    "before": "e451609a3332cbf75798273dc0a9e889e1e2f90be0ad092524a246eacbd786f0",
+    "after": "e451609a3332cbf75798273dc0a9e889e1e2f90be0ad092524a246eacbd786f0",
+    "identical": true
+  },
+  {
+    "file": "coast-390x844-b.png",
+    "before": "ab24b44f504437293283ae803ffd22d95e387ec14b67995a9857965565bf21a6",
+    "after": "ab24b44f504437293283ae803ffd22d95e387ec14b67995a9857965565bf21a6",
+    "identical": true
+  },
+  {
+    "file": "mountain-390x844-a.png",
+    "before": "d3f3208ae8f34145eefddaf884949669ad7a42c78b779c2032829a58e53c2149",
+    "after": "d3f3208ae8f34145eefddaf884949669ad7a42c78b779c2032829a58e53c2149",
+    "identical": true
+  },
+  {
+    "file": "mountain-390x844-b.png",
+    "before": "2d21f1f26d3399b835955952c779616c4a01f6d6e29ef955fa592fbfcd948ea2",
+    "after": "2d21f1f26d3399b835955952c779616c4a01f6d6e29ef955fa592fbfcd948ea2",
+    "identical": true
+  },
+  {
+    "file": "desert-390x844-a.png",
+    "before": "ae147743431a7a47a6d19859484f64530ad2ce86b42fecb9b0a7d722c2819385",
+    "after": "ae147743431a7a47a6d19859484f64530ad2ce86b42fecb9b0a7d722c2819385",
+    "identical": true
+  },
+  {
+    "file": "desert-390x844-b.png",
+    "before": "8a4ac75ee4fabceb842d24a0593342ba21a0e1ede009aebd3144e7e82f236944",
+    "after": "8a4ac75ee4fabceb842d24a0593342ba21a0e1ede009aebd3144e7e82f236944",
+    "identical": true
+  },
+  {
+    "file": "sunset-390x844-a.png",
+    "before": "e7a3e7573d935daf9f056f88ce27e01f1cc9c77d9970438e4dfa52aa2b440bba",
+    "after": "e7a3e7573d935daf9f056f88ce27e01f1cc9c77d9970438e4dfa52aa2b440bba",
+    "identical": true
+  },
+  {
+    "file": "sunset-390x844-b.png",
+    "before": "1658e58a06ea7f344d7b19ca0b626eba23a644bc35be9140dec7f92e70e5b86d",
+    "after": "1658e58a06ea7f344d7b19ca0b626eba23a644bc35be9140dec7f92e70e5b86d",
+    "identical": true
+  }
+]

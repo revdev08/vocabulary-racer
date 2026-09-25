@@ -35,7 +35,8 @@ test('traffic changes adjacent lanes with advance warning, clearance and bounded
     assert.ok(windows.length <= (round < 3 ? 2 : 3));
     blocks++;
   }
-  assert.ok(changes >= blocks * 1.7, 'moving traffic must be frequent enough to actually be visible');
+  // The three-row opening block has room for about one lane change; longer blocks carry nearly two.
+  assert.ok(changes >= blocks * 1.5, 'moving traffic must be frequent enough to actually be visible');
   assert.deepEqual([...directions].sort(), [-1, 1]);
   assert.ok(rows.size >= 5 && speeds.size >= 3);
 });
@@ -82,7 +83,7 @@ test('lane changes ease in and out, stay within the road and signal only the int
   }
 });
 
-test('collision follows the moving body instead of the eventual lane; one contact costs one life', () => {
+test('collision follows the moving body instead of the eventual lane; one contact counts once', () => {
   const initial = createRun(81);
   const object = { id: 101, kind: 'traffic', lane: 1, position: .15, speed: 0, contacted: false,
     maneuver: { from: 0, start: 1, duration: .78 }, lateral: 0 };
@@ -91,7 +92,7 @@ test('collision follows the moving body instead of the eventual lane; one contac
   assert.equal(vacant.crashes, 0, 'the destination cannot collide before the car is there');
   let actual = { ...initial, lateral: 0, coins: [], objects: [object] };
   actual = advanceGame(actual, .1, 0);
-  assert.equal(actual.crashes, 1); assert.equal(actual.lives, 2);
+  assert.equal(actual.crashes, 1); assert.equal(actual.lives, 3);
   actual = advanceGame(actual, .2, 0);
   assert.equal(actual.crashes, 1);
   const crossing = { ...object, position: 1.8, maneuver: { from: -1, start: 0, duration: 1.8 } };

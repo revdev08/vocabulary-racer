@@ -27,19 +27,53 @@ test('a vocabulary error returns after three intervening questions, not immediat
   state=answer(state); state=toQuestion(state); assert.notEqual(state.question.id,missed);
 });
 
-test('three correct answers trigger two seconds of cosmetic nitro without changing distance',()=>{
+test('three correct answers trigger nitro through the whole next section without changing distance',()=>{
   let state=createRun(751);
   for(let i=0;i<3;i++) state=answer(toQuestion(state));
   assert.equal(state.nitroCount,1);
   assert.ok(Math.abs(state.nitroUntil-state.elapsed-gameplay.nitroSeconds)<1e-8);
-  let without={...state,nitroUntil:0};
-  for(let i=0;i<260;i++) {
+  let without={...state,nitroUntil:0}, extended=false;
+  for(let i=0;i<3000 && state.phase!=='question';i++) {
     const target=state.phase==='traffic'?routeTarget(state.plan,state.plan.initialLateral,state.phaseTime):Math.round(state.lateral);
+    const phase=state.phase;
     state=advanceGame(state,1/120,target); without=advanceGame(without,1/120,target);
     assert.equal(state.distance,without.distance);
+    if(phase==='feedback' && state.phase==='traffic') {
+      assert.ok(Math.abs(state.nitroUntil-state.elapsed-state.plan.duration)<1e-8,'nitro covers the new section');
+      extended=true;
+    }
   }
-  assert.ok(state.elapsed>state.nitroUntil);
+  assert.ok(extended); assert.equal(state.phase,'question');
+  assert.ok(state.nitroUntil===0 || state.elapsed>=state.nitroUntil-1/60,'nitro ends with its section');
   const fresh=createRun(751,2); assert.equal(fresh.nitroUntil,0); assert.equal(fresh.nitroCount,0);
+});
+
+test('nitro ignores crashes and its magnet pulls a coin from another lane into the car',()=>{
+  const setup=(nitroUntil)=>({...createRun(11),nitroUntil,coins:[{id:50,lane:1,position:0.9}],
+    objects:[{id:51,kind:'barrier',lane:0,position:0.22,speed:0,contacted:false}]});
+  let boosted=setup(5), plain=setup(0);
+  for(let i=0;i<96;i++) { boosted=advanceGame(boosted,1/120,0); plain=advanceGame(plain,1/120,0); }
+  assert.equal(boosted.crashes,0); assert.equal(boosted.lives,3); assert.equal(boosted.coinsCollected,1);
+  assert.equal(plain.crashes,1); assert.equal(plain.coinsCollected,0,'without nitro a coin in another lane is missed');
+});
+
+test('a captured coin homes into the car without drifting back, even when nitro ends mid-flight',()=>{
+  for(const lane of [-1,1]) {
+    // Nitro lasts only long enough to capture the coin, which is still well ahead.
+    let state={...createRun(11),nitroUntil:0.05,objects:[],coins:[{id:60,lane,position:1.3}]};
+    let previous=Math.abs(lane), steps=0;
+    for(;steps<120 && state.coinsCollected===0;steps++) {
+      state=advanceGame(state,1/120,0);
+      const coin=state.coins[0];
+      if(!coin) break;
+      const offset=Math.abs(coin.lateral ?? coin.lane);
+      assert.ok(offset<=previous+1e-9,`coin moved back toward its lane (${previous} → ${offset})`);
+      previous=offset;
+    }
+    assert.equal(state.nitroUntil,0,'the nitro ended before the coin arrived');
+    assert.equal(state.coinsCollected,1);
+    assert.equal(state.coins.length,0);
+  }
 });
 
 test('a collision preserves vocabulary streak and its future reward',()=>{

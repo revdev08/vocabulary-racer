@@ -2,7 +2,7 @@ import Svg, { Circle, Path, Rect } from 'react-native-svg';
 import { palette } from '../config/visual';
 import { decorativeSvgProps } from './decorativeSvgProps';
 
-type IconName = 'coin' | 'flame' | 'heart' | 'pause' | 'play' | 'audio' | 'flag' | 'chevron' | 'check' | 'cross';
+type IconName = 'coin' | 'flame' | 'heart' | 'pause' | 'play' | 'audio' | 'flag' | 'chevron' | 'check' | 'cross' | 'crash';
 
 export function GameIcon({ name, size = 24, color = palette.white }: {
   name: IconName; size?: number; color?: string;
@@ -32,6 +32,8 @@ export function GameIcon({ name, size = 24, color = palette.white }: {
       {name === 'chevron' && <Path d="m5 9 7 6 7-6" stroke={color} strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />}
       {name === 'check' && <Path d="m5 12 5 5L20 7" stroke={color} strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />}
       {name === 'cross' && <Path d="m6 6 12 12M18 6 6 18" stroke={color} strokeWidth="2.6" strokeLinecap="round" />}
+      {name === 'crash' && <Path d="m12 2 2.2 5.2 5.3-2-2 5.3L22 12l-4.5 1.5 2 5.3-5.3-2L12 22l-2.2-5.2-5.3 2 2-5.3L2 12l4.5-1.5-2-5.3 5.3 2Z"
+        fill={color} strokeLinejoin="round" />}
     </Svg>
   );
 }
