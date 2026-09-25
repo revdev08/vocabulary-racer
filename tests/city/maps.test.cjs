@@ -2,7 +2,7 @@ const assert = require('node:assert/strict');
 const { test } = require('node:test');
 const fs = require('node:fs');
 const path = require('node:path');
-const { mapThemes, cityMap, coastMap, mountainMap, desertMap, getMapTheme, journeyMapCycle } = require('../../.qa/geometry/config/maps.js');
+const { mapThemes, cityMap, coastMap, mountainMap, desertMap, sunsetMap, getMapTheme, journeyMapCycle } = require('../../.qa/geometry/config/maps.js');
 const { scenery } = require('../../.qa/geometry/config/scenery.js');
 const { scene } = require('../../.qa/geometry/config/visual.js');
 const { levels } = require('../../.qa/geometry/data/vocabulary.js');
@@ -42,7 +42,9 @@ test('all catalog levels resolve their unit map; review and unavailable themes u
     assert.equal(resolveMapTheme(level.sourceId,true),cityMap);
   }
   assert.equal(resolveMapTheme('unknown'),cityMap);
-  for(const id of ['sunset','snow']) assert.equal(getMapTheme(id),cityMap);
+  assert.equal(getMapTheme('snow'),cityMap);
+  assert.equal(getMapTheme('sunset'),sunsetMap);
+  for(const level of journeyUnits[4].data) assert.equal(resolveMapTheme(level.id),sunsetMap);
   assert.equal(getMapTheme('desert'),desertMap);
   for(const level of journeyUnits[3].data) assert.equal(resolveMapTheme(level.id),desertMap);
   assert.equal(getMapTheme('mountain'),mountainMap);

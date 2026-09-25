@@ -32,7 +32,8 @@ export function RoadsideTrees({ layout, image, distance, theme }: {
   });
   const colors = useColorBuffer(sprites.length, (color, index) => {
     'worklet';
-    color[0] = 1; color[1] = 1; color[2] = 1; color[3] = placements.value[index].opacity;
+    color[0] = trees.tint?.[0] ?? 1; color[1] = trees.tint?.[1] ?? 1; color[2] = trees.tint?.[2] ?? 1;
+    color[3] = placements.value[index].opacity;
   });
 
   return <Atlas image={image} sprites={sprites} transforms={transforms}

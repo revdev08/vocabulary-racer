@@ -23,6 +23,8 @@ export type MapSide = {
 export type RoadsideConfig = {
   lateral: number; height: number; spacing: number; countPerSide: number; near: number; rightOffset: number;
   anchorY: number; left: boolean; right: boolean;
+  /** Optional RGB modulation in the existing Atlas color buffer. */
+  tint?: Rgb;
 };
 export type MapTheme = {
   id: MapId;
@@ -111,8 +113,23 @@ export const desertMap: MapTheme = {
   colors: { sky: '#3485D0', asphalt: [.238, .265, .299], fog: [.57, .59, .63] },
 };
 
-/** Only completed maps are registered. Future unit themes fall back explicitly to city. */
-export const mapThemes: Partial<Record<MapId, MapTheme>> = { city: cityMap, coast: coastMap, mountain: mountainMap, desert: desertMap };
+/** Same street geometry as city, relit at golden hour. */
+export const sunsetMap: MapTheme = {
+  ...cityMap, id: 'sunset',
+  assets: { backdrop: 'assets/game/maps/sunset/backdrop.png', walls: 'assets/game/maps/sunset/walls.png', roadside: cityMap.assets.roadside },
+  // Measured inner curb rays in the edited plate, 21 rows; max residual 3.28 px.
+  background: { ...cityMap.background, vanishingPoint: { x: 511.571391 / 1024, y: 684.835641 / 1536 }, curbSlope: .459610390,
+    atmosphereOpacity: .025, roadHazeOpacity: .10, atmosphereColor: '#BBA2A0' },
+  left: { ...cityMap.left, wallTint: [.94, .94, 1],
+    ground: { ...cityMap.left.ground, color: [.54, .49, .49], tint: [1, .96, 1], curb: [.55, .53, .55], grain: .09 } },
+  right: { ...cityMap.right, wallTint: [1, .96, .89],
+    ground: { ...cityMap.right.ground, color: [.54, .49, .49], tint: [1.04, .98, .92], curb: [.58, .53, .50], grain: .09 } },
+  roadside: { ...cityMap.roadside, tint: [1, .88, .72] },
+  colors: { sky: '#626B91', asphalt: [.230, .251, .292], fog: [.60, .53, .54] },
+};
+
+/** Unfinished themes fall back explicitly to city. */
+export const mapThemes: Partial<Record<MapId, MapTheme>> = { city: cityMap, coast: coastMap, mountain: mountainMap, desert: desertMap, sunset: sunsetMap };
 export const journeyMapCycle: readonly MapId[] = ['coast', 'city', 'mountain', 'desert', 'sunset', 'snow'];
 export function getMapTheme(id: string | undefined): MapTheme {
   return mapThemes[id as MapId] ?? cityMap;

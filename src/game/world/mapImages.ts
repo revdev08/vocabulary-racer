@@ -15,6 +15,8 @@ const sources: Record<string, number> = {
   'assets/game/maps/desert/backdrop.png': require('../../../assets/game/maps/desert/backdrop.png'),
   'assets/game/maps/desert/walls.png': require('../../../assets/game/maps/desert/walls.png'),
   'assets/game/maps/desert/roadside.png': require('../../../assets/game/maps/desert/roadside.png'),
+  'assets/game/maps/sunset/backdrop.png': require('../../../assets/game/maps/sunset/backdrop.png'),
+  'assets/game/maps/sunset/walls.png': require('../../../assets/game/maps/sunset/walls.png'),
 };
 export function mapImageSources(theme: MapTheme) {
   return { backdrop: sources[theme.assets.backdrop], walls: sources[theme.assets.walls],
