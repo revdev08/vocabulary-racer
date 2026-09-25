@@ -12,6 +12,11 @@ export type MapSide = {
   atlasVariant: number;
   wallTint: Rgb;
   ground: { material: string; color: Rgb; tint: Rgb; tile: readonly [number, number]; joints: boolean; curb: Rgb };
+  /** Low walls leave the plate's near scenery exposed, and a fixed image cannot move with the road.
+   * sky: above the moving roofline, show static sky (the plate mirrored from the open side) instead.
+   * sea: beyond the parapet, draw moving water on a plane `drop` units below the road. */
+  sky?: boolean;
+  sea?: { drop: number; near: Rgb; far: Rgb; solidUntil: number; fadeEnd: number };
 };
 export type RoadsideConfig = {
   lateral: number; height: number; spacing: number; countPerSide: number; near: number; rightOffset: number;
@@ -54,9 +59,11 @@ export const coastMap: MapTheme = {
   background: { vanishingPoint: { x: 514.328187 / 1024, y: 669.014957 / 1536 }, curbSlope: .514232578, widthScale: 1.22,
     curbLaneOffset: 1.54, atmosphereOpacity: .018, roadHazeOpacity: .08, atmosphereColor: '#ADBCBA' },
   left: { wall: 2.75, height: 4.8, heightVariation: 0, moduleLength: 3, atlasVariant: 0,
-    wallTint: [.96, .98, 1], ground: coastalGround },
+    wallTint: [.96, .98, 1], ground: coastalGround, sky: true },
+  // Sea colors sampled from the plate's water (far ≈ y700–770, nearer ≈ y880) so the fade is seamless.
   right: { wall: 2.75, height: .38, heightVariation: 0, moduleLength: 3, atlasVariant: 1,
-    wallTint: [1, .99, .94], ground: coastalGround },
+    wallTint: [1, .99, .94], ground: coastalGround,
+    sea: { drop: 1.2, near: [.11, .48, .62], far: [.12, .43, .70], solidUntil: 16, fadeEnd: 42 } },
   roadside: { ...cityMap.roadside, height: 1.55, spacing: 2.4, rightOffset: 1.2, countPerSide: 14, anchorY: 1503 / 1536 },
   colors: { sky: '#649EC1', asphalt: [.223, .267, .316], fog: [.52, .60, .64] },
 };

@@ -84,6 +84,65 @@ test('coastal props stay grounded and outside every playable lane through the re
   }
 });
 
+test('coast near scenery moves with the road: sea streams past, sky above the roofline stays still', async () => {
+  // Regression: the coast plate's near houses (above the low roofline) and its shoreline (beyond the
+  // low parapet) were a fixed image, so they froze while the road moved.
+  const { SCENERY_SURFACES_SKSL, sceneryUniforms } = require('../../.qa/geometry/geometry/sceneryShader.js');
+  const rq=require('node:module').createRequire(require.resolve('@shopify/react-native-skia/package.json'));
+  const CK=await rq('canvaskit-wasm')({locateFile:f=>path.join(path.dirname(rq.resolve('canvaskit-wasm')),f)});
+  const layout=createSceneLayout(390,844,{top:59,bottom:34,left:0,right:0}), {camera}=layout;
+  const load=file=>CK.MakeImageFromEncoded(fs.readFileSync(path.join(root,file)));
+  const walls=load(coastMap.assets.walls), plateImage=load(coastMap.assets.backdrop);
+  const effect=CK.RuntimeEffect.Make(SCENERY_SURFACES_SKSL);
+  assert.ok(effect,'the scenery shader compiles');
+  const plate=backdropPlacement(layout,plateImage.width(),plateImage.height(),coastMap.background);
+  const render=distance=>{
+    const values=sceneryUniforms(camera,coastMap,plate,[walls.width(),walls.height()],[plateImage.width(),plateImage.height()],distance);
+    const floats=new Float32Array(effect.getUniformFloatCount());
+    for(let i=0;i<effect.getUniformCount();i++) {
+      const name=effect.getUniformName(i), info=effect.getUniform(i), v=[].concat(values[name]);
+      assert.equal(v.length,info.columns*info.rows,name); floats.set(v,info.slot);
+    }
+    const tile=image=>image.makeShaderOptions(CK.TileMode.Clamp,CK.TileMode.Clamp,CK.FilterMode.Linear,CK.MipmapMode.None);
+    const surface=CK.MakeSurface(layout.width,layout.height), paint=new CK.Paint();
+    paint.setShader(effect.makeShaderWithChildren(floats,[tile(walls),tile(plateImage)]));
+    surface.getCanvas().clear(CK.TRANSPARENT);
+    surface.getCanvas().drawRect(CK.XYWHRect(0,0,layout.width,layout.height),paint);
+    const pixels=surface.makeImageSnapshot().readPixels(0,0,{width:layout.width,height:layout.height,
+      colorType:CK.ColorType.RGBA_8888,alphaType:CK.AlphaType.Unpremul,colorSpace:CK.ColorSpace.SRGB});
+    surface.delete(); paint.delete();
+    return (p)=>{ const i=(Math.round(p.y)*layout.width+Math.round(p.x))*4; return [...pixels.slice(i,i+4)]; };
+  };
+  const a=render(3), b=render(3.55);
+  const sea=coastMap.right.sea, left=coastMap.left;
+  let seaChange=0, seaPoints=0;
+  for(const z of [2.5,3.5,5,7]) for(const lateral of [3.6,4.4,5.2]) {
+    const p=projectWorld(camera,{lateral,distance:z,elevation:-sea.drop});
+    if(p.x>=layout.width) continue;
+    const pa=a(p), pb=b(p);
+    assert.equal(pa[3],255,`opaque water at lateral ${lateral}, depth ${z}`);
+    seaChange+=Math.abs(pa[0]-pb[0])+Math.abs(pa[1]-pb[1])+Math.abs(pa[2]-pb[2]); seaPoints++;
+  }
+  assert.ok(seaPoints>=6 && seaChange/seaPoints>4,`water must move with the road (mean change ${seaChange/seaPoints})`);
+  for(const z of [2,4,8,15,30]) {
+    const p=projectWorld(camera,{lateral:-left.wall,distance:z,elevation:left.height+1.5});
+    if(p.y<0 || p.x<0) continue;
+    assert.equal(a(p)[3],255,`sky above the roofline at depth ${z} replaces the plate`);
+    assert.deepEqual(a(p),b(p),'distant sky does not move');
+  }
+  walls.delete(); plateImage.delete();
+});
+
+test('every registered map keeps its near scenery moving: nothing next to the road comes from the fixed plate', async () => {
+  // Frozen coast (no sky above the roofline, no sea) measured 25% of textured near blocks still; city and fixed coast ≤ 3%.
+  const { renderMotion } = require('../../scripts/render-map-motion.cjs');
+  for (const id of Object.keys(mapThemes)) for (const [w,h] of [[390,844],[320,568]]) {
+    const result = await renderMotion(id, undefined, w, h);
+    assert.ok(result.nearBlocks > 100, `${id} ${w}x${h}: near field measured`);
+    assert.ok(result.staticShare < .05, `${id} ${w}x${h}: ${result.staticBlocks}/${result.nearBlocks} textured near blocks do not move`);
+  }
+});
+
 test('coast sprite has genuine transparent margins and the measured ground anchor', async () => {
   const rq=require('node:module').createRequire(require.resolve('@shopify/react-native-skia/package.json'));
   const CK=await rq('canvaskit-wasm')({locateFile:f=>path.join(path.dirname(rq.resolve('canvaskit-wasm')),f)});

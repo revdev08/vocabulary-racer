@@ -107,3 +107,11 @@ Genuinely transparent RGBA alpha background. No checkerboard painted into image,
 Palm fronds restrained deep olive green, warm neutral trunk, subtly shaded cream limestone planter with small dark earth surface. Not luminous, no saturated reds/oranges. Viewed slightly from above as the reference, base plane visible.
 No ground patch outside planter, no cast ground shadow, no sun glow or haze around foliage, no text, people, cars or additional objects. One object, no collage.
 ```
+
+## Corrección: escenario cercano congelado
+
+En un video en teléfono, la parte alta de la izquierda y toda la derecha no se movían. La causa estaba en la placa de fondo, que es una imagen fija. Sus casas cercanas asomaban por encima de la pared de 4,8 unidades, y su orilla con rocas y arbustos quedaba descubierta más allá del murete de 0,38. En la ciudad no ocurre porque las paredes de 18–20 unidades tapan todo lo cercano.
+
+- Izquierda (`sky: true`): sobre la línea de tejados se dibuja cielo a cualquier distancia. Es la propia placa reflejada desde el lado abierto (cielo, nubes y el cabo lejano), que al ser lejana es correcta aunque sea estática. Solo conserva la placa la franja fina bajo esa línea junto al punto de fuga.
+- Derecha (`sea`): pasado el murete, el rayo cae a un plano de agua 1,2 unidades por debajo del paseo, con oleaje y brillos fijos en el mundo que avanzan con la carretera. Sus frecuencias en profundidad son múltiplos de 2π/12 para enlazar con `travel`. Colores muestreados del mar de la placa (lejos ≈ `#1F6EB3`); se funde con ella entre 16 y 42 unidades.
+- El código del shader se movió a `geometry/sceneryShader.ts`, junto con sus uniforms (`sceneryUniforms`), para que la prueba `coast near scenery moves with the road` lo renderice con CanvasKit en dos distancias: el agua cambia y el cielo sobre los tejados no. La ciudad no cambia: ambas opciones están desactivadas por defecto.

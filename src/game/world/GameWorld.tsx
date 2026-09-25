@@ -73,7 +73,7 @@ export const GameWorld = memo(function GameWorld({ layout, simulation, eyebrow, 
     <Rect x={0} y={0} width={width} height={height} color={theme.colors.sky} />
     <Group transform={camera} origin={vec(width / 2, height / 2)}>
       <CityBackdrop theme={theme} layout={layout} image={city} />
-      <ScenerySurfaces theme={theme} layout={layout} image={facades} distance={simulation.distance} />
+      <ScenerySurfaces theme={theme} layout={layout} image={facades} backdrop={city} distance={simulation.distance} />
       <Road theme={theme} layout={layout} asphalt={asphalt} distance={simulation.distance} />
       <RoadsideTrees theme={theme} layout={layout} image={tree} distance={simulation.distance} />
       <TrafficObjects entities={entities} traffic={trafficImages} barrier={barrier} front={false} />
