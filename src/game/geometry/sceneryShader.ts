@@ -22,10 +22,12 @@ export function sceneryUniforms(camera: Camera, theme: MapTheme, plate: Rect, wa
     leftWall: [left.wall, left.height, left.moduleLength, left.heightVariation],
     rightWall: [right.wall, right.height, right.moduleLength, right.heightVariation],
     wallVariants: [left.atlasVariant, right.atlasVariant],
+    mirrorModules: [Number(!!left.mirrorModules), Number(!!right.mirrorModules)],
     leftWallTint: [...left.wallTint], rightWallTint: [...right.wallTint],
     leftGround: [...left.ground.color], rightGround: [...right.ground.color],
     leftGroundTint: [...left.ground.tint], rightGroundTint: [...right.ground.tint],
     leftCurb: [...left.ground.curb], rightCurb: [...right.ground.curb],
+    groundGrain: [left.ground.grain ?? 0, right.ground.grain ?? 0],
     leftTiling: [...left.ground.tile, Number(left.ground.joints)],
     rightTiling: [...right.ground.tile, Number(right.ground.joints)],
     treesEnabled: [Number(roadside.left), Number(roadside.right)], texturePeriod: theme.texturePeriod,
@@ -55,6 +57,7 @@ export const SCENERY_SURFACES_SKSL = `
   uniform float4 leftWall;
   uniform float4 rightWall;
   uniform float2 wallVariants;
+  uniform float2 mirrorModules;
   uniform float3 leftWallTint;
   uniform float3 rightWallTint;
   uniform float3 leftGround;
@@ -63,6 +66,7 @@ export const SCENERY_SURFACES_SKSL = `
   uniform float3 rightGroundTint;
   uniform float3 leftCurb;
   uniform float3 rightCurb;
+  uniform float2 groundGrain;
   uniform float3 leftTiling;
   uniform float3 rightTiling;
   uniform float2 treesEnabled;
@@ -76,11 +80,23 @@ export const SCENERY_SURFACES_SKSL = `
 
   float visibility(float depth) { return 1.0 - smoothstep(solidUntil, fadeEnd, depth); }
 
-  half3 facadeSample(float2 uv, float variant) {
+  float gravelHash(float2 cell, float period) {
+    cell.y = mod(cell.y, period);
+    return fract(sin(dot(cell, float2(127.1, 311.7))) * 43758.5453);
+  }
+  float gravelNoise(float2 world, float cellSize) {
+    float2 p = world / cellSize, cell = floor(p), f = fract(p);
+    f = f * f * (3.0 - 2.0 * f);
+    float period = floor(texturePeriod / cellSize + 0.5);
+    return mix(mix(gravelHash(cell, period), gravelHash(cell + float2(1, 0), period), f.x),
+               mix(gravelHash(cell + float2(0, 1), period), gravelHash(cell + float2(1, 1), period), f.x), f.y);
+  }
+
+  half4 facadeSample(float2 uv, float variant) {
     uv.x = clamp(uv.x, (variant * 0.5 + 0.001) * imageSize.x,
                       ((variant + 1.0) * 0.5 - 0.001) * imageSize.x);
     uv.y = clamp(uv.y, 0.001 * imageSize.y, 0.999 * imageSize.y);
-    return facades.eval(uv).rgb;
+    return facades.eval(uv);
   }
 
   half4 main(float2 xy) {
@@ -100,42 +116,54 @@ export const SCENERY_SURFACES_SKSL = `
     float block = floor(blockPosition);
     float variant = atlasVariant < 0.0 ? mod(block, 2.0) : atlasVariant;
     float buildingHeight = facadeHeight + variant * wallConfig.w;
+    bool openCrest = false;
     if (buildingHeight > 0.0 && elevation >= 0.0 && elevation <= buildingHeight && z < fadeEnd) {
       float u = fract(blockPosition);
       if (side < 0.0) u = 1.0 - u;
+      float reflectModule = (side < 0.0 ? mirrorModules.x : mirrorModules.y) > 0.5 ? mod(block, 2.0) : 0.0;
+      if (reflectModule > 0.5) u = 1.0 - u;
       float2 uv = float2((variant + clamp(u, 0.002, 0.998)) * 0.5 * imageSize.x,
                         clamp(1.0 - elevation / buildingHeight, 0.001, 0.999) * imageSize.y);
-      half3 color = facadeSample(uv, variant);
-      if (z > 5.0) {
-        // Anisotropic screen footprint: subpixel window grids otherwise shimmer
-        // as they approach. Four taps only in the small, minified distant region.
-        float dzdx = -z / dx;
-        float2 footprintX = float2((side < 0.0 ? -1.0 : 1.0) * dzdx * imageSize.x / (2.0 * facadeLength),
-                                   (xy.y - horizon) * dzdx * imageSize.y / (laneWidth * buildingHeight)) * 0.3;
-        float2 footprintY = float2(0.0, z * imageSize.y / (laneWidth * buildingHeight)) * 0.3;
-        half3 filtered = (facadeSample(uv + footprintX + footprintY, variant)
-                       + facadeSample(uv + footprintX - footprintY, variant)
-                       + facadeSample(uv - footprintX + footprintY, variant)
-                       + facadeSample(uv - footprintX - footprintY, variant)) * 0.25;
-        color = mix(color, filtered, smoothstep(5.0, 8.0, z));
+      half4 texel = facadeSample(uv, variant);
+      // Transparent crests expose distant sky, never a rectangular wall backdrop.
+      // Existing opaque atlases take the same shading path as before.
+      openCrest = texel.a < 0.5;
+      if (!openCrest) {
+        half3 color = texel.rgb / max(texel.a, 0.001);
+        if (z > 5.0) {
+          // Anisotropic screen footprint: subpixel window grids otherwise shimmer
+          // as they approach. Four taps only in the small, minified distant region.
+          float dzdx = -z / dx;
+          float2 footprintX = float2((side < 0.0 ? -1.0 : 1.0) * (reflectModule > 0.5 ? -1.0 : 1.0) * dzdx * imageSize.x / (2.0 * facadeLength),
+                                     (xy.y - horizon) * dzdx * imageSize.y / (laneWidth * buildingHeight)) * 0.3;
+          float2 footprintY = float2(0.0, z * imageSize.y / (laneWidth * buildingHeight)) * 0.3;
+          half4 filteredTexel = (facadeSample(uv + footprintX + footprintY, variant)
+                         + facadeSample(uv + footprintX - footprintY, variant)
+                         + facadeSample(uv - footprintX + footprintY, variant)
+                         + facadeSample(uv - footprintX - footprintY, variant)) * 0.25;
+          // Alpha-weighted filtering prevents dark fringes around transparent foliage.
+          half3 filtered = filteredTexel.rgb / max(filteredTexel.a, 0.001);
+          color = mix(color, filtered, smoothstep(5.0, 8.0, z));
+        }
+        // Shade ground floors and the cooler street side without changing the art.
+        color *= mix(0.74, 1.0, smoothstep(0.0, 4.0, elevation));
+        color *= side < 0.0 ? half3(leftWallTint) : half3(rightWallTint);
+        float join = 1.0 - smoothstep(0.0, 0.012, min(u, 1.0 - u));
+        color *= 1.0 - join * 0.22;
+        float alpha = visibility(z);
+        return half4(color * alpha, alpha);
       }
-      // Shade ground floors and the cooler street side without changing the art.
-      color *= mix(0.74, 1.0, smoothstep(0.0, 4.0, elevation));
-      color *= side < 0.0 ? half3(leftWallTint) : half3(rightWallTint);
-      float join = 1.0 - smoothstep(0.0, 0.012, min(u, 1.0 - u));
-      color *= 1.0 - join * 0.22;
-      float alpha = visibility(z);
-      return half4(color * alpha, alpha);
     }
 
     // Low rooflines expose the plate above them, and its houses cannot move with the road.
     // Above the roofline at ANY depth show sky: the plate's open side, mirrored, stays correct while
     // static. Only the thin band below the extended roofline near the vanishing point keeps the plate.
-    if ((side < 0.0 ? skyAbove.x : skyAbove.y) > 0.5 && buildingHeight > 0.0 && elevation > buildingHeight
+    if ((side < 0.0 ? skyAbove.x : skyAbove.y) > 0.5 && buildingHeight > 0.0 && (elevation > buildingHeight || openCrest)
         && xy.y < horizon && z > 0.0) {
       float2 uv = (float2(2.0 * centerX - xy.x, xy.y) - backdropRect.xy) / backdropRect.zw * backdropSize;
       return half4(backdrop.eval(clamp(uv, float2(0.5), backdropSize - 0.5)).rgb, 1.0);
     }
+    if (openCrest) return half4(0);
 
     if (xy.y <= horizon) return half4(0);
     float2 ground = groundPosition(xy);
@@ -184,6 +212,15 @@ export const SCENERY_SURFACES_SKSL = `
     if (x < curb + 0.055) {
       pavement = (side < 0.0 ? half3(leftCurb) : half3(rightCurb)) * (0.78 + smoothstep(curb, curb + 0.018, x) * 0.22);
       pavement *= 1.0 - (1.0 - smoothstep(0.004, 0.004 + aaZ, edgeZ)) * 0.20 * tiling.z;
+    }
+    float grainAmount = side < 0.0 ? groundGrain.x : groundGrain.y;
+    if (grainAmount > 0.0) {
+      // Gravel and stone curbs share world-space texture. Fade frequencies once
+      // smaller than a pixel; no fixed plate detail or per-frame blur is involved.
+      float footprint = max(aaX, aaZ);
+      float grain = (gravelNoise(float2(x, worldZ), 0.1) - 0.5) * (1.0 - smoothstep(0.05, 0.14, footprint));
+      grain += (gravelNoise(float2(x, worldZ), 0.025) - 0.5) * 0.45 * (1.0 - smoothstep(0.012, 0.04, footprint));
+      pavement += grain * grainAmount;
     }
     float alpha = visibility(z);
     return half4(pavement * alpha, alpha);

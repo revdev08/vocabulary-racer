@@ -1,0 +1,107 @@
+[
+  {
+    "name": "city-320x568-a.png",
+    "identical": true,
+    "beforeSHA256": "bf676a4569df6639cb44bde43a99ad9a39a53fabdbef67a7b430c48a93b723fc",
+    "afterSHA256": "bf676a4569df6639cb44bde43a99ad9a39a53fabdbef67a7b430c48a93b723fc",
+    "before": "previews/mountain-regression/before/city-320x568-a.png",
+    "after": "previews/mountain-regression/after/city-320x568-a.png"
+  },
+  {
+    "name": "city-320x568-b.png",
+    "identical": true,
+    "beforeSHA256": "ec83bd1e269cc72037a0fb9c73af44acd08d5628001a188585439ecd33a221d9",
+    "afterSHA256": "ec83bd1e269cc72037a0fb9c73af44acd08d5628001a188585439ecd33a221d9",
+    "before": "previews/mountain-regression/before/city-320x568-b.png",
+    "after": "previews/mountain-regression/after/city-320x568-b.png"
+  },
+  {
+    "name": "city-390x844-a.png",
+    "identical": true,
+    "beforeSHA256": "911e839b807730b6b9f29da6674e26cae07b0bf717d2efe35150417a6aa00ca6",
+    "afterSHA256": "911e839b807730b6b9f29da6674e26cae07b0bf717d2efe35150417a6aa00ca6",
+    "before": "previews/mountain-regression/before/city-390x844-a.png",
+    "after": "previews/mountain-regression/after/city-390x844-a.png"
+  },
+  {
+    "name": "city-390x844-b.png",
+    "identical": true,
+    "beforeSHA256": "931de3b40d8aeb4dd75c3e49f73006b64b3dda99f769a8f25a61597b49b1dce8",
+    "afterSHA256": "931de3b40d8aeb4dd75c3e49f73006b64b3dda99f769a8f25a61597b49b1dce8",
+    "before": "previews/mountain-regression/before/city-390x844-b.png",
+    "after": "previews/mountain-regression/after/city-390x844-b.png"
+  },
+  {
+    "name": "city-430x932-a.png",
+    "identical": false,
+    "beforeSHA256": "3f45164e7e880626ba7da533f841637ccad8b8d10b7e2a9f045ffc5bd00a824e",
+    "afterSHA256": "a6cbb9c89922b31d604f87b91de628dee80e1a8c5d8248c27db2cfa6e4548c69",
+    "before": "previews/mountain-regression/before/city-430x932-a.png",
+    "after": "previews/mountain-regression/after/city-430x932-a.png",
+    "pixelDifference": {
+      "changedChannels": 1,
+      "maxChannelDifference": 1,
+      "x": 37,
+      "y": 214,
+      "channel": "red",
+      "before": 70,
+      "after": 71
+    }
+  },
+  {
+    "name": "city-430x932-b.png",
+    "identical": true,
+    "beforeSHA256": "a10a2088dcfcc988759e1eba2fe8c2de69e4024f9a83dda70b51144a8b270849",
+    "afterSHA256": "a10a2088dcfcc988759e1eba2fe8c2de69e4024f9a83dda70b51144a8b270849",
+    "before": "previews/mountain-regression/before/city-430x932-b.png",
+    "after": "previews/mountain-regression/after/city-430x932-b.png"
+  },
+  {
+    "name": "coast-320x568-a.png",
+    "identical": true,
+    "beforeSHA256": "ec238d5b8ae4a03a9e450b37a5c4bff91ca3a492539bb5d33614a53b14975974",
+    "afterSHA256": "ec238d5b8ae4a03a9e450b37a5c4bff91ca3a492539bb5d33614a53b14975974",
+    "before": "previews/mountain-regression/before/coast-320x568-a.png",
+    "after": "previews/mountain-regression/after/coast-320x568-a.png"
+  },
+  {
+    "name": "coast-320x568-b.png",
+    "identical": true,
+    "beforeSHA256": "8a44a874ae96e584512b0f3e2668ea0921c9665d72cbc49da7260fcf610ef02e",
+    "afterSHA256": "8a44a874ae96e584512b0f3e2668ea0921c9665d72cbc49da7260fcf610ef02e",
+    "before": "previews/mountain-regression/before/coast-320x568-b.png",
+    "after": "previews/mountain-regression/after/coast-320x568-b.png"
+  },
+  {
+    "name": "coast-390x844-a.png",
+    "identical": true,
+    "beforeSHA256": "e451609a3332cbf75798273dc0a9e889e1e2f90be0ad092524a246eacbd786f0",
+    "afterSHA256": "e451609a3332cbf75798273dc0a9e889e1e2f90be0ad092524a246eacbd786f0",
+    "before": "previews/mountain-regression/before/coast-390x844-a.png",
+    "after": "previews/mountain-regression/after/coast-390x844-a.png"
+  },
+  {
+    "name": "coast-390x844-b.png",
+    "identical": true,
+    "beforeSHA256": "ab24b44f504437293283ae803ffd22d95e387ec14b67995a9857965565bf21a6",
+    "afterSHA256": "ab24b44f504437293283ae803ffd22d95e387ec14b67995a9857965565bf21a6",
+    "before": "previews/mountain-regression/before/coast-390x844-b.png",
+    "after": "previews/mountain-regression/after/coast-390x844-b.png"
+  },
+  {
+    "name": "coast-430x932-a.png",
+    "identical": true,
+    "beforeSHA256": "10b9a98eea6047e355773db9a06a87abae03f980960c7b74cd77071646a1b177",
+    "afterSHA256": "10b9a98eea6047e355773db9a06a87abae03f980960c7b74cd77071646a1b177",
+    "before": "previews/mountain-regression/before/coast-430x932-a.png",
+    "after": "previews/mountain-regression/after/coast-430x932-a.png"
+  },
+  {
+    "name": "coast-430x932-b.png",
+    "identical": true,
+    "beforeSHA256": "9e873a97763e57b37ee1204234e41c9ca00a51cffc6d91914757bc7958b092a5",
+    "afterSHA256": "9e873a97763e57b37ee1204234e41c9ca00a51cffc6d91914757bc7958b092a5",
+    "before": "previews/mountain-regression/before/coast-430x932-b.png",
+    "after": "previews/mountain-regression/after/coast-430x932-b.png"
+  }
+]

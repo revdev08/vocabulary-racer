@@ -9,6 +9,9 @@ const sources: Record<string, number> = {
   'assets/game/maps/coast/backdrop.png': require('../../../assets/game/maps/coast/backdrop.png'),
   'assets/game/maps/coast/walls.png': require('../../../assets/game/maps/coast/walls.png'),
   'assets/game/maps/coast/roadside.png': require('../../../assets/game/maps/coast/roadside.png'),
+  'assets/game/maps/mountain/backdrop.png': require('../../../assets/game/maps/mountain/backdrop.png'),
+  'assets/game/maps/mountain/walls.png': require('../../../assets/game/maps/mountain/walls.png'),
+  'assets/game/maps/mountain/roadside.png': require('../../../assets/game/maps/mountain/roadside.png'),
 };
 export function mapImageSources(theme: MapTheme) {
   return { backdrop: sources[theme.assets.backdrop], walls: sources[theme.assets.walls],

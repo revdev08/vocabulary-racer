@@ -10,8 +10,10 @@ export type MapSide = {
   moduleLength: number;
   /** -1 alternates both halves; 0/1 selects one half of the wall atlas. */
   atlasVariant: number;
+  /** Reflect consecutive natural modules so their irregular crests meet at the same edge. */
+  mirrorModules?: boolean;
   wallTint: Rgb;
-  ground: { material: string; color: Rgb; tint: Rgb; tile: readonly [number, number]; joints: boolean; curb: Rgb };
+  ground: { material: string; color: Rgb; tint: Rgb; tile: readonly [number, number]; joints: boolean; curb: Rgb; grain?: number };
   /** Low walls leave the plate's near scenery exposed, and a fixed image cannot move with the road.
    * sky: above the moving roofline, show static sky (the plate mirrored from the open side) instead.
    * sea: beyond the parapet, draw moving water on a plane `drop` units below the road. */
@@ -68,8 +70,28 @@ export const coastMap: MapTheme = {
   colors: { sky: '#649EC1', asphalt: [.223, .267, .316], fog: [.52, .60, .64] },
 };
 
+const alpineGround: MapSide['ground'] = {
+  material: 'gravel', color: [.43, .43, .39], tint: [1, 1, 1], tile: [.4, .4], joints: false, curb: [.52, .54, .52], grain: .16,
+};
+export const mountainMap: MapTheme = {
+  ...cityMap, id: 'mountain',
+  assets: { backdrop: 'assets/game/maps/mountain/backdrop.png', walls: 'assets/game/maps/mountain/walls.png', roadside: 'assets/game/maps/mountain/roadside.png' },
+  // 21 measured curb samples, y800..1300; maximum fit residual is 1.29 source pixels.
+  background: { vanishingPoint: { x: 508.788228 / 1024, y: 702.690421 / 1536 }, curbSlope: .813532468, widthScale: 1.22,
+    curbLaneOffset: 1.54, atmosphereOpacity: .018, roadHazeOpacity: .08, atmosphereColor: '#A6B8C5' },
+  // Both 512:1536 atlas halves retain their 1:3 proportions in world space.
+  left: { wall: 2.75, height: 12, heightVariation: 0, moduleLength: 4, atlasVariant: 0,
+    mirrorModules: true, sky: true, wallTint: [.94, .97, 1], ground: alpineGround },
+  right: { wall: 2.75, height: 7.5, heightVariation: 0, moduleLength: 2.5, atlasVariant: 1,
+    mirrorModules: true, sky: true, wallTint: [1, .98, .94], ground: alpineGround },
+  // Common repeat of left modules (8), right modules (5), gravel and tree spacing.
+  texturePeriod: 40,
+  roadside: { ...cityMap.roadside, height: 1.55, spacing: 2, rightOffset: 1, countPerSide: 14, anchorY: 1492 / 1536 },
+  colors: { sky: '#609ECA', asphalt: [.223, .267, .316], fog: [.50, .59, .67] },
+};
+
 /** Only completed maps are registered. Future unit themes fall back explicitly to city. */
-export const mapThemes: Partial<Record<MapId, MapTheme>> = { city: cityMap, coast: coastMap };
+export const mapThemes: Partial<Record<MapId, MapTheme>> = { city: cityMap, coast: coastMap, mountain: mountainMap };
 export const journeyMapCycle: readonly MapId[] = ['coast', 'city', 'mountain', 'desert', 'sunset', 'snow'];
 export function getMapTheme(id: string | undefined): MapTheme {
   return mapThemes[id as MapId] ?? cityMap;
