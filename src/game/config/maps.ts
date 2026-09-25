@@ -128,8 +128,27 @@ export const sunsetMap: MapTheme = {
   colors: { sky: '#626B91', asphalt: [.230, .251, .292], fog: [.60, .53, .54] },
 };
 
-/** Unfinished themes fall back explicitly to city. */
-export const mapThemes: Partial<Record<MapId, MapTheme>> = { city: cityMap, coast: coastMap, mountain: mountainMap, desert: desertMap, sunset: sunsetMap };
+const snowGround: MapSide['ground'] = {
+  material: 'snow', color: [.52, .60, .70], tint: [1, 1, 1], tile: [.3, .3], joints: false,
+  curb: [.62, .69, .78], grain: .12,
+};
+export const snowMap: MapTheme = {
+  ...cityMap, id: 'snow',
+  assets: { backdrop: 'assets/game/maps/snow/backdrop.png', walls: 'assets/game/maps/snow/walls.png', roadside: 'assets/game/maps/snow/roadside.png' },
+  // Measured snow/asphalt boundary, 17 pairs; soft snow edges deviate at most 6.22 source pixels.
+  background: { vanishingPoint: { x: 512.606567 / 1024, y: 737.527167 / 1536 }, curbSlope: .811960784, widthScale: 1.22,
+    curbLaneOffset: 1.54, atmosphereOpacity: .018, roadHazeOpacity: .08, atmosphereColor: '#A1B4CC' },
+  left: { wall: 2.75, height: 5.4, heightVariation: 0, moduleLength: 1.8, atlasVariant: 0,
+    mirrorModules: true, sky: true, wallTint: [.94, .97, 1], ground: snowGround },
+  right: { wall: 2.75, height: 7.5, heightVariation: 0, moduleLength: 2.5, atlasVariant: 1,
+    mirrorModules: true, sky: true, wallTint: [.96, .98, 1], ground: snowGround },
+  // Common repeat of paired chalet (3.6) and forest (5) modules, ground noise and fir spacing.
+  texturePeriod: 90,
+  roadside: { ...cityMap.roadside, height: 1.5, spacing: 2.5, rightOffset: 1.25, countPerSide: 12, anchorY: 1465 / 1536 },
+  colors: { sky: '#4088CA', asphalt: [.223, .267, .316], fog: [.50, .59, .70] },
+};
+
+export const mapThemes: Record<MapId, MapTheme> = { city: cityMap, coast: coastMap, mountain: mountainMap, desert: desertMap, sunset: sunsetMap, snow: snowMap };
 export const journeyMapCycle: readonly MapId[] = ['coast', 'city', 'mountain', 'desert', 'sunset', 'snow'];
 export function getMapTheme(id: string | undefined): MapTheme {
   return mapThemes[id as MapId] ?? cityMap;

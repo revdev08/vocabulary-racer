@@ -108,6 +108,7 @@ export default function JourneyScreen() {
       {__DEV__ && !stress && <JourneyAction title="Probar montaña →" onPress={() => router.push({ pathname: '/race', params: { map: 'mountain' } })}/>}
       {__DEV__ && !stress && <JourneyAction title="Probar desierto →" onPress={() => router.push({ pathname: '/race', params: { map: 'desert' } })}/>}
       {__DEV__ && !stress && <JourneyAction title="Probar atardecer →" onPress={() => router.push({ pathname: '/race', params: { map: 'sunset' } })}/>}
+      {__DEV__ && !stress && <JourneyAction title="Probar nieve →" onPress={() => router.push({ pathname: '/race', params: { map: 'snow' } })}/>}
       {error && <Text accessibilityRole="alert" style={s.error}>No pudimos cargar el progreso. Abre de nuevo esta pantalla para reintentar.</Text>}
       {!progress && !error && <ActivityIndicator accessibilityLabel="Cargando tu viaje" color={c.green}/>}
       {stress && <View><Text style={s.error}>DESARROLLO · 1.000 niveles · no guarda progreso</Text><JourneyAction title="Probar salto al nivel 981" onPress={() => goToUnit(49)}/></View>}
