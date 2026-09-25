@@ -4,8 +4,9 @@ Primer mapa de `maps-remaining-prompt.md`, terminado el 24 de septiembre de 2026
 
 ## Abrir y jugar
 
-- Partida: `/race?level=descriptions`, nivel 9, «Describe tu mundo». La unidad 3, «Nuevos horizontes», usa montaña en los niveles 9–12. Las unidades posteriores siguen el ciclo existente.
-- Vista de revisión: `/map-preview?map=mountain&pose=traffic`. El botón «Animar tráfico de prueba» permite inspeccionar el avance; «Detener vista de prueba» lo detiene. Solo está disponible en desarrollo.
+- Prueba jugable directa en desarrollo: `/race?map=mountain`. Usa la partida normal del primer nivel con el escenario de montaña, sin exigir desbloquear el nivel 9. Se guarda el resultado del nivel jugado normalmente; el parámetro solo cambia el entorno y se ignora en producción.
+- Partida del catálogo: `/race?level=descriptions`, nivel 9, «Describe tu mundo», sujeto al desbloqueo normal. La unidad 3, «Nuevos horizontes», usa montaña en los niveles 9–12. Las unidades posteriores siguen el ciclo existente.
+- Vista de revisión: `/map-preview?map=mountain&pose=traffic`. El botón «Animar tráfico de prueba» permite inspeccionar el avance; «Detener vista de prueba» lo detiene. «Jugar este mapa» abre la partida controlable. Solo está disponible en desarrollo.
 - Capturas sin ese botón: añadir `&clean=1`; poses `traffic`, `question` y `right`.
 
 ## Arte y registro

@@ -90,8 +90,29 @@ export const mountainMap: MapTheme = {
   colors: { sky: '#609ECA', asphalt: [.223, .267, .316], fog: [.50, .59, .67] },
 };
 
+const desertGround: MapSide['ground'] = {
+  material: 'sand', color: [.52, .45, .35], tint: [1, 1, 1], tile: [.3, .3], joints: false, curb: [.57, .51, .42], grain: .14,
+};
+const desertSide: MapSide = {
+  wall: 2.75, height: 14, heightVariation: 2, moduleLength: 4.7, atlasVariant: -1,
+  wallTint: [.91, .94, .99], ground: desertGround, sky: true,
+};
+export const desertMap: MapTheme = {
+  ...cityMap, id: 'desert',
+  assets: { backdrop: 'assets/game/maps/desert/backdrop.png', walls: 'assets/game/maps/desert/walls.png', roadside: 'assets/game/maps/desert/roadside.png' },
+  // Measured from 17 pairs of road-edge samples, y800..1200 (max residual 1.04 px).
+  background: { vanishingPoint: { x: 513.277710 / 1024, y: 742.714209 / 1536 }, curbSlope: .999460784, widthScale: 1.22,
+    curbLaneOffset: 1.54, atmosphereOpacity: .018, roadHazeOpacity: .08, atmosphereColor: '#B1ADA5' },
+  left: desertSide,
+  right: { ...desertSide, wallTint: [.97, .95, .91] },
+  // Three pairs of alternating walls; 12 cactus spacings; integer sand/grain periods.
+  texturePeriod: 28.2,
+  roadside: { ...cityMap.roadside, height: 1.65, spacing: 2.35, rightOffset: 1.175, countPerSide: 12, anchorY: 1492 / 1536 },
+  colors: { sky: '#3485D0', asphalt: [.238, .265, .299], fog: [.57, .59, .63] },
+};
+
 /** Only completed maps are registered. Future unit themes fall back explicitly to city. */
-export const mapThemes: Partial<Record<MapId, MapTheme>> = { city: cityMap, coast: coastMap, mountain: mountainMap };
+export const mapThemes: Partial<Record<MapId, MapTheme>> = { city: cityMap, coast: coastMap, mountain: mountainMap, desert: desertMap };
 export const journeyMapCycle: readonly MapId[] = ['coast', 'city', 'mountain', 'desert', 'sunset', 'snow'];
 export function getMapTheme(id: string | undefined): MapTheme {
   return mapThemes[id as MapId] ?? cityMap;

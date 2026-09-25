@@ -1,4 +1,4 @@
-import { useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { useCallback, useMemo, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useFrameCallback, useSharedValue } from 'react-native-reanimated';
@@ -67,11 +67,17 @@ function PreviewFrame({ pose, clean, mapId }: { pose: string; clean: boolean; ma
       {ready && <><GameHud layout={layout} simulation={simulation} /><WordCard layout={layout} simulation={simulation} />
         <AnswerPortals layout={layout} simulation={simulation} /></>}
     </>}
-    {!clean && <Pressable style={styles.control} onPress={() => setLive(value => !value)} accessibilityRole="button">
+    {!clean && <View style={styles.controls}><Pressable style={styles.control} onPress={() => setLive(value => !value)} accessibilityRole="button">
       <Text style={styles.label}>{live ? 'Detener vista de prueba' : 'Animar tráfico de prueba'}</Text>
-    </Pressable>}
+    </Pressable><Pressable style={[styles.control, styles.play]} accessibilityRole="button"
+      onPress={() => router.push({ pathname: '/race', params: { map: getMapTheme(mapId).id } })}>
+      <Text style={styles.playLabel}>Jugar este mapa</Text>
+    </Pressable></View>}
   </View>;
 }
 const styles = StyleSheet.create({ root: { flex: 1, overflow: 'hidden' },
-  control: { position: 'absolute', bottom: 8, alignSelf: 'center', backgroundColor: '#142D49', padding: 8, borderRadius: 8 },
+  controls: { position: 'absolute', bottom: 16, alignSelf: 'center', gap: 8 },
+  control: { backgroundColor: '#142D49', padding: 12, borderRadius: 12, minHeight: 44, justifyContent: 'center', alignItems: 'center' },
+  play: { backgroundColor: '#087E60' },
+  playLabel: { color: 'white', fontSize: 18, fontWeight: '800' },
   label: { color: 'white', fontSize: 12 } });

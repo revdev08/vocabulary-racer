@@ -5,6 +5,7 @@ import { useMemo, useState } from 'react';
 import { PixelRatio, StyleSheet, View, type LayoutChangeEvent } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { palette, scene } from './config/visual';
+import { getMapTheme, type MapTheme } from './config/maps';
 import { createSceneLayout } from './geometry/perspective';
 import { levels } from './data/vocabulary';
 import { GameWorld } from './world/GameWorld';
@@ -21,10 +22,12 @@ import { AnswerFeedback } from './ui/AnswerFeedback';
 import { PauseMenu } from './ui/PauseMenu';
 import { Countdown } from './ui/Countdown';
 export default function GameScreen() {
-  const params = useLocalSearchParams<{ level?: string; mode?: string }>();
-  return <RaceSession key={`${params.level ?? 'essentials'}:${params.mode ?? 'level'}`} level={params.level} review={params.mode === 'review'} />;
+  const params = useLocalSearchParams<{ level?: string; mode?: string; map?: string }>();
+  // Development scenery testing keeps the normal race and level-unlock rules.
+  const map = __DEV__ && params.map ? getMapTheme(params.map) : undefined;
+  return <RaceSession key={`${params.level ?? 'essentials'}:${params.mode ?? 'level'}:${map?.id ?? 'auto'}`} level={params.level} review={params.mode === 'review'} map={map} />;
 }
-function RaceSession({ level, review }: { level?: string; review: boolean }) {
+function RaceSession({ level, review, map }: { level?: string; review: boolean; map?: MapTheme }) {
   const insets = useSafeAreaInsets();
   const simulation = useDrivingSimulation(level, review);
   const [size, setSize] = useState({ width: 0, height: 0 });
@@ -40,7 +43,7 @@ function RaceSession({ level, review }: { level?: string; review: boolean }) {
   return <View style={styles.root}>
     <View testID="game-screen" style={styles.viewport} onLayout={onLayout}>
       {size.width > 0 && size.height > 0 && <>
-        <GameWorld levelId={simulation.view.levelId} review={review} layout={layout} simulation={simulation.world} eyebrow={eyebrow} title={title} />
+        <GameWorld map={map} levelId={simulation.view.levelId} review={review} layout={layout} simulation={simulation.world} eyebrow={eyebrow} title={title} />
         {ready && <>
           <DrivingControls layout={layout} simulation={simulation} />
           <GameHud layout={layout} simulation={simulation} />
