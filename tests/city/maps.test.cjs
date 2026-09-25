@@ -150,6 +150,70 @@ test('every registered map keeps its near scenery moving: nothing next to the ro
   }
 });
 
+test('atmosphere, wall light, road edges and row crops stay within readable, valid ranges', () => {
+  for(const theme of Object.values(mapThemes)) {
+    const a=theme.atmosphere;
+    assert.ok(a.amount>=0 && a.amount<=.5 && a.start>=0 && a.start<a.end, `${theme.id} atmosphere`);
+    for(const channel of [...theme.light.top,...theme.light.base]) assert.ok(channel>=.6 && channel<=1.25, `${theme.id} light`);
+    if(theme.roadEdge) {
+      assert.ok(theme.roadEdge.amount>0 && theme.roadEdge.amount<=1 && theme.roadEdge.width>0 && theme.roadEdge.width<=.4, `${theme.id} edge`);
+    }
+    for(const side of [theme.left,theme.right]) if(side.rows) {
+      assert.ok(side.rows.top>0 && side.rows.bottom>0 && side.rows.top+side.rows.bottom<=1, `${theme.id} rows`);
+      // Undistorted texels: kept rows of a 512×1536 half span ≈ 3 × module in height.
+      assert.ok(Math.abs(side.height/(3*side.moduleLength*(side.rows.top+side.rows.bottom))-1)<.05, `${theme.id} row proportions`);
+    }
+  }
+  assert.equal(mapThemes.snow.weather,'snow');
+  for(const id of ['city','coast','mountain','desert','sunset']) assert.equal(mapThemes[id].weather,undefined);
+});
+
+test('snowfall streams with the car, falls over time and stays on screen', () => {
+  const { snowflakes, SNOW_FLAKES } = require('../../.qa/geometry/geometry/weather.js');
+  for(const [w,h] of [[320,568],[390,844]]) {
+    const {camera}=createSceneLayout(w,h,{top:59,bottom:34,left:0,right:0});
+    const a=snowflakes(camera,w,h,10,30), b=snowflakes(camera,w,h,10.2,30.6);
+    assert.ok(a.length>=SNOW_FLAKES*.6, `${w}x${h}: ${a.length} flakes visible`);
+    // The first version put almost every flake at the horizon at 0.7 px: invisible on a phone.
+    assert.ok(a.filter(f=>f.near).length>=SNOW_FLAKES*.2,'enough flakes close enough to read');
+    assert.ok(a.some(f=>f.y<h*.3) && a.some(f=>f.y>h*.7),'flakes fill the screen from top to bottom');
+    for(const f of [...a,...b]) assert.ok(f.x>=-6 && f.x<=w+6 && f.y>=-6 && f.y<=h+6 && f.r>=.9 && f.r<=5);
+    assert.ok(a.some(f=>f.near) && a.some(f=>!f.near));
+    assert.notDeepEqual(a,b);
+    assert.deepEqual(snowflakes(camera,w,h,10,30),a,'deterministic for a given time and distance');
+  }
+});
+
+test('every sky wall keeps its lowest crest above the camera, so open sky never meets the horizon', async () => {
+  // Regression: 3.4-high snow chalets sat below the camera (≈3.8 lane units on tall phones); their
+  // roofline and roof gaps fell under the horizon and the fixed plate showed through as a cut.
+  const rq=require('node:module').createRequire(require.resolve('@shopify/react-native-skia/package.json'));
+  const CK=await rq('canvaskit-wasm')({locateFile:f=>path.join(path.dirname(rq.resolve('canvaskit-wasm')),f)});
+  let cameraHeight=0;
+  for(const [w,h] of [[320,568],[375,667],[390,844],[430,932],[540,911]]) for(const top of [0,59]) {
+    const {camera}=createSceneLayout(w,h,{top,bottom:top?34:0,left:0,right:0});
+    cameraHeight=Math.max(cameraHeight,camera.groundHeight/camera.nearLaneWidth);
+  }
+  const gaps=new Map();
+  const deepestGap=(file,column)=>{
+    const key=`${file}:${column}`;
+    if(gaps.has(key)) return gaps.get(key);
+    const im=CK.MakeImageFromEncoded(fs.readFileSync(path.join(root,file)));
+    const w=im.width(),h=im.height();
+    const px=im.readPixels(0,0,{width:w,height:h,colorType:CK.ColorType.RGBA_8888,alphaType:CK.AlphaType.Unpremul,colorSpace:CK.ColorSpace.SRGB});
+    im.delete();
+    let deepest=0;
+    for(let x=column*w/2;x<(column+1)*w/2;x+=2) { let y=0; while(y<h && px[(y*w+x)*4+3]<128) y++; deepest=Math.max(deepest,y/h); }
+    gaps.set(key,deepest); return deepest;
+  };
+  for(const theme of Object.values(mapThemes)) for(const side of [theme.left,theme.right]) if(side.sky) {
+    const gap=Math.max(...(side.atlasVariant<0?[0,1]:[side.atlasVariant]).map(c=>deepestGap(theme.assets.walls,c)));
+    const kept=side.rows?side.rows.top+side.rows.bottom:1;
+    const lowest=side.height*(1-gap/kept);
+    assert.ok(lowest>cameraHeight*1.05, `${theme.id}: lowest crest ${lowest.toFixed(2)} vs camera ${cameraHeight.toFixed(2)}`);
+  }
+});
+
 test('coast sprite has genuine transparent margins and the measured ground anchor', async () => {
   const rq=require('node:module').createRequire(require.resolve('@shopify/react-native-skia/package.json'));
   const CK=await rq('canvaskit-wasm')({locateFile:f=>path.join(path.dirname(rq.resolve('canvaskit-wasm')),f)});

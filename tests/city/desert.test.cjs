@@ -44,7 +44,8 @@ test('desert registration, alternating wall periods and cactus anchors share the
     assert.equal(side.sky,true);assert.equal(side.atlasVariant,-1);assert.equal(side.ground.joints,false);
     assert.ok(Math.abs(side.height/(side.moduleLength*3)-1)<.01);
     assert.ok((side.height+side.heightVariation)/(side.moduleLength*3)<1.14,'intentional tall variant stays within 14%');
-    close(map.texturePeriod/(side.moduleLength*2),3);
+    // A whole number of alternating wall pairs per texture period keeps the travel wrap seamless.
+    const pairs=map.texturePeriod/(side.moduleLength*2); close(pairs,Math.round(pairs));
     close(map.texturePeriod/side.ground.tile[1],94);
   }
   for(const [w,h] of [[320,568],[390,844],[430,932]]) {

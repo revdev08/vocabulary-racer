@@ -38,7 +38,8 @@ test('snow silhouettes expose distant sky while lower scenery remains solid and 
 });
 
 test('snow registration, undistorted modules, recycling and tree anchors share the world projection', () => {
-  for(const side of [map.left,map.right]){close(side.height/side.moduleLength,3);assert.ok(side.sky);assert.equal(side.ground.joints,false);}
+  // A row crop keeps only part of the atlas height; proportions count the kept rows.
+  for(const side of [map.left,map.right]){close(side.height/(side.moduleLength*(side.rows?side.rows.top+side.rows.bottom:1)),3);assert.ok(side.sky);assert.equal(side.ground.joints,false);}
   close(map.background.curbSlope,measured.registration.meanCurbSlope);
   assert.ok(measured.registration.left.maxResidual<6.3);assert.ok(measured.registration.right.maxResidual<6.3);
   for(const [w,h] of [[320,568],[390,844],[430,932]]) {

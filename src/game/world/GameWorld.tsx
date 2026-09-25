@@ -16,6 +16,7 @@ import { RoadsideTrees } from './RoadsideTrees';
 import { TrafficObjects, type TrafficImages } from './TrafficObjects';
 import { RewardEffects } from './RewardEffects';
 import { NitroEffect } from './NitroEffect';
+import { Weather } from './Weather';
 import type { WorldSimulation } from '../motion/useDrivingSimulation';
 import { useDerivedValue } from 'react-native-reanimated';
 import { projectEntities } from '../geometry/worldEntities';
@@ -83,6 +84,7 @@ export const GameWorld = memo(function GameWorld({ layout, simulation, eyebrow, 
         lateral={simulation.lateral} turn={simulation.playerTurn} game={simulation.game} reducedMotion={simulation.reducedMotion} />
       <TrafficObjects entities={entities} traffic={trafficImages} barrier={barrier} front />
       <RewardEffects layout={layout} simulation={simulation} />
+      <Weather layout={layout} simulation={simulation} theme={theme} />
     </Group>
     <Rect x={0} y={height - 80} width={width} height={80}>
       <LinearGradient start={vec(0, height - 80)} end={vec(0, height)} colors={['#132C4500', '#132C4529']} />

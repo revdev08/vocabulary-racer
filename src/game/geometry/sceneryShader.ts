@@ -34,6 +34,12 @@ export function sceneryUniforms(camera: Camera, theme: MapTheme, plate: Rect, wa
     solidUntil: theme.solidUntil, fadeEnd: theme.fadeEnd,
     treeSpacing: roadside.spacing, treeLateral: roadside.lateral,
     treeNear: roadside.near, rightOffset: roadside.rightOffset,
+    fogColor: [...theme.colors.fog], aerial: [theme.atmosphere.amount, theme.atmosphere.start, theme.atmosphere.end],
+    lightTop: [...theme.light.top], lightBase: [...theme.light.base],
+    // 2 = sand ripples, 3 = snow drifts and sparkle; other materials keep tiles/grain only.
+    groundKind: [left.ground.material === 'sand' ? 2 : left.ground.material === 'snow' ? 3 : 0,
+      right.ground.material === 'sand' ? 2 : right.ground.material === 'snow' ? 3 : 0],
+    rowsCrop: [left.rows?.top ?? 1, left.rows?.bottom ?? 0, right.rows?.top ?? 1, right.rows?.bottom ?? 0],
   };
 }
 
@@ -77,8 +83,18 @@ export const SCENERY_SURFACES_SKSL = `
   uniform float treeLateral;
   uniform float treeNear;
   uniform float rightOffset;
+  uniform float3 fogColor;
+  uniform float3 aerial;
+  uniform float3 lightTop;
+  uniform float3 lightBase;
+  uniform float2 groundKind;
+  uniform float4 rowsCrop;
 
   float visibility(float depth) { return 1.0 - smoothstep(solidUntil, fadeEnd, depth); }
+  // Aerial perspective: distance lifts contrast toward the haze before the plate takes over.
+  half3 atmosphere(half3 color, float depth) {
+    return mix(color, half3(fogColor), aerial.x * smoothstep(aerial.y, aerial.z, depth));
+  }
 
   float gravelHash(float2 cell, float period) {
     cell.y = mod(cell.y, period);
@@ -122,8 +138,13 @@ export const SCENERY_SURFACES_SKSL = `
       if (side < 0.0) u = 1.0 - u;
       float reflectModule = (side < 0.0 ? mirrorModules.x : mirrorModules.y) > 0.5 ? mod(block, 2.0) : 0.0;
       if (reflectModule > 0.5) u = 1.0 - u;
+      // Optional row crop: keep the atlas's top and bottom bands and skip repeated middle floors.
+      float2 crop = side < 0.0 ? rowsCrop.xy : rowsCrop.zw;
+      float kept = crop.x + crop.y;
+      float rowT = clamp(1.0 - elevation / buildingHeight, 0.0, 1.0) * kept;
+      float rowV = rowT < crop.x ? rowT : rowT + (1.0 - kept);
       float2 uv = float2((variant + clamp(u, 0.002, 0.998)) * 0.5 * imageSize.x,
-                        clamp(1.0 - elevation / buildingHeight, 0.001, 0.999) * imageSize.y);
+                        clamp(rowV, 0.001, 0.999) * imageSize.y);
       half4 texel = facadeSample(uv, variant);
       // Transparent crests expose distant sky, never a rectangular wall backdrop.
       // Existing opaque atlases take the same shading path as before.
@@ -135,8 +156,8 @@ export const SCENERY_SURFACES_SKSL = `
           // as they approach. Four taps only in the small, minified distant region.
           float dzdx = -z / dx;
           float2 footprintX = float2((side < 0.0 ? -1.0 : 1.0) * (reflectModule > 0.5 ? -1.0 : 1.0) * dzdx * imageSize.x / (2.0 * facadeLength),
-                                     (xy.y - horizon) * dzdx * imageSize.y / (laneWidth * buildingHeight)) * 0.3;
-          float2 footprintY = float2(0.0, z * imageSize.y / (laneWidth * buildingHeight)) * 0.3;
+                                     (xy.y - horizon) * dzdx * imageSize.y * kept / (laneWidth * buildingHeight)) * 0.3;
+          float2 footprintY = float2(0.0, z * imageSize.y * kept / (laneWidth * buildingHeight)) * 0.3;
           half4 filteredTexel = (facadeSample(uv + footprintX + footprintY, variant)
                          + facadeSample(uv + footprintX - footprintY, variant)
                          + facadeSample(uv - footprintX + footprintY, variant)
@@ -150,6 +171,9 @@ export const SCENERY_SURFACES_SKSL = `
         color *= side < 0.0 ? half3(leftWallTint) : half3(rightWallTint);
         float join = 1.0 - smoothstep(0.0, 0.012, min(u, 1.0 - u));
         color *= 1.0 - join * 0.22;
+        // Sunlit top, shaded base: flat vertical planes read as volumes.
+        color *= mix(half3(lightBase), half3(lightTop), smoothstep(0.0, buildingHeight, elevation));
+        color = atmosphere(color, z);
         float alpha = visibility(z);
         return half4(color * alpha, alpha);
       }
@@ -158,8 +182,10 @@ export const SCENERY_SURFACES_SKSL = `
     // Low rooflines expose the plate above them, and its houses cannot move with the road.
     // Above the roofline at ANY depth show sky: the plate's open side, mirrored, stays correct while
     // static. Only the thin band below the extended roofline near the vanishing point keeps the plate.
+    // Also below the horizon: a roofline lower than the camera would otherwise switch from the
+    // mirrored plate to the raw plate exactly at the horizon, drawing a visible cut.
     if ((side < 0.0 ? skyAbove.x : skyAbove.y) > 0.5 && buildingHeight > 0.0 && (elevation > buildingHeight || openCrest)
-        && xy.y < horizon && z > 0.0) {
+        && z > 0.0) {
       float2 uv = (float2(2.0 * centerX - xy.x, xy.y) - backdropRect.xy) / backdropRect.zw * backdropSize;
       return half4(backdrop.eval(clamp(uv, float2(0.5), backdropSize - 0.5)).rgb, 1.0);
     }
@@ -214,14 +240,28 @@ export const SCENERY_SURFACES_SKSL = `
       pavement *= 1.0 - (1.0 - smoothstep(0.004, 0.004 + aaZ, edgeZ)) * 0.20 * tiling.z;
     }
     float grainAmount = side < 0.0 ? groundGrain.x : groundGrain.y;
+    float footprint = max(aaX, aaZ);
     if (grainAmount > 0.0) {
       // Gravel and stone curbs share world-space texture. Fade frequencies once
       // smaller than a pixel; no fixed plate detail or per-frame blur is involved.
-      float footprint = max(aaX, aaZ);
       float grain = (gravelNoise(float2(x, worldZ), 0.1) - 0.5) * (1.0 - smoothstep(0.05, 0.14, footprint));
       grain += (gravelNoise(float2(x, worldZ), 0.025) - 0.5) * 0.45 * (1.0 - smoothstep(0.012, 0.04, footprint));
       pavement += grain * grainAmount;
     }
+    float kind = side < 0.0 ? groundKind.x : groundKind.y;
+    if (kind > 1.5 && kind < 2.5) {
+      // Wind ripples: a whole number of crests per texture period, so the travel wrap is invisible.
+      float k = 6.2832 * floor(texturePeriod / 0.42 + 0.5) / texturePeriod;
+      float ripple = sin(worldZ * k + (gravelNoise(float2(x, worldZ), 0.6) - 0.5) * 5.0 + x * 1.7);
+      pavement *= 1.0 + ripple * 0.07 * (1.0 - smoothstep(0.03, 0.10, footprint));
+    } else if (kind > 2.5) {
+      // Soft drifts plus sparse glints that only appear close to the camera.
+      pavement *= 1.0 + (gravelNoise(float2(x, worldZ), 0.9) - 0.5) * 0.12;
+      // Signed lateral offset: the two verges must not mirror each other's glints.
+      float glint = gravelHash(floor(float2(x + (side < 0.0 ? 37.0 : 0.0), worldZ) / 0.02), floor(texturePeriod / 0.02 + 0.5));
+      pavement += half3(0.95, 0.97, 1.0) * step(0.996, glint) * 0.3 * (1.0 - smoothstep(0.006, 0.014, footprint));
+    }
+    pavement = atmosphere(pavement, z);
     float alpha = visibility(z);
     return half4(pavement * alpha, alpha);
   }

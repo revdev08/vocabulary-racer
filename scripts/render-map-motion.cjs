@@ -12,18 +12,11 @@ const root = path.dirname(require.resolve('../package.json'));
 const qa = p => require(path.join(root, '.qa/geometry', p));
 const { mapThemes } = qa('config/maps.js');
 const { driving } = qa('config/driving.js');
-const { createSceneLayout, GROUND_PROJECTION_SKSL, groundQuad, unproject } = qa('geometry/perspective.js');
+const { createSceneLayout, groundQuad, unproject } = qa('geometry/perspective.js');
 const { backdropPlacement } = qa('geometry/backdrop.js');
 const { SCENERY_SURFACES_SKSL, sceneryUniforms } = qa('geometry/sceneryShader.js');
-const { positiveModulo } = qa('motion/simulation.js');
+const { ROAD_SKSL, roadHalfWidth, roadUniforms } = qa('geometry/roadShader.js');
 const skiaRequire = require('node:module').createRequire(require.resolve('@shopify/react-native-skia/package.json', { paths: [root] }));
-
-// The road shader still lives in its component; read it from source.
-function roadSksl() {
-  const src = fs.readFileSync(path.join(root, 'src/game/world/Road.tsx'), 'utf8');
-  const start = src.indexOf('RuntimeEffect.Make(`') + 'RuntimeEffect.Make(`'.length;
-  return src.slice(start, src.indexOf('`);', start)).replace('${GROUND_PROJECTION_SKSL}', GROUND_PROJECTION_SKSL);
-}
 
 async function renderMotion(mapId, outDir, width = 390, height = 844, distances = [3, 3.55]) {
   const theme = mapThemes[mapId];
@@ -45,7 +38,7 @@ async function renderMotion(mapId, outDir, width = 390, height = 844, distances 
     return floats;
   };
   const tile = (img, mode = CK.TileMode.Clamp) => img.makeShaderOptions(mode, mode, CK.FilterMode.Linear, CK.MipmapMode.None);
-  const surfaces = CK.RuntimeEffect.Make(SCENERY_SURFACES_SKSL), road = CK.RuntimeEffect.Make(roadSksl());
+  const surfaces = CK.RuntimeEffect.Make(SCENERY_SURFACES_SKSL), road = CK.RuntimeEffect.Make(ROAD_SKSL);
   if (!surfaces || !road) throw new Error('A scenery shader failed to compile');
   const frame = distance => {
     const surface = CK.MakeSurface(width, height), canvas = surface.getCanvas();
@@ -57,13 +50,12 @@ async function renderMotion(mapId, outDir, width = 390, height = 844, distances 
       [walls.width(), walls.height()], [plateImage.width(), plateImage.height()], distance)), [tile(walls), tile(plateImage)]));
     canvas.drawRect(CK.XYWHRect(0, 0, width, height), s);
     const r = new CK.Paint();
-    r.setShader(road.makeShaderWithChildren(pack(road, {
-      centerX: camera.centerX, horizon: camera.horizonY, groundHeight: camera.groundHeight, laneWidth: camera.nearLaneWidth,
-      tileSize: asphalt.width(), hazeOpacity: theme.background.roadHazeOpacity, roadColor: [...theme.colors.asphalt], fogColor: [...theme.colors.fog],
-      textureTravel: positiveModulo(distance, 1 / driving.road.textureRepeatsPerUnit), textureRepeats: driving.road.textureRepeatsPerUnit,
-    }), [tile(asphalt, CK.TileMode.Repeat)]));
+    r.setShader(road.makeShaderWithChildren(pack(road, roadUniforms(camera, theme, asphalt.width(), distance)),
+      [tile(asphalt, CK.TileMode.Repeat)]));
     const b = new CK.PathBuilder();
-    b.addPolygon(groundQuad(camera, -1.5, 1.5, 120, driving.road.nearClip).map(p => [p.x, p.y]), true);
+    // CanvasKit wants a flat [x0, y0, x1, y1, ...] list; nested pairs silently yield an empty path.
+    const half = roadHalfWidth(theme);
+    b.addPolygon(groundQuad(camera, -half, half, 120, driving.road.nearClip).flatMap(p => [p.x, p.y]), true);
     canvas.drawPath(b.detach(), r);
     const image = surface.makeImageSnapshot();
     const pixels = image.readPixels(0, 0, { width, height, colorType: CK.ColorType.RGBA_8888, alphaType: CK.AlphaType.Unpremul, colorSpace: CK.ColorSpace.SRGB });

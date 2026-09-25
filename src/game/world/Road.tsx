@@ -3,36 +3,12 @@ import { useDerivedValue, type SharedValue } from 'react-native-reanimated';
 import { palette, scene } from '../config/visual';
 import type { MapTheme } from '../config/maps';
 import { driving } from '../config/driving';
-import { GROUND_PROJECTION_SKSL, groundQuad, polygonPath, type SceneLayout } from '../geometry/perspective';
-import { positiveModulo, roadSegment } from '../motion/simulation';
+import { groundQuad, polygonPath, type SceneLayout } from '../geometry/perspective';
+import { ROAD_SKSL, roadHalfWidth, roadUniforms } from '../geometry/roadShader';
+import { roadSegment } from '../motion/simulation';
 import { useMemo } from 'react';
 
-// The texture and projected segments share one distance travelled by the camera.
-const asphaltEffect = Skia.RuntimeEffect.Make(`
-  uniform shader asphalt;
-  ${GROUND_PROJECTION_SKSL}
-  uniform float3 roadColor;
-  uniform float3 fogColor;
-  uniform float tileSize;
-  uniform float hazeOpacity;
-  uniform float textureTravel;
-  uniform float textureRepeats;
-
-  half4 main(float2 xy) {
-    float t = max((xy.y - horizon) / groundHeight, 0.008);
-    float2 world = groundPosition(xy);
-    float worldX = world.x;
-    half3 texture = asphalt.eval(float2(worldX * tileSize * 0.7, (world.y + textureTravel) * tileSize * textureRepeats)).rgb;
-    half grain = dot(texture, half3(0.299, 0.587, 0.114));
-    half3 road = half3(roadColor) + (grain - 0.43) * 0.18;
-    float haze = pow(1.0 - min(t, 1.0), 7.0) * hazeOpacity;
-    road = mix(road, half3(fogColor), haze);
-    // Keep the distant plate's lighting and blend into our textured foreground.
-    // Feather the road edges instead of painting a hard triangle over the city.
-    float alpha = smoothstep(0.02, 0.48, t) * (1.0 - smoothstep(1.39, 1.51, abs(worldX)));
-    return half4(road * alpha, alpha);
-  }
-`);
+const asphaltEffect = Skia.RuntimeEffect.Make(ROAD_SKSL);
 
 if (!asphaltEffect) throw new Error('No se pudo preparar el shader de perspectiva del asfalto.');
 
@@ -42,7 +18,8 @@ export function Road({ layout, asphalt, distance, theme }: { layout: SceneLayout
   const quad = (left: number, right: number, far = 120, near = 1) =>
     polygonPath(groundQuad(camera, left, right, far, near));
   // Asphalt is one stationary plane; only its texture and the lane dashes travel.
-  const surface = useMemo(() => polygonPath(groundQuad(camera, -1.5, 1.5, 120, driving.road.nearClip)), [camera]);
+  const half = roadHalfWidth(theme);
+  const surface = useMemo(() => polygonPath(groundQuad(camera, -half, half, 120, driving.road.nearClip)), [camera, half]);
   const markings = useDerivedValue(() => {
     const markings = Skia.PathBuilder.Make().setIsVolatile(true);
     for (let index = 0; index < driving.road.segmentCount; index++) {
@@ -55,14 +32,7 @@ export function Road({ layout, asphalt, distance, theme }: { layout: SceneLayout
     }
     return markings.detach();
   }, [camera, distance]);
-  const uniforms = useDerivedValue(() => ({
-    centerX: camera.centerX, horizon: camera.horizonY,
-    groundHeight: camera.groundHeight, laneWidth: camera.nearLaneWidth,
-    tileSize, hazeOpacity: theme.background.roadHazeOpacity, roadColor: [...theme.colors.asphalt], fogColor: [...theme.colors.fog],
-    // Keep GPU float precision even after hours of driving.
-    textureTravel: positiveModulo(distance.value, 1 / driving.road.textureRepeatsPerUnit),
-    textureRepeats: driving.road.textureRepeatsPerUnit,
-  }), [camera, tileSize, distance, theme]);
+  const uniforms = useDerivedValue(() => roadUniforms(camera, theme, tileSize, distance.value), [camera, tileSize, distance, theme]);
 
   return <Group>
     <Path path={surface} color={palette.asphalt}>
