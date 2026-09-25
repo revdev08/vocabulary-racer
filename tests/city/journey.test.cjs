@@ -39,14 +39,15 @@ test('stress catalog has 1000 unique non-playable development entries and long t
 
 test('journey numbers remain sequential across units and source IDs retain saved progress', () => {
   const entries = journeyUnits.flatMap(unit => unit.data);
-  assert.deepEqual(entries.map(level => level.number), Array.from({ length: 12 }, (_, i) => i + 1));
+  assert.deepEqual(entries.map(level => level.number), Array.from({ length: levels.length }, (_, i) => i + 1));
   assert.deepEqual(entries.map(level => level.sourceId), levels.map(level => level.id));
 });
 
 test('extending the catalog creates units without changing existing keys or numbering', () => {
-  const extra = Array.from({ length: 989 }, (_, i) => ({ ...levels[0], id: `future-${i}`, title: `Future ${i}` }));
+  const extra = Array.from({ length: 1001 - levels.length }, (_, i) => ({ ...levels[0], id: `future-${i}`, title: `Future ${i}` }));
   const extended = buildJourneyUnits([...levels, ...extra]);
-  assert.deepEqual(extended.slice(0, 3), journeyUnits);
+  assert.deepEqual(extended.flatMap(unit => unit.data).slice(0, levels.length), journeyUnits.flatMap(unit => unit.data));
+  assert.deepEqual(extended.slice(0, journeyUnits.length).map(unit => unit.key), journeyUnits.map(unit => unit.key));
   assert.equal(extended.length, 251);
   assert.equal(extended.at(-1).data.length, 1);
   assert.equal(extended.at(-1).data[0].number, 1001);
@@ -55,8 +56,16 @@ test('extending the catalog creates units without changing existing keys or numb
 });
 
 test('catalog pagination stops at real content and rejects invalid cursors', () => {
-  assert.equal(readJourneyPage(2).nextCursor, null);
-  assert.deepEqual(readJourneyPage(3), { units: [], nextCursor: null });
+  assert.equal(readJourneyPage(journeyUnits.length - 1).nextCursor, null);
+  assert.deepEqual(readJourneyPage(journeyUnits.length), { units: [], nextCursor: null });
+  const pages = [];
+  let cursor = 0;
+  do {
+    const page = readJourneyPage(cursor);
+    pages.push(...page.units);
+    cursor = page.nextCursor;
+  } while (cursor !== null);
+  assert.deepEqual(pages, journeyUnits);
   assert.throws(() => readJourneyPage(-1), RangeError);
   assert.throws(() => readJourneyPage(0, 0), RangeError);
 });

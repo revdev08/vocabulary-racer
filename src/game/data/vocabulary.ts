@@ -4,16 +4,14 @@ import type { VocabularyEntry, VocabularyLevel } from './legacyVocabulary';
 export type { VocabularyEntry, VocabularyLevel } from './legacyVocabulary';
 
 const words: VocabularyEntry[] = [...legacyWords];
-const pairKey = (english: string, spanish: string) => `${english.toLocaleLowerCase()}\u0000${spanish.toLocaleLowerCase()}`;
-const byPair = new Map(words.map((word, index) => [pairKey(word.correct, word.spanish), index]));
+const byId = new Map(words.map((word, index) => [word.id, index]));
 const excelIndices = new Map<string, number>();
 for (const entry of excelCatalog.words) {
-  const key = pairKey(entry.correct, entry.spanish);
-  const existing = byPair.get(key);
+  const existing = byId.get(entry.runtimeId);
   const index = existing ?? words.length;
-  const word: VocabularyEntry = { id: existing === undefined ? entry.id : words[existing].id,
+  const word: VocabularyEntry = { id: entry.runtimeId,
     spanish: entry.spanish, correct: entry.correct, distractors: [entry.distractors[0], entry.distractors[1]] };
-  if (existing === undefined) { words.push(word); byPair.set(key, index); }
+  if (existing === undefined) { words.push(word); byId.set(word.id, index); }
   else words[index] = word;
   excelIndices.set(entry.id, index);
 }

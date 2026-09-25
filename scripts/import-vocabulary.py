@@ -4,10 +4,19 @@ import collections
 import hashlib
 import json
 import openpyxl
+import re
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'content/es-en/espanol-ingles.xlsx'
-book = openpyxl.load_workbook(SOURCE, read_only=True, data_only=True)
+book = openpyxl.load_workbook(SOURCE)
+sheet = book['Palabras']
+# IDs belong to the lexical item, not to its editable translation. Persist them
+# in the editorial source so sorting rows and fixing wording retain saved reviews.
+metadata_changed = False
+for column, title in ((7, 'ID de palabra'), (8, 'ID de progreso')):
+    if sheet.cell(1, column).value != title:
+        sheet.cell(1, column, title)
+        metadata_changed = True
 units = {}
 for row in list(book['Niveles'].values)[1:]:
     if row[0] is None:
@@ -17,28 +26,50 @@ for row in list(book['Niveles'].values)[1:]:
         raise ValueError(f'Duplicate level {number}')
     units[number] = {'id': number, 'title': str(row[1]).strip(), 'objective': str(row[2]).strip(), 'wordIds': []}
 
-entries, warnings, duplicates = {}, [], []
+review_path = SOURCE.parent / 'translation-review.json'
+review = json.loads(review_path.read_text(encoding='utf-8')) if review_path.exists() else {}
+reviewed_spellings = {(entry['english'].casefold(), entry['spanish'].casefold())
+                     for entry in review.get('reviewedIdenticalSpellings', [])}
+entries, warnings, duplicates, reviewed_same_spelling = {}, [], [], []
 for row_number, row in enumerate(list(book['Palabras'].values)[1:], 2):
     if not any(value is not None for value in row):
         continue
-    level, _, english, spanish, first, second = row
+    level, _, english, spanish, first, second = row[:6]
     if level not in units or any(not isinstance(v, str) or not v.strip() for v in (english, spanish, first, second)):
         raise ValueError(f'Invalid vocabulary at Palabras!{row_number}')
     english, spanish, first, second = (v.strip() for v in (english, spanish, first, second))
     if len({v.casefold() for v in (english, first, second)}) != 3:
         raise ValueError(f'Non-distinct choices at Palabras!{row_number}')
     identity = english.casefold() + '\0' + spanish.casefold()
-    word_id = 'es-en-' + hashlib.sha256(identity.encode()).hexdigest()[:20]
+    word_id = row[6] or 'es-en-' + hashlib.sha256(identity.encode()).hexdigest()[:20]
+    runtime_id = row[7] or word_id
+    if not isinstance(word_id, str) or not re.fullmatch(r'es-en-[0-9a-f]{20}', word_id):
+        raise ValueError(f'Invalid word ID at Palabras!G{row_number}')
+    if not isinstance(runtime_id, str) or not runtime_id.strip():
+        raise ValueError(f'Invalid progress ID at Palabras!H{row_number}')
+    if not row[6] or not row[7]:
+        sheet.cell(row_number, 7, word_id)
+        sheet.cell(row_number, 8, runtime_id)
+        metadata_changed = True
     if word_id not in entries:
-        entries[word_id] = {'id': word_id, 'spanish': spanish, 'correct': english, 'distractors': [first, second], 'sourceRows': [], 'alternativeDistractors': []}
+        entries[word_id] = {'id': word_id, 'runtimeId': runtime_id, 'spanish': spanish, 'correct': english, 'distractors': [first, second], 'sourceRows': [], 'alternativeDistractors': []}
     else:
+        previous = entries[word_id]
+        if (previous['correct'].casefold(), previous['spanish'].casefold(), previous['runtimeId']) != (english.casefold(), spanish.casefold(), runtime_id):
+            raise ValueError(f'Conflicting text or progress ID for {word_id} at row {row_number}; edit every duplicate together')
         duplicates.append({'row': row_number, 'firstRow': entries[word_id]['sourceRows'][0], 'english': english, 'spanish': spanish})
         entries[word_id]['alternativeDistractors'].append([first, second])
     entries[word_id]['sourceRows'].append(row_number)
     if word_id not in units[level]['wordIds']:
         units[level]['wordIds'].append(word_id)
     if english.casefold() == spanish.casefold():
-        warnings.append({'row': row_number, 'english': english, 'spanish': spanish, 'reason': 'Same spelling: may be a valid cognate or a missing translation; requires editorial review.'})
+        if (english.casefold(), spanish.casefold()) in reviewed_spellings:
+            reviewed_same_spelling.append(row_number)
+        else:
+            warnings.append({'row': row_number, 'english': english, 'spanish': spanish, 'reason': 'Same spelling: may be a valid cognate or a missing translation; requires editorial review.'})
+
+if len({entry['runtimeId'] for entry in entries.values()}) != len(entries):
+    raise ValueError('Different word IDs must not share the same progress ID')
 
 # Keep existing race membership stable when the workbook gains new rows.
 manifest_path = SOURCE.parent / 'race-manifest.json'
@@ -59,13 +90,18 @@ for number, unit in sorted(units.items()):
     manifest[str(number)] = races
 
 data = {'words': list(entries.values()), 'units': list(units.values())}
+if metadata_changed:
+    sheet.column_dimensions['G'].hidden = True
+    sheet.column_dimensions['H'].hidden = True
+    book.save(SOURCE)
 output = '// Generated by scripts/import-vocabulary.py. Edit the workbook, not this file.\n'
 output += 'export const excelCatalog = ' + json.dumps(data, ensure_ascii=False, separators=(',', ':')) + ';\n'
 (ROOT / 'src/game/data/excelCatalog.ts').write_text(output, encoding='utf-8')
 manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
 report = {'sourceRows': sum(len(word['sourceRows']) for word in entries.values()), 'uniquePairs': len(entries),
           'units': len(units), 'races': sum(len(unit['races']) for unit in units.values()),
-          'duplicates': duplicates, 'translationWarnings': warnings, 'sourceSha256': hashlib.sha256(SOURCE.read_bytes()).hexdigest()}
+          'duplicates': duplicates, 'translationWarnings': warnings, 'reviewedSameSpellingRows': reviewed_same_spelling,
+          'sourceSha256': hashlib.sha256(SOURCE.read_bytes()).hexdigest()}
 (SOURCE.parent / 'import-report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-print(json.dumps({key: value for key, value in report.items() if key not in ('duplicates', 'translationWarnings')}, indent=2))
+print(json.dumps({key: value for key, value in report.items() if key not in ('duplicates', 'translationWarnings', 'reviewedSameSpellingRows')}, indent=2))
 print(f'{len(duplicates)} duplicate pairs consolidated; {len(warnings)} translations flagged, preserved verbatim.')
