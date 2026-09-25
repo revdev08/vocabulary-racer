@@ -40,7 +40,7 @@ function RaceSession({ level, review }: { level?: string; review: boolean }) {
   return <View style={styles.root}>
     <View testID="game-screen" style={styles.viewport} onLayout={onLayout}>
       {size.width > 0 && size.height > 0 && <>
-        <GameWorld layout={layout} simulation={simulation.world} eyebrow={eyebrow} title={title} />
+        <GameWorld levelId={simulation.view.levelId} review={review} layout={layout} simulation={simulation.world} eyebrow={eyebrow} title={title} />
         {ready && <>
           <DrivingControls layout={layout} simulation={simulation} />
           <GameHud layout={layout} simulation={simulation} />

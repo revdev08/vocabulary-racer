@@ -1,0 +1,16 @@
+import { gameAssets } from '../config/assets';
+import type { MapTheme } from '../config/maps';
+
+// Metro requires literal paths. These are asset references, not decoded images.
+const sources: Record<string, number> = {
+  'assets/game/backgrounds/background_city_v3.png': gameAssets.city,
+  'assets/game/scenery/facades_city.png': gameAssets.facades,
+  'assets/game/scenery/tree_planter.png': gameAssets.tree,
+  'assets/game/maps/coast/backdrop.png': require('../../../assets/game/maps/coast/backdrop.png'),
+  'assets/game/maps/coast/walls.png': require('../../../assets/game/maps/coast/walls.png'),
+  'assets/game/maps/coast/roadside.png': require('../../../assets/game/maps/coast/roadside.png'),
+};
+export function mapImageSources(theme: MapTheme) {
+  return { backdrop: sources[theme.assets.backdrop], walls: sources[theme.assets.walls],
+    roadside: sources[theme.assets.roadside], asphalt: theme.assets.asphalt ? sources[theme.assets.asphalt] : gameAssets.asphalt };
+}

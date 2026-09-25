@@ -1,7 +1,8 @@
-import { levels, vocabulary, importedUnits } from './vocabulary';
+import { levels, vocabulary } from './vocabulary';
+import { journeyMapCycle, type MapId } from '../config/maps';
 import type { LevelRecords } from '../gameplay/curriculum';
 
-export type JourneyLevel = { id: string; sourceId: string; title: string; number: number; theme: 'coast' | 'city' | 'mountain'; development?: boolean };
+export type JourneyLevel = { id: string; sourceId: string; title: string; number: number; theme: MapId; development?: boolean };
 export type JourneyUnit = { key: string; title: string; number: number; data: JourneyLevel[] };
 export const vocabularyGroups = levels.map(level => ({ id: level.id, indices: level.indices }));
 const definitions = [
@@ -17,7 +18,7 @@ export function buildJourneyUnits(catalog = levels): JourneyUnit[] {
     return { key: unit?.key ?? `unit-${index + 1}`, title: unit?.title ?? `Destino ${index + 1}`, number: index + 1,
       data: catalog.slice(index * LEVELS_PER_UNIT, (index + 1) * LEVELS_PER_UNIT).map((level, i) => {
         if (level.indices.some(word => !vocabulary[word])) throw new Error(`Invalid journey vocabulary: ${level.id}`);
-        return { id: level.id, sourceId: level.id, title: level.title, number: index * LEVELS_PER_UNIT + i + 1, theme: unit?.theme ?? definitions[index % definitions.length].theme };
+        return { id: level.id, sourceId: level.id, title: level.title, number: index * LEVELS_PER_UNIT + i + 1, theme: unit?.theme ?? journeyMapCycle[index % journeyMapCycle.length] };
       }),
     };
   });

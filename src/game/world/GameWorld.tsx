@@ -1,7 +1,9 @@
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { Canvas, Group, LinearGradient, RadialGradient, Rect, useImage, vec } from '@shopify/react-native-skia';
-import { palette } from '../config/visual';
+import type { MapTheme } from '../config/maps';
+import { resolveMapTheme } from '../data/mapTheme';
+import { mapImageSources } from './mapImages';
 import { gameAssets } from '../config/assets';
 import { gameplay, rewardVisuals } from '../config/gameplay';
 import type { SceneLayout } from '../geometry/perspective';
@@ -19,18 +21,20 @@ import { useDerivedValue } from 'react-native-reanimated';
 import { projectEntities } from '../geometry/worldEntities';
 import { RaceLoading } from '../ui/RaceLoading';
 
-export const GameWorld = memo(function GameWorld({ layout, simulation, eyebrow, title }: {
-  layout: SceneLayout; simulation: WorldSimulation; eyebrow?: string; title?: string;
+export const GameWorld = memo(function GameWorld({ layout, simulation, eyebrow, title, levelId, review, map }: {
+  layout: SceneLayout; simulation: WorldSimulation; eyebrow?: string; title?: string; levelId?: string; review?: boolean; map?: MapTheme;
 }) {
+  const theme = map ?? resolveMapTheme(levelId, review);
+  const images = mapImageSources(theme);
   const [assetError, setAssetError] = useState(false);
   const onAssetError = useCallback(() => setAssetError(true), []);
-  const city = useImage(gameAssets.city, onAssetError);
+  const city = useImage(images.backdrop, onAssetError);
   const player = useImage(gameAssets.player, onAssetError);
   const playerLeft = useImage(gameAssets.playerLeft, onAssetError);
   const playerRight = useImage(gameAssets.playerRight, onAssetError);
-  const asphalt = useImage(gameAssets.asphalt, onAssetError);
-  const facades = useImage(gameAssets.facades, onAssetError);
-  const tree = useImage(gameAssets.tree, onAssetError);
+  const asphalt = useImage(images.asphalt, onAssetError);
+  const facades = useImage(images.walls, onAssetError);
+  const tree = useImage(images.roadside, onAssetError);
   const traffic = useImage(gameAssets.traffic, onAssetError);
   const trafficBlue = useImage(gameAssets.trafficBlue, onAssetError);
   const trafficWhite = useImage(gameAssets.trafficWhite, onAssetError);
@@ -66,12 +70,12 @@ export const GameWorld = memo(function GameWorld({ layout, simulation, eyebrow, 
 
   const { width, height } = layout;
   return <Canvas style={styles.canvas} accessible={false}>
-    <Rect x={0} y={0} width={width} height={height} color={palette.sky} />
+    <Rect x={0} y={0} width={width} height={height} color={theme.colors.sky} />
     <Group transform={camera} origin={vec(width / 2, height / 2)}>
-      <CityBackdrop layout={layout} image={city} />
-      <ScenerySurfaces layout={layout} image={facades} distance={simulation.distance} />
-      <Road layout={layout} asphalt={asphalt} distance={simulation.distance} />
-      <RoadsideTrees layout={layout} image={tree} distance={simulation.distance} />
+      <CityBackdrop theme={theme} layout={layout} image={city} />
+      <ScenerySurfaces theme={theme} layout={layout} image={facades} distance={simulation.distance} />
+      <Road theme={theme} layout={layout} asphalt={asphalt} distance={simulation.distance} />
+      <RoadsideTrees theme={theme} layout={layout} image={tree} distance={simulation.distance} />
       <TrafficObjects entities={entities} traffic={trafficImages} barrier={barrier} front={false} />
       <PortalFrames layout={layout} simulation={simulation} />
       <NitroEffect layout={layout} simulation={simulation} />
