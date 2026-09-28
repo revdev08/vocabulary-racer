@@ -14,7 +14,7 @@ Cada palabra tiene una asignación explícita. Los homógrafos se clasifican por
 
 `python scripts/import-vocabulary.py` importa el Excel y reconstruye la ruta temática. Para modificar únicamente la taxonomía, ejecutar `python scripts/build-topic-catalog.py`. Cualquier palabra nueva sin categoría detiene la generación y obliga a clasificarla.
 
-Los títulos de los boletos nombran objetivos reales de aprendizaje, por ejemplo «Familia, madre y padre». La cabecera muestra el subtema y la categoría. Una sección contiene como máximo cuatro carreras y nunca mezcla subtemas. Los subtemas extensos continúan en etapas identificadas. La paginación, el nivel actual y los números globales utilizan el mismo catálogo.
+Los títulos de los boletos nombran el tema completo, por ejemplo «Familia y parentesco · Parte 1». El número de parte distingue las carreras del mismo tema; no representa la cantidad de palabras. No se utilizan tres palabras de muestra como título. La cabecera muestra el subtema y la categoría. Una sección contiene como máximo cuatro carreras y nunca mezcla subtemas. Los subtemas extensos continúan en etapas identificadas. La paginación, el nivel actual y los números globales utilizan el mismo catálogo.
 
 ## Excel para revisar categorías
 

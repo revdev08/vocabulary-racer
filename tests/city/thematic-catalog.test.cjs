@@ -23,13 +23,19 @@ test('every source word belongs to exactly one explicit topic, with no general f
   }
 });
 
-test('lesson titles identify actual content and are distinct instead of numbered category clones', () => {
+test('lesson titles name the complete topic instead of listing sample words', () => {
   const titles = importedUnits.flatMap(unit => unit.levels.map(level => level.title.toLowerCase()));
   assert.equal(new Set(titles).size, titles.length);
   for (const title of titles) {
     assert.ok(title.length <= 52);
     assert.doesNotMatch(title, /vocabulario general| · \d+$/i);
   }
+  for (const topic of thematicCatalog.topics) {
+    topic.races.forEach((race, index) => {
+      assert.equal(race.title, topic.title + (topic.races.length > 1 ? ` · Parte ${index + 1}` : ''));
+    });
+  }
+  assert.equal(levels[12].title, 'Familia y parentesco · Parte 1');
   assert.equal(levels[12].topicId, 'familia-y-parentesco');
   assert.ok(levels[12].indices.every(i => ['family', 'mother', 'father', 'parent', 'son', 'daughter', 'brother', 'sister', 'child'].includes(vocabulary[i].correct)));
 });

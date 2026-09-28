@@ -1,0 +1,82 @@
+[
+  {
+    "file": "iphone/01-elige-tu-carril.png",
+    "width": 1320,
+    "height": 2868,
+    "channels": 3,
+    "title": "Nuevas palabras. Nuevos caminos.",
+    "source": "sources/iphone-review.png"
+  },
+  {
+    "file": "iphone/02-esquiva-obstaculos.png",
+    "width": 1320,
+    "height": 2868,
+    "channels": 3,
+    "title": "Esquiva obstáculos. Supera cada reto.",
+    "source": "sources/iphone-traffic-7.png"
+  },
+  {
+    "file": "iphone/03-niveles-por-temas.png",
+    "width": 1320,
+    "height": 2868,
+    "channels": 3,
+    "title": "Nivel a nivel. Palabra a palabra.",
+    "source": "sources/iphone-levels.png"
+  },
+  {
+    "file": "iphone/04-repeticion-espaciada.png",
+    "width": 1320,
+    "height": 2868,
+    "channels": 3,
+    "title": "Repasa hoy. Recuerda mañana.",
+    "source": "sources/iphone-results.png"
+  },
+  {
+    "file": "iphone/05-pronunciacion.png",
+    "width": 1320,
+    "height": 2868,
+    "channels": 3,
+    "title": "Mira. Escucha. Aprende.",
+    "source": "sources/iphone-audio.png"
+  },
+  {
+    "file": "ipad/01-elige-tu-carril.png",
+    "width": 2064,
+    "height": 2752,
+    "channels": 3,
+    "title": "Nuevas palabras. Nuevos caminos.",
+    "source": "sources/ipad-review.png"
+  },
+  {
+    "file": "ipad/02-esquiva-obstaculos.png",
+    "width": 2064,
+    "height": 2752,
+    "channels": 3,
+    "title": "Esquiva obstáculos. Supera cada reto.",
+    "source": "sources/ipad-traffic-7.png"
+  },
+  {
+    "file": "ipad/03-niveles-por-temas.png",
+    "width": 2064,
+    "height": 2752,
+    "channels": 3,
+    "title": "Nivel a nivel. Palabra a palabra.",
+    "source": "sources/ipad-levels.png"
+  },
+  {
+    "file": "ipad/04-repeticion-espaciada.png",
+    "width": 2064,
+    "height": 2752,
+    "channels": 3,
+    "title": "Repasa hoy. Recuerda mañana.",
+    "source": "sources/ipad-results.png"
+  },
+  {
+    "file": "ipad/05-pronunciacion.png",
+    "width": 2064,
+    "height": 2752,
+    "channels": 3,
+    "title": "Mira. Escucha. Aprende.",
+    "source": "sources/ipad-audio.png"
+  }
+]

@@ -13,7 +13,7 @@
         "es-en-b629ba456d248eceb5b1",
         "es-en-d473b81cf2d62a0fa8d6"
       ],
-      "title": "Familia, madre y padre"
+      "title": "Familia y parentesco · Parte 1"
     },
     {
       "id": "es-en-t-familia-y-parentesco-002",
@@ -28,7 +28,7 @@
         "es-en-02827a0fee0b971faf21",
         "es-en-654994e46dd7a433cb71"
       ],
-      "title": "Bebé, tía y tío"
+      "title": "Familia y parentesco · Parte 2"
     },
     {
       "id": "es-en-t-familia-y-parentesco-003",
@@ -43,7 +43,7 @@
         "es-en-afda20bc877276651a79",
         "es-en-d4cb6a71e40079e29090"
       ],
-      "title": "Marido, esposa y matrimonio"
+      "title": "Familia y parentesco · Parte 3"
     },
     {
       "id": "es-en-t-familia-y-parentesco-004",
@@ -57,7 +57,7 @@
         "es-en-20ddc163343cb2a60a91",
         "es-en-15906f896cdf69342c48"
       ],
-      "title": "Pariente, relación y pareja"
+      "title": "Familia y parentesco · Parte 4"
     },
     {
       "id": "es-en-t-familia-y-parentesco-005",
@@ -71,7 +71,7 @@
         "es-en-2990eb13fcb61113e17a",
         "es-en-0c831d0e204ac12819fc"
       ],
-      "title": "Mamá, nieto y nieta"
+      "title": "Familia y parentesco · Parte 5"
     }
   ],
   "etapas-de-la-vida": [
@@ -88,7 +88,7 @@
         "es-en-a9e043ab098e72718e51",
         "es-en-374acf68e8f529c9977c"
       ],
-      "title": "Persona, gente y hombre"
+      "title": "Etapas de la vida · Parte 1"
     },
     {
       "id": "es-en-t-etapas-de-la-vida-002",
@@ -103,7 +103,7 @@
         "es-en-72288dcab6e1f358a944",
         "es-en-95b41ca15a3ed657476b"
       ],
-      "title": "Anciano, viejo y edad"
+      "title": "Etapas de la vida · Parte 2"
     },
     {
       "id": "es-en-t-etapas-de-la-vida-003",
@@ -118,7 +118,7 @@
         "es-en-7c81afef71f5530c2df1",
         "es-en-f14b9bde30f48778b0e2"
       ],
-      "title": "Vivo, muerto y muerte"
+      "title": "Etapas de la vida · Parte 3"
     },
     {
       "id": "es-en-t-etapas-de-la-vida-004",
@@ -133,7 +133,7 @@
         "es-en-c8396ce6ced3d2cbb4d1",
         "es-en-258cdf524d23c24d1f32"
       ],
-      "title": "Jubilarse, jubilado y jubilación"
+      "title": "Etapas de la vida · Parte 4"
     }
   ],
   "identidad-y-comunidad": [
@@ -151,7 +151,7 @@
         "es-en-27d49ffdadcd1d3089e9",
         "es-en-9a56e82eca34a1dfb9bd"
       ],
-      "title": "Humano, individual y ciudadano"
+      "title": "Identidad y comunidad · Parte 1"
     },
     {
       "id": "es-en-t-identidad-y-comunidad-002",
@@ -167,7 +167,7 @@
         "es-en-ada060fcc47bd7bcb50f",
         "es-en-e8d3b3a0245b53ce3e5b"
       ],
-      "title": "Sexual, señor y señora"
+      "title": "Identidad y comunidad · Parte 2"
     },
     {
       "id": "es-en-t-identidad-y-comunidad-003",
@@ -183,7 +183,7 @@
         "es-en-ed944cd9069181612585",
         "es-en-7b1356ce1869310c660d"
       ],
-      "title": "Población, local y localmente"
+      "title": "Identidad y comunidad · Parte 3"
     },
     {
       "id": "es-en-t-identidad-y-comunidad-004",
@@ -199,7 +199,7 @@
         "es-en-878b1fa176be9915b470",
         "es-en-5b715cfe0175eb76989c"
       ],
-      "title": "Personal, personalmente y júnior"
+      "title": "Identidad y comunidad · Parte 4"
     }
   ],
   "amistad-y-convivencia": [
@@ -217,7 +217,7 @@
         "es-en-d63accb8260faabb6f13",
         "es-en-e10cdf6cc6e156196de7"
       ],
-      "title": "Amigo, amistad y amable"
+      "title": "Amistad y convivencia · Parte 1"
     },
     {
       "id": "es-en-t-amistad-y-convivencia-002",
@@ -233,7 +233,7 @@
         "es-en-a311781bb18e54b381f9",
         "es-en-deade497410f2f75b000"
       ],
-      "title": "Invitación, bienvenido y conocer"
+      "title": "Amistad y convivencia · Parte 2"
     },
     {
       "id": "es-en-t-amistad-y-convivencia-003",
@@ -249,7 +249,7 @@
         "es-en-a418cf0d6b31d3b08d14",
         "es-en-70cf8d68e62dcaaa8782"
       ],
-      "title": "Juntos, vivir juntos y solo"
+      "title": "Amistad y convivencia · Parte 3"
     },
     {
       "id": "es-en-t-amistad-y-convivencia-004",
@@ -264,7 +264,7 @@
         "es-en-588197a69b81edaeec88",
         "es-en-540775efe475a4c53d89"
       ],
-      "title": "Apoyar, seguidor y compartir"
+      "title": "Amistad y convivencia · Parte 4"
     },
     {
       "id": "es-en-t-amistad-y-convivencia-005",
@@ -279,7 +279,7 @@
         "es-en-eeb81db0f8e5b28269f9",
         "es-en-0aa231f5e781c2eb8afa"
       ],
-      "title": "Introducción, favor y perdonar"
+      "title": "Amistad y convivencia · Parte 5"
     }
   ],
   "conducta-y-valores": [
@@ -296,7 +296,7 @@
         "es-en-50779f8943c5bb03c8f7",
         "es-en-587608f6c4d6dd001f97"
       ],
-      "title": "Comportarse, comportamiento y actitud"
+      "title": "Conducta y valores · Parte 1"
     },
     {
       "id": "es-en-t-conducta-y-valores-002",
@@ -311,7 +311,7 @@
         "es-en-f97065a5aa0aa86078a2",
         "es-en-9936695fbf5bd7e0a28e"
       ],
-      "title": "Grosero, groseramente y honesto"
+      "title": "Conducta y valores · Parte 2"
     },
     {
       "id": "es-en-t-conducta-y-valores-003",
@@ -326,7 +326,7 @@
         "es-en-72d1afc51d09c756873b",
         "es-en-f383a8ab51141e34cdb7"
       ],
-      "title": "Justo, injusto y injustamente"
+      "title": "Conducta y valores · Parte 3"
     },
     {
       "id": "es-en-t-conducta-y-valores-004",
@@ -341,7 +341,7 @@
         "es-en-da586206b15a97eca879",
         "es-en-1f3ecb88b62cf2f77f05"
       ],
-      "title": "Valor, generoso y generosamente"
+      "title": "Conducta y valores · Parte 4"
     },
     {
       "id": "es-en-t-conducta-y-valores-005",
@@ -356,7 +356,7 @@
         "es-en-7fb53d01efa15edd566b",
         "es-en-62066ad4fb0bbcca0e3e"
       ],
-      "title": "Ambición, orgulloso y con orgullo"
+      "title": "Conducta y valores · Parte 5"
     },
     {
       "id": "es-en-t-conducta-y-valores-006",
@@ -371,7 +371,7 @@
         "es-en-bff9ee781a1d53b83baf",
         "es-en-9d5c307915e5faacc60f"
       ],
-      "title": "Responsable, responsabilidad y cuidadoso"
+      "title": "Conducta y valores · Parte 6"
     },
     {
       "id": "es-en-t-conducta-y-valores-007",
@@ -386,7 +386,7 @@
         "es-en-fe72e8099cee732d8a50",
         "es-en-542ffac6fcd572074154"
       ],
-      "title": "Calmarse, de mal carácter y conducta"
+      "title": "Conducta y valores · Parte 7"
     },
     {
       "id": "es-en-t-conducta-y-valores-008",
@@ -400,7 +400,7 @@
         "es-en-025d521a0af0d5d344a1",
         "es-en-7ddfb5a7f2005a8f57ba"
       ],
-      "title": "Manera, formal y formalmente"
+      "title": "Conducta y valores · Parte 8"
     }
   ],
   "partes-del-cuerpo": [
@@ -418,7 +418,7 @@
         "es-en-4be9b04281de5b0dae08",
         "es-en-2c24e8116100ddfb16d3"
       ],
-      "title": "Cuerpo, cabeza y cara"
+      "title": "Partes del cuerpo · Parte 1"
     },
     {
       "id": "es-en-t-partes-del-cuerpo-002",
@@ -434,7 +434,7 @@
         "es-en-74a5f630e011166413b5",
         "es-en-d55b73d6568a732d17ec"
       ],
-      "title": "Labio, barbilla y mejilla"
+      "title": "Partes del cuerpo · Parte 2"
     },
     {
       "id": "es-en-t-partes-del-cuerpo-003",
@@ -450,7 +450,7 @@
         "es-en-1426249f3092a35fee80",
         "es-en-cce8f62c7634f53fa6d2"
       ],
-      "title": "Dedo, pulgar y uña"
+      "title": "Partes del cuerpo · Parte 3"
     },
     {
       "id": "es-en-t-partes-del-cuerpo-004",
@@ -466,7 +466,7 @@
         "es-en-c71a6c314bf9bd5286c3",
         "es-en-a2d1a41846f37a84d79b"
       ],
-      "title": "Tobillo, pie y dedo del pie"
+      "title": "Partes del cuerpo · Parte 4"
     },
     {
       "id": "es-en-t-partes-del-cuerpo-005",
@@ -481,7 +481,7 @@
         "es-en-c8a91c781bef6482d0ce",
         "es-en-cf864c5c2cd95ae9d11e"
       ],
-      "title": "Nervio, órgano y carne"
+      "title": "Partes del cuerpo · Parte 5"
     }
   ],
   "sentidos-y-descanso": [
@@ -499,7 +499,7 @@
         "es-en-bac6927d3c3fe6bb41b3",
         "es-en-c9844d600435627c5876"
       ],
-      "title": "Ver, vista y mirar"
+      "title": "Sentidos y descanso · Parte 1"
     },
     {
       "id": "es-en-t-sentidos-y-descanso-002",
@@ -514,7 +514,7 @@
         "es-en-aefa03402872fe7dfd8b",
         "es-en-92094a5011b33aae27a4"
       ],
-      "title": "Tocar, sentir y sentimiento"
+      "title": "Sentidos y descanso · Parte 2"
     },
     {
       "id": "es-en-t-sentidos-y-descanso-003",
@@ -529,7 +529,7 @@
         "es-en-d8dcdb0ee8853ebdc1ad",
         "es-en-6628d58cb4168ade72e1"
       ],
-      "title": "Exhalar, respiración y tos"
+      "title": "Sentidos y descanso · Parte 3"
     },
     {
       "id": "es-en-t-sentidos-y-descanso-004",
@@ -544,7 +544,7 @@
         "es-en-09393c71064f0218231b",
         "es-en-67381c8b4eb7ba452886"
       ],
-      "title": "Sueño, descansar y relajarse"
+      "title": "Sentidos y descanso · Parte 4"
     },
     {
       "id": "es-en-t-sentidos-y-descanso-005",
@@ -559,7 +559,7 @@
         "es-en-0841947523e2e4cbb2a2",
         "es-en-642cde049a95f69d533a"
       ],
-      "title": "Tragar, mirar fijamente y acurrucarse"
+      "title": "Sentidos y descanso · Parte 5"
     }
   ],
   "enfermedades-y-sintomas": [
@@ -577,7 +577,7 @@
         "es-en-752173c1cb542f435a57",
         "es-en-db6cb2cf02c122218f0a"
       ],
-      "title": "Salud, saludable y enfermo"
+      "title": "Enfermedades y síntomas · Parte 1"
     },
     {
       "id": "es-en-t-enfermedades-y-sintomas-002",
@@ -592,7 +592,7 @@
         "es-en-b6a8614862b1364018d4",
         "es-en-18bbbde79cf81955afef"
       ],
-      "title": "Gripe, cáncer y virus"
+      "title": "Enfermedades y síntomas · Parte 2"
     },
     {
       "id": "es-en-t-enfermedades-y-sintomas-003",
@@ -607,7 +607,7 @@
         "es-en-e0c74c81416a4ded5f8e",
         "es-en-4f1aec663ff6f116f739"
       ],
-      "title": "Lesión, herida y herido"
+      "title": "Enfermedades y síntomas · Parte 3"
     },
     {
       "id": "es-en-t-enfermedades-y-sintomas-004",
@@ -622,7 +622,7 @@
         "es-en-9f0a38f2f29f7a45c206",
         "es-en-8df31503447baf184eea"
       ],
-      "title": "Físico, físicamente y mental"
+      "title": "Enfermedades y síntomas · Parte 4"
     },
     {
       "id": "es-en-t-enfermedades-y-sintomas-005",
@@ -637,7 +637,7 @@
         "es-en-9bcbf01efc0c78539f39",
         "es-en-11e2f0d95677f6f457a6"
       ],
-      "title": "Dolor de cabeza, infectado y daño"
+      "title": "Enfermedades y síntomas · Parte 5"
     }
   ],
   "cuidados-y-medicina": [
@@ -653,7 +653,7 @@
         "es-en-7348a1b00b932f7af9ef",
         "es-en-b33825931efa83ad2631"
       ],
-      "title": "Médico, enfermero/a y hospital"
+      "title": "Cuidados y medicina · Parte 1"
     },
     {
       "id": "es-en-t-cuidados-y-medicina-002",
@@ -667,7 +667,7 @@
         "es-en-1c2da0a1cb96e672370b",
         "es-en-163258ea2325a9dc7367"
       ],
-      "title": "Dentista, tratamiento y curar"
+      "title": "Cuidados y medicina · Parte 2"
     },
     {
       "id": "es-en-t-cuidados-y-medicina-003",
@@ -681,7 +681,7 @@
         "es-en-e23b46ea796b2ed488fc",
         "es-en-c091435a23b8ed151295"
       ],
-      "title": "Embarazada, emergencia y ambulancia"
+      "title": "Cuidados y medicina · Parte 3"
     }
   ],
   "habitaciones-y-vivienda": [
@@ -699,7 +699,7 @@
         "es-en-84caddff062972c2457c",
         "es-en-64a0d9f913a50fa57f94"
       ],
-      "title": "Casa, hogar y vivienda"
+      "title": "Habitaciones y vivienda · Parte 1"
     },
     {
       "id": "es-en-t-habitaciones-y-vivienda-002",
@@ -715,7 +715,7 @@
         "es-en-9c4d3b19d0f0efcaecb5",
         "es-en-45d53a1d9e9b6ed0951a"
       ],
-      "title": "Baño, cocina y sala"
+      "title": "Habitaciones y vivienda · Parte 2"
     },
     {
       "id": "es-en-t-habitaciones-y-vivienda-003",
@@ -730,7 +730,7 @@
         "es-en-224d3ff022d2ec452488",
         "es-en-fea948d4220014372836"
       ],
-      "title": "En el piso de arriba, en la planta de abajo y garaje"
+      "title": "Habitaciones y vivienda · Parte 3"
     },
     {
       "id": "es-en-t-habitaciones-y-vivienda-004",
@@ -745,7 +745,7 @@
         "es-en-b4896ba7482aa20ab8d0",
         "es-en-7cfbf65af0729aebb567"
       ],
-      "title": "Dentro, alquiler y alquilado"
+      "title": "Habitaciones y vivienda · Parte 4"
     }
   ],
   "muebles-y-objetos-domesticos": [
@@ -763,7 +763,7 @@
         "es-en-30a034fd0fc0e29878f2",
         "es-en-1030d6c7282c1935a610"
       ],
-      "title": "Muebles, mesa y silla"
+      "title": "Muebles y objetos domésticos · Parte 1"
     },
     {
       "id": "es-en-t-muebles-y-objetos-domesticos-002",
@@ -779,7 +779,7 @@
         "es-en-6b200a730c65960863ae",
         "es-en-9a3ad727e6eaf4fc2550"
       ],
-      "title": "Armario, cajón y lámpara"
+      "title": "Muebles y objetos domésticos · Parte 2"
     },
     {
       "id": "es-en-t-muebles-y-objetos-domesticos-003",
@@ -795,7 +795,7 @@
         "es-en-897e5acfdc7c6baae381",
         "es-en-c5f264ea69a45bdf67f4"
       ],
-      "title": "Baño, grifo y enchufe"
+      "title": "Muebles y objetos domésticos · Parte 3"
     },
     {
       "id": "es-en-t-muebles-y-objetos-domesticos-004",
@@ -810,7 +810,7 @@
         "es-en-8f2d72472d4c0b274f44",
         "es-en-40ad80d3eb7a029655dc"
       ],
-      "title": "Horno, cocina y refrigerador"
+      "title": "Muebles y objetos domésticos · Parte 4"
     }
   ],
   "limpieza-y-mantenimiento": [
@@ -828,7 +828,7 @@
         "es-en-890acbd520ae7a9be2cd",
         "es-en-d51c8df7c6b939acff51"
       ],
-      "title": "Limpiar, limpiar por completo y sucio"
+      "title": "Limpieza y mantenimiento · Parte 1"
     },
     {
       "id": "es-en-t-limpieza-y-mantenimiento-002",
@@ -844,7 +844,7 @@
         "es-en-7189fca1db4e5e0dc99d",
         "es-en-a5233249bec85d33a5ef"
       ],
-      "title": "Vaciar, lavar y lavado"
+      "title": "Limpieza y mantenimiento · Parte 2"
     },
     {
       "id": "es-en-t-limpieza-y-mantenimiento-003",
@@ -860,7 +860,7 @@
         "es-en-d0cf19c13b0c6ad03a4a",
         "es-en-03bd860d3e702849a787"
       ],
-      "title": "Barrer, pulir y reparar"
+      "title": "Limpieza y mantenimiento · Parte 3"
     },
     {
       "id": "es-en-t-limpieza-y-mantenimiento-004",
@@ -876,7 +876,7 @@
         "es-en-290db61262435b9a6d4a",
         "es-en-a3af4feae1efbdc73f0d"
       ],
-      "title": "Cerrar con llave, llave y cerrar"
+      "title": "Limpieza y mantenimiento · Parte 4"
     }
   ],
   "frutas-y-verduras": [
@@ -892,7 +892,7 @@
         "es-en-6a4726f8687ba2320dd1",
         "es-en-4869eb623d381971b80d"
       ],
-      "title": "Fruta, manzana y naranja"
+      "title": "Frutas y verduras · Parte 1"
     },
     {
       "id": "es-en-t-frutas-y-verduras-002",
@@ -905,7 +905,7 @@
         "es-en-3cc76bd5a4146f52048b",
         "es-en-5771b5bb5d897ebe1b6a"
       ],
-      "title": "Zanahoria, pimienta y ensalada"
+      "title": "Frutas y verduras · Parte 2"
     }
   ],
   "alimentos-y-bebidas": [
@@ -923,7 +923,7 @@
         "es-en-b977277aecc6a09dedb6",
         "es-en-7a48dcd2070a55585bef"
       ],
-      "title": "Comida, pan y mantequilla"
+      "title": "Alimentos y bebidas · Parte 1"
     },
     {
       "id": "es-en-t-alimentos-y-bebidas-002",
@@ -939,7 +939,7 @@
         "es-en-ffb1946936fe2270b53b",
         "es-en-be931516bf626b50ed13"
       ],
-      "title": "Arroz, harina y azúcar"
+      "title": "Alimentos y bebidas · Parte 2"
     },
     {
       "id": "es-en-t-alimentos-y-bebidas-003",
@@ -954,7 +954,7 @@
         "es-en-0faf10ffadf2518c33ab",
         "es-en-995a32bcbdaaf95e1c66"
       ],
-      "title": "Té, café y cerveza"
+      "title": "Alimentos y bebidas · Parte 3"
     },
     {
       "id": "es-en-t-alimentos-y-bebidas-004",
@@ -969,7 +969,7 @@
         "es-en-a50082b9d8f57e461136",
         "es-en-ae625bd810be4566daf2"
       ],
-      "title": "Dulce, galleta y pastel"
+      "title": "Alimentos y bebidas · Parte 4"
     }
   ],
   "preparar-y-cocinar": [
@@ -986,7 +986,7 @@
         "es-en-eb04dbafb683b0c49a7e",
         "es-en-8adfc79879846cff0868"
       ],
-      "title": "Cocinar, cocina y ingrediente"
+      "title": "Preparar y cocinar · Parte 1"
     },
     {
       "id": "es-en-t-preparar-y-cocinar-002",
@@ -1001,7 +1001,7 @@
         "es-en-fe586cb443a7f1f3a2fe",
         "es-en-7cea1a80c367d5f7d07d"
       ],
-      "title": "Cortar, cortar y separar y cortar en pedazos"
+      "title": "Preparar y cocinar · Parte 2"
     },
     {
       "id": "es-en-t-preparar-y-cocinar-003",
@@ -1016,7 +1016,7 @@
         "es-en-3434fdc5ff14bb1ce2b5",
         "es-en-2b37b556e377f23f9c38"
       ],
-      "title": "Verter, exprimir y extender"
+      "title": "Preparar y cocinar · Parte 3"
     },
     {
       "id": "es-en-t-preparar-y-cocinar-004",
@@ -1030,7 +1030,7 @@
         "es-en-f5eb1e01a7afb86e6d42",
         "es-en-a8232b223362cd143e7a"
       ],
-      "title": "Recién, especia y picante"
+      "title": "Preparar y cocinar · Parte 4"
     }
   ],
   "comer-fuera-y-en-casa": [
@@ -1048,7 +1048,7 @@
         "es-en-f8c69c77b0ab55402903",
         "es-en-eedfc29858e0c6a8cb06"
       ],
-      "title": "Desayuno, almuerzo y cena"
+      "title": "Comer fuera y en casa · Parte 1"
     },
     {
       "id": "es-en-t-comer-fuera-y-en-casa-002",
@@ -1063,7 +1063,7 @@
         "es-en-82c50303b67ffbbb6a93",
         "es-en-33358557949be9cbfec5"
       ],
-      "title": "Plato, cuenco y taza"
+      "title": "Comer fuera y en casa · Parte 2"
     },
     {
       "id": "es-en-t-comer-fuera-y-en-casa-003",
@@ -1078,7 +1078,7 @@
         "es-en-aabec08eb5b680f7eb10",
         "es-en-bed204d2933b58e95631"
       ],
-      "title": "Olla, botella y comer"
+      "title": "Comer fuera y en casa · Parte 3"
     }
   ],
   "prendas-y-accesorios": [
@@ -1094,7 +1094,7 @@
         "es-en-ce318887a4c01e2d8606",
         "es-en-c75ab75f2f6c0e25aa6c"
       ],
-      "title": "Ropa, tela y camisa"
+      "title": "Prendas y accesorios · Parte 1"
     },
     {
       "id": "es-en-t-prendas-y-accesorios-002",
@@ -1108,7 +1108,7 @@
         "es-en-7db3d97a85e7543b6fc1",
         "es-en-faa983ccbb5cf6a76e2d"
       ],
-      "title": "Vestido, traje y chaqueta"
+      "title": "Prendas y accesorios · Parte 2"
     },
     {
       "id": "es-en-t-prendas-y-accesorios-003",
@@ -1122,7 +1122,7 @@
         "es-en-30afe0b4d2b475cfd6fe",
         "es-en-a5b44e6bdd5e262ee37a"
       ],
-      "title": "Bota, sombrero y gorra"
+      "title": "Prendas y accesorios · Parte 3"
     },
     {
       "id": "es-en-t-prendas-y-accesorios-004",
@@ -1136,7 +1136,7 @@
         "es-en-65d21d8f4af19592a3c8",
         "es-en-ffd1dc2b41b686e309e3"
       ],
-      "title": "Reloj, anillo y joyas"
+      "title": "Prendas y accesorios · Parte 4"
     }
   ],
   "vestirse-y-apariencia": [
@@ -1154,7 +1154,7 @@
         "es-en-b9ff5f29c834bfe7f1ef",
         "es-en-cd60e8517027bd7cab5f"
       ],
-      "title": "Llevar puesto, ponerse ropa y probarse ropa"
+      "title": "Vestirse y apariencia · Parte 1"
     },
     {
       "id": "es-en-t-vestirse-y-apariencia-002",
@@ -1169,7 +1169,7 @@
         "es-en-a862b66a5629ecdb9a74",
         "es-en-7356fe771cfc831df150"
       ],
-      "title": "Maquillaje, belleza y hermoso"
+      "title": "Vestirse y apariencia · Parte 2"
     },
     {
       "id": "es-en-t-vestirse-y-apariencia-003",
@@ -1184,7 +1184,7 @@
         "es-en-6285cd10c42bef41f725",
         "es-en-e785a8f085acdf50962a"
       ],
-      "title": "Rubio, rizado y coser"
+      "title": "Vestirse y apariencia · Parte 3"
     },
     {
       "id": "es-en-t-vestirse-y-apariencia-004",
@@ -1199,7 +1199,7 @@
         "es-en-33b0ad97c882f1c956e3",
         "es-en-e3f81de8a93dc38def6f"
       ],
-      "title": "Cuero, rizo y abrochar"
+      "title": "Vestirse y apariencia · Parte 4"
     }
   ],
   "animales-y-sus-caracteristicas": [
@@ -1217,7 +1217,7 @@
         "es-en-20d4da8796aa615e4094",
         "es-en-63ee1ca5766ee107904d"
       ],
-      "title": "Pez, animal y perro"
+      "title": "Animales y sus características · Parte 1"
     },
     {
       "id": "es-en-t-animales-y-sus-caracteristicas-002",
@@ -1232,7 +1232,7 @@
         "es-en-0321d0f4d06519a6720b",
         "es-en-d5c125451ae42723bc91"
       ],
-      "title": "Araña, serpiente y oso"
+      "title": "Animales y sus características · Parte 2"
     },
     {
       "id": "es-en-t-animales-y-sus-caracteristicas-003",
@@ -1247,7 +1247,7 @@
         "es-en-7cd414fc61847e910dcd",
         "es-en-a36be4c5b368ecc7631d"
       ],
-      "title": "Pluma, pelaje y cuerno"
+      "title": "Animales y sus características · Parte 3"
     }
   ],
   "paisajes-y-geografia": [
@@ -1264,7 +1264,7 @@
         "es-en-bac23f3e7170abc8ac03",
         "es-en-1e6ad2a09591779eb48c"
       ],
-      "title": "Naturaleza, natural y naturalmente"
+      "title": "Paisajes y geografía · Parte 1"
     },
     {
       "id": "es-en-t-paisajes-y-geografia-002",
@@ -1279,7 +1279,7 @@
         "es-en-b6ac8deb6114daadd113",
         "es-en-aa4be32f26efbc5b762e"
       ],
-      "title": "Árbol, hoja y rama"
+      "title": "Paisajes y geografía · Parte 2"
     },
     {
       "id": "es-en-t-paisajes-y-geografia-003",
@@ -1294,7 +1294,7 @@
         "es-en-0a6cea1909c9fd7ba987",
         "es-en-bc233c7bd5784f3e773b"
       ],
-      "title": "Piedra, suelo y arena"
+      "title": "Paisajes y geografía · Parte 3"
     },
     {
       "id": "es-en-t-paisajes-y-geografia-004",
@@ -1309,7 +1309,7 @@
         "es-en-9ebd2b5c2727a2ef5193",
         "es-en-0bb7254067c5737a013c"
       ],
-      "title": "Costa, isla y río"
+      "title": "Paisajes y geografía · Parte 4"
     },
     {
       "id": "es-en-t-paisajes-y-geografia-005",
@@ -1324,7 +1324,7 @@
         "es-en-650deb7b4322b089bde0",
         "es-en-cc92ac7348b9947aa36c"
       ],
-      "title": "Tierra, continente y medio ambiente"
+      "title": "Paisajes y geografía · Parte 5"
     },
     {
       "id": "es-en-t-paisajes-y-geografia-006",
@@ -1339,7 +1339,7 @@
         "es-en-eced150fcc7e365bbe2e",
         "es-en-a7ae6742f222af6f17da"
       ],
-      "title": "Cielo, cima y mundo"
+      "title": "Paisajes y geografía · Parte 6"
     }
   ],
   "clima-y-estaciones": [
@@ -1357,7 +1357,7 @@
         "es-en-64c920a4a764e2aa4ce0",
         "es-en-3fc2408ad532930fdf70"
       ],
-      "title": "Tiempo atmosférico, clima y sol"
+      "title": "Clima y estaciones · Parte 1"
     },
     {
       "id": "es-en-t-clima-y-estaciones-002",
@@ -1373,7 +1373,7 @@
         "es-en-6f1986a4d5fd25d8648b",
         "es-en-cecd83847e480cc96357"
       ],
-      "title": "Caliente, frío y cálido"
+      "title": "Clima y estaciones · Parte 2"
     },
     {
       "id": "es-en-t-clima-y-estaciones-003",
@@ -1388,7 +1388,7 @@
         "es-en-67c95fc75af292a2cf9a",
         "es-en-cc8565d4d3f288194074"
       ],
-      "title": "Inundación, temporada y primavera"
+      "title": "Clima y estaciones · Parte 3"
     }
   ],
   "vehiculos-y-carretera": [
@@ -1406,7 +1406,7 @@
         "es-en-4be8dfc3e0fd150074ab",
         "es-en-6cc24baf17d63c0aff22"
       ],
-      "title": "Coche, vehículo y camión"
+      "title": "Vehículos y carretera · Parte 1"
     },
     {
       "id": "es-en-t-vehiculos-y-carretera-002",
@@ -1422,7 +1422,7 @@
         "es-en-60da4703eb4e79537dfd",
         "es-en-66ea641a8d6bf47fbc48"
       ],
-      "title": "Motocicleta, tren y subterráneo"
+      "title": "Vehículos y carretera · Parte 2"
     },
     {
       "id": "es-en-t-vehiculos-y-carretera-003",
@@ -1438,7 +1438,7 @@
         "es-en-9174df3c09cce76b4701",
         "es-en-398c57f77d8e09289ce4"
       ],
-      "title": "Conducción, conductor y montar"
+      "title": "Vehículos y carretera · Parte 3"
     },
     {
       "id": "es-en-t-vehiculos-y-carretera-004",
@@ -1454,7 +1454,7 @@
         "es-en-592caf8bdce5014c4cca",
         "es-en-e661a630668421a98e2e"
       ],
-      "title": "Neumático, motor y gasolina"
+      "title": "Vehículos y carretera · Parte 4"
     },
     {
       "id": "es-en-t-vehiculos-y-carretera-005",
@@ -1469,7 +1469,7 @@
         "es-en-0bbfadcfa33793426394",
         "es-en-c298871a4a00ce2d9608"
       ],
-      "title": "Gasolina, autopista y carril"
+      "title": "Vehículos y carretera · Parte 5"
     }
   ],
   "vuelos-y-navegacion": [
@@ -1487,7 +1487,7 @@
         "es-en-c85aad4e3eb6402c8466",
         "es-en-aa9a8037131db1f3a850"
       ],
-      "title": "Despegar, avión y aeronave"
+      "title": "Vuelos y navegación · Parte 1"
     },
     {
       "id": "es-en-t-vuelos-y-navegacion-002",
@@ -1502,7 +1502,7 @@
         "es-en-b6acef34e83cc226a00f",
         "es-en-a6b7b558226b2b0e06c8"
       ],
-      "title": "Navegación a vela, marinero y puerto"
+      "title": "Vuelos y navegación · Parte 2"
     }
   ],
   "preparar-un-viaje": [
@@ -1519,7 +1519,7 @@
         "es-en-7f4b961429521f5beb62",
         "es-en-8a14b0b79a6be4660e95"
       ],
-      "title": "Viajar, viajero y excursión"
+      "title": "Preparar un viaje · Parte 1"
     },
     {
       "id": "es-en-t-preparar-un-viaje-002",
@@ -1534,7 +1534,7 @@
         "es-en-448048f64b83aaebf140",
         "es-en-a8fcd5fb8d07c8313f41"
       ],
-      "title": "Equipaje, maleta y empacar"
+      "title": "Preparar un viaje · Parte 2"
     },
     {
       "id": "es-en-t-preparar-un-viaje-003",
@@ -1548,7 +1548,7 @@
         "es-en-2dbdadace9c0664908d5",
         "es-en-ca5e4e2cfb5f19367f57"
       ],
-      "title": "Registrarse en, dejar el hotel y pagar y recepción"
+      "title": "Preparar un viaje · Parte 3"
     },
     {
       "id": "es-en-t-preparar-un-viaje-004",
@@ -1562,7 +1562,7 @@
         "es-en-fbfa0199e6d1f656215e",
         "es-en-e2900fbfa498cc9fbe9b"
       ],
-      "title": "Extranjero, campamento y acampar"
+      "title": "Preparar un viaje · Parte 4"
     }
   ],
   "edificios-y-servicios": [
@@ -1580,7 +1580,7 @@
         "es-en-21c4cea9d77e9e3f06ed",
         "es-en-51a93bf92d727accfeda"
       ],
-      "title": "Parque, ciudad y pueblo"
+      "title": "Edificios y servicios · Parte 1"
     },
     {
       "id": "es-en-t-edificios-y-servicios-002",
@@ -1596,7 +1596,7 @@
         "es-en-400e98c2de11c64eb99e",
         "es-en-3d4075826f999e36b73a"
       ],
-      "title": "Área, sitio y lugar"
+      "title": "Edificios y servicios · Parte 2"
     },
     {
       "id": "es-en-t-edificios-y-servicios-003",
@@ -1612,7 +1612,7 @@
         "es-en-26d97dc9a8f782ddaaeb",
         "es-en-3d175c50eb66715aac15"
       ],
-      "title": "Camino, esquina y estación"
+      "title": "Edificios y servicios · Parte 3"
     },
     {
       "id": "es-en-t-edificios-y-servicios-004",
@@ -1628,7 +1628,7 @@
         "es-en-ffafa729a2d4cc3771c9",
         "es-en-51c1723cc5c0a6529844"
       ],
-      "title": "Universidad, oficina de correos y banco"
+      "title": "Edificios y servicios · Parte 4"
     },
     {
       "id": "es-en-t-edificios-y-servicios-005",
@@ -1644,7 +1644,7 @@
         "es-en-e78f5a6031d75db08840",
         "es-en-3da659f1c12956586899"
       ],
-      "title": "Instalación, local y público"
+      "title": "Edificios y servicios · Parte 5"
     }
   ],
   "profesiones-y-empleo": [
@@ -1661,7 +1661,7 @@
         "es-en-07804517d29f67d76d08",
         "es-en-f82f4ac29becac39c468"
       ],
-      "title": "Trabajar, trabajando y trabajador"
+      "title": "Profesiones y empleo · Parte 1"
     },
     {
       "id": "es-en-t-profesiones-y-empleo-002",
@@ -1676,7 +1676,7 @@
         "es-en-e9e5cb722a5bad27cc32",
         "es-en-537e31de58166d422232"
       ],
-      "title": "Empleador, empleo y desempleado"
+      "title": "Profesiones y empleo · Parte 2"
     },
     {
       "id": "es-en-t-profesiones-y-empleo-003",
@@ -1691,7 +1691,7 @@
         "es-en-44492adfe1feaacc1147",
         "es-en-a1ec0a1e201ff4d4d732"
       ],
-      "title": "Gerente, ayudante y secretario"
+      "title": "Profesiones y empleo · Parte 3"
     },
     {
       "id": "es-en-t-profesiones-y-empleo-004",
@@ -1706,7 +1706,7 @@
         "es-en-e8770f12e42931166974",
         "es-en-4bcfc72a92e740243379"
       ],
-      "title": "Abogado, científico y periodista"
+      "title": "Profesiones y empleo · Parte 4"
     },
     {
       "id": "es-en-t-profesiones-y-empleo-005",
@@ -1721,7 +1721,7 @@
         "es-en-3f35997c5af406159cb8",
         "es-en-0a4e420dd48fb0fbfe52"
       ],
-      "title": "Artista, músico y cantante"
+      "title": "Profesiones y empleo · Parte 5"
     },
     {
       "id": "es-en-t-profesiones-y-empleo-006",
@@ -1735,7 +1735,7 @@
         "es-en-e6f6eef68824dd305845",
         "es-en-90a2100806f10421b991"
       ],
-      "title": "Soldado, sirviente y peluquero"
+      "title": "Profesiones y empleo · Parte 6"
     }
   ],
   "empresas-y-organizacion": [
@@ -1753,7 +1753,7 @@
         "es-en-544095d483fab74a471d",
         "es-en-a9808248475add6f4645"
       ],
-      "title": "Negocio, hombre de negocios y empresa"
+      "title": "Empresas y organización · Parte 1"
     },
     {
       "id": "es-en-t-empresas-y-organizacion-002",
@@ -1769,7 +1769,7 @@
         "es-en-4aa3fc11492ce2ba1116",
         "es-en-baaa2a3dd969f80bb190"
       ],
-      "title": "Producción, producto y producir"
+      "title": "Empresas y organización · Parte 2"
     },
     {
       "id": "es-en-t-empresas-y-organizacion-003",
@@ -1785,7 +1785,7 @@
         "es-en-9e275d35ea8ceda892be",
         "es-en-88a08f8ba7f603e3a618"
       ],
-      "title": "Agencia, agente y presidente"
+      "title": "Empresas y organización · Parte 3"
     },
     {
       "id": "es-en-t-empresas-y-organizacion-004",
@@ -1801,7 +1801,7 @@
         "es-en-53aaf0d8a83173f4590d",
         "es-en-fda331a18ff11e1f38c8"
       ],
-      "title": "Equipo, comité y conferencia"
+      "title": "Empresas y organización · Parte 4"
     },
     {
       "id": "es-en-t-empresas-y-organizacion-005",
@@ -1817,7 +1817,7 @@
         "es-en-336095baff51fd0c0054",
         "es-en-1901f2c4d85f214d945d"
       ],
-      "title": "Horario, proyecto y contrato"
+      "title": "Empresas y organización · Parte 5"
     },
     {
       "id": "es-en-t-empresas-y-organizacion-006",
@@ -1833,7 +1833,7 @@
         "es-en-6499a6f3c15d0b2d30cb",
         "es-en-c66842f51369c60657dd"
       ],
-      "title": "Comisión, sector y rango"
+      "title": "Empresas y organización · Parte 6"
     },
     {
       "id": "es-en-t-empresas-y-organizacion-007",
@@ -1849,7 +1849,7 @@
         "es-en-6a66013578d45b1ede84",
         "es-en-0d1dd6173add1a3ab80e"
       ],
-      "title": "Producción, recurso y procedimiento"
+      "title": "Empresas y organización · Parte 7"
     }
   ],
   "objetivos-y-resultados": [
@@ -1867,7 +1867,7 @@
         "es-en-9e4d14c5bd8f8143e7e0",
         "es-en-2152b3d035ff3fd05c3d"
       ],
-      "title": "Objetivo, lograr y logro"
+      "title": "Objetivos y resultados · Parte 1"
     },
     {
       "id": "es-en-t-objetivos-y-resultados-002",
@@ -1882,7 +1882,7 @@
         "es-en-33dfc6ac61a5158dd6f6",
         "es-en-499fda6e36cc0161c5e7"
       ],
-      "title": "Sin éxito, fallar y fracaso"
+      "title": "Objetivos y resultados · Parte 2"
     },
     {
       "id": "es-en-t-objetivos-y-resultados-003",
@@ -1897,7 +1897,7 @@
         "es-en-e1b5e0ec7f133080e2f4",
         "es-en-a417802d1375b8a24221"
       ],
-      "title": "Desarrollo, entrenamiento y habilidad"
+      "title": "Objetivos y resultados · Parte 3"
     },
     {
       "id": "es-en-t-objetivos-y-resultados-004",
@@ -1912,7 +1912,7 @@
         "es-en-5d1e44ed183006ba9ed6",
         "es-en-9dad52ee861187494b4f"
       ],
-      "title": "Incapaz, eficiente y eficientemente"
+      "title": "Objetivos y resultados · Parte 4"
     },
     {
       "id": "es-en-t-objetivos-y-resultados-005",
@@ -1927,7 +1927,7 @@
         "es-en-34d144318e169683c871",
         "es-en-d6fbbc9324ce18933428"
       ],
-      "title": "Titulación, cualificado y calificar"
+      "title": "Objetivos y resultados · Parte 5"
     },
     {
       "id": "es-en-t-objetivos-y-resultados-006",
@@ -1942,7 +1942,7 @@
         "es-en-f58666d7ad885c81ca39",
         "es-en-9d921a3d39290030641f"
       ],
-      "title": "Intento, intentado y intentar"
+      "title": "Objetivos y resultados · Parte 6"
     },
     {
       "id": "es-en-t-objetivos-y-resultados-007",
@@ -1957,7 +1957,7 @@
         "es-en-6e7e4a181fdd029dd8c6",
         "es-en-ee5a4407685e4799cc8c"
       ],
-      "title": "Practicar, disponible y activo"
+      "title": "Objetivos y resultados · Parte 7"
     }
   ],
   "comprar-y-vender": [
@@ -1974,7 +1974,7 @@
         "es-en-595ea14146278e44a752",
         "es-en-35fef2d5fa3841d78e87"
       ],
-      "title": "Comprar, comprador y vender"
+      "title": "Comprar y vender · Parte 1"
     },
     {
       "id": "es-en-t-comprar-y-vender-002",
@@ -1989,7 +1989,7 @@
         "es-en-89a2cde9796a9b74d686",
         "es-en-a2e13f640f81ff5c54c5"
       ],
-      "title": "Consumidor, precio y costar"
+      "title": "Comprar y vender · Parte 2"
     },
     {
       "id": "es-en-t-comprar-y-vender-003",
@@ -2004,7 +2004,7 @@
         "es-en-d80a4675eb72c22429fb",
         "es-en-7b3a3e2f7a7e04383599"
       ],
-      "title": "Valor, valioso y que vale"
+      "title": "Comprar y vender · Parte 3"
     },
     {
       "id": "es-en-t-comprar-y-vender-004",
@@ -2019,7 +2019,7 @@
         "es-en-3488950f138f2b6966c5",
         "es-en-2f3d62ec93d3533413b4"
       ],
-      "title": "Cobrar, gratis y tarifa"
+      "title": "Comprar y vender · Parte 4"
     },
     {
       "id": "es-en-t-comprar-y-vender-005",
@@ -2033,7 +2033,7 @@
         "es-en-7fb579a4daa41d80ac4c",
         "es-en-eb6fb69c41b5f9355a6d"
       ],
-      "title": "Anuncio, anunciar y publicidad"
+      "title": "Comprar y vender · Parte 5"
     },
     {
       "id": "es-en-t-comprar-y-vender-006",
@@ -2047,7 +2047,7 @@
         "es-en-6131dafa3aac23c87b26",
         "es-en-e047447ecfca3cdee803"
       ],
-      "title": "Demanda, existencias y mostrador"
+      "title": "Comprar y vender · Parte 6"
     }
   ],
   "finanzas-y-economia": [
@@ -2064,7 +2064,7 @@
         "es-en-30b1e4baae7e8edbb7bd",
         "es-en-4640295813b762cd959f"
       ],
-      "title": "Dinero, dinero en efectivo y moneda"
+      "title": "Finanzas y economía · Parte 1"
     },
     {
       "id": "es-en-t-finanzas-y-economia-002",
@@ -2079,7 +2079,7 @@
         "es-en-21313ca6ff43eb7eecf6",
         "es-en-8408638c3f8cdfaafe10"
       ],
-      "title": "Tarjeta de crédito, cheque y cuenta"
+      "title": "Finanzas y economía · Parte 2"
     },
     {
       "id": "es-en-t-finanzas-y-economia-003",
@@ -2094,7 +2094,7 @@
         "es-en-321e4f530d8778627594",
         "es-en-65dfb2c6ef2019f8bfed"
       ],
-      "title": "Invertir, inversión y beneficio"
+      "title": "Finanzas y economía · Parte 3"
     },
     {
       "id": "es-en-t-finanzas-y-economia-004",
@@ -2109,7 +2109,7 @@
         "es-en-78dc77f74865cf7ad0e0",
         "es-en-3b3d182cf9f19286f70f"
       ],
-      "title": "Guardar, presupuesto y gasto"
+      "title": "Finanzas y economía · Parte 4"
     },
     {
       "id": "es-en-t-finanzas-y-economia-005",
@@ -2124,7 +2124,7 @@
         "es-en-0853a8f07739a0b91912",
         "es-en-40808673f559d261057a"
       ],
-      "title": "Seguro, riqueza y rico"
+      "title": "Finanzas y economía · Parte 5"
     },
     {
       "id": "es-en-t-finanzas-y-economia-006",
@@ -2139,7 +2139,7 @@
         "es-en-926472d0111468e51e11",
         "es-en-4db843e9194876577413"
       ],
-      "title": "Apuestas, apostar y juegos de azar"
+      "title": "Finanzas y economía · Parte 6"
     }
   ],
   "aula-y-estudios": [
@@ -2156,7 +2156,7 @@
         "es-en-a4dd31fe2a29504bb02e",
         "es-en-d7e8c347e8a6d4f233f5"
       ],
-      "title": "Estudiante, alumno y profesor"
+      "title": "Aula y estudios · Parte 1"
     },
     {
       "id": "es-en-t-aula-y-estudios-002",
@@ -2171,7 +2171,7 @@
         "es-en-2dcb537dfda0417261e9",
         "es-en-6af6ff6e5d63750c20c9"
       ],
-      "title": "Lección, clase y aula"
+      "title": "Aula y estudios · Parte 2"
     },
     {
       "id": "es-en-t-aula-y-estudios-003",
@@ -2186,7 +2186,7 @@
         "es-en-b28127e65d0d9788eefc",
         "es-en-f5783cd217c2928f1c65"
       ],
-      "title": "Examen, prueba y grado"
+      "title": "Aula y estudios · Parte 3"
     },
     {
       "id": "es-en-t-aula-y-estudios-004",
@@ -2201,7 +2201,7 @@
         "es-en-00f2ed4501d5547b37a4",
         "es-en-202bd4ae3a81fbdcc700"
       ],
-      "title": "Página, escritorio y libro"
+      "title": "Aula y estudios · Parte 4"
     },
     {
       "id": "es-en-t-aula-y-estudios-005",
@@ -2216,7 +2216,7 @@
         "es-en-09c7169fac87eb551c0e",
         "es-en-c7e363a0c819e0f5eb18"
       ],
-      "title": "Escritura, escrito y ensayo"
+      "title": "Aula y estudios · Parte 5"
     },
     {
       "id": "es-en-t-aula-y-estudios-006",
@@ -2231,7 +2231,7 @@
         "es-en-d8082888b697502db156",
         "es-en-5e4f8814620065bc874e"
       ],
-      "title": "Tinta, esquema y resumen"
+      "title": "Aula y estudios · Parte 6"
     }
   ],
   "idiomas-y-palabras": [
@@ -2247,7 +2247,7 @@
         "es-en-172ef368721236cc4bdf",
         "es-en-50ac6c686b72fab4c166"
       ],
-      "title": "Idioma, vocabulario y palabra"
+      "title": "Idiomas y palabras · Parte 1"
     },
     {
       "id": "es-en-t-idiomas-y-palabras-002",
@@ -2261,7 +2261,7 @@
         "es-en-a3e98198d6e593ab2ea1",
         "es-en-2d1fe8d7654557b976b4"
       ],
-      "title": "Alfabéticamente, pronunciar y pronunciación"
+      "title": "Idiomas y palabras · Parte 2"
     },
     {
       "id": "es-en-t-idiomas-y-palabras-003",
@@ -2275,7 +2275,7 @@
         "es-en-754ea222b8c4fcc603c8",
         "es-en-b7da06bc36c76ee4dfff"
       ],
-      "title": "Significar, definir y definición"
+      "title": "Idiomas y palabras · Parte 3"
     },
     {
       "id": "es-en-t-idiomas-y-palabras-004",
@@ -2288,7 +2288,7 @@
         "es-en-a91c5661226193bf41a9",
         "es-en-b9d30d3357e276cbe4e9"
       ],
-      "title": "Interpretación, hablado y término"
+      "title": "Idiomas y palabras · Parte 4"
     }
   ],
   "conversaciones-y-mensajes": [
@@ -2306,7 +2306,7 @@
         "es-en-64b9bb9b16bba3d619bc",
         "es-en-f42c70da25c9dd5effac"
       ],
-      "title": "Sonar, carta y comunicar"
+      "title": "Conversaciones y mensajes · Parte 1"
     },
     {
       "id": "es-en-t-conversaciones-y-mensajes-002",
@@ -2322,7 +2322,7 @@
         "es-en-2f1de971c7b83432bf03",
         "es-en-38581e7eba7142ab260b"
       ],
-      "title": "Decir, regañar y preguntar"
+      "title": "Conversaciones y mensajes · Parte 2"
     },
     {
       "id": "es-en-t-conversaciones-y-mensajes-003",
@@ -2337,7 +2337,7 @@
         "es-en-918a9030cab2b5a847ce",
         "es-en-8c7974d50471b37e3786"
       ],
-      "title": "Llamado, devolver una llamada y llamar por teléfono"
+      "title": "Conversaciones y mensajes · Parte 3"
     },
     {
       "id": "es-en-t-conversaciones-y-mensajes-004",
@@ -2352,7 +2352,7 @@
         "es-en-2919303dbd213c442d8e",
         "es-en-cee0eb236a6c0b3ba432"
       ],
-      "title": "Texto, correo electrónico y correo"
+      "title": "Conversaciones y mensajes · Parte 4"
     },
     {
       "id": "es-en-t-conversaciones-y-mensajes-005",
@@ -2367,7 +2367,7 @@
         "es-en-700224d74a7fc4842c5a",
         "es-en-78f8d5fccdc28404ae9a"
       ],
-      "title": "Discusión, debate y chatear"
+      "title": "Conversaciones y mensajes · Parte 5"
     },
     {
       "id": "es-en-t-conversaciones-y-mensajes-006",
@@ -2382,7 +2382,7 @@
         "es-en-b61ea4e4bd46deafc494",
         "es-en-fec521ec836c46f2e0e8"
       ],
-      "title": "Noticias, informe y entrevista"
+      "title": "Conversaciones y mensajes · Parte 6"
     },
     {
       "id": "es-en-t-conversaciones-y-mensajes-007",
@@ -2397,7 +2397,7 @@
         "es-en-a50022286e8b84dd654e",
         "es-en-c762c704371bb2635ede"
       ],
-      "title": "Tener noticias de, oír hablar de y rumor"
+      "title": "Conversaciones y mensajes · Parte 7"
     },
     {
       "id": "es-en-t-conversaciones-y-mensajes-008",
@@ -2412,7 +2412,7 @@
         "es-en-3a203aec84c4ed788903",
         "es-en-7f8e929ea7c749ca3c7d"
       ],
-      "title": "Jurar, uso de palabrotas y insulto"
+      "title": "Conversaciones y mensajes · Parte 8"
     }
   ],
   "opiniones-y-acuerdos": [
@@ -2430,7 +2430,7 @@
         "es-en-661f075127a4b6862ae1",
         "es-en-604fe3fb1934b87a3fc4"
       ],
-      "title": "Consejo, opinión y vista"
+      "title": "Opiniones y acuerdos · Parte 1"
     },
     {
       "id": "es-en-t-opiniones-y-acuerdos-002",
@@ -2446,7 +2446,7 @@
         "es-en-8d840eda4052cc2d87c2",
         "es-en-e20287eddb61d9518b11"
       ],
-      "title": "Aprobación, aprobatorio y desaprobar"
+      "title": "Opiniones y acuerdos · Parte 2"
     },
     {
       "id": "es-en-t-opiniones-y-acuerdos-003",
@@ -2462,7 +2462,7 @@
         "es-en-cdfd6035b7894c1c491c",
         "es-en-82a01700686fd2d304ec"
       ],
-      "title": "Rechazar, negar y admitir"
+      "title": "Opiniones y acuerdos · Parte 3"
     },
     {
       "id": "es-en-t-opiniones-y-acuerdos-004",
@@ -2477,7 +2477,7 @@
         "es-en-7eddc3f305cb35c5637b",
         "es-en-026977e1d369dfbbb8cc"
       ],
-      "title": "Asegurar, sugerir y sugerencia"
+      "title": "Opiniones y acuerdos · Parte 4"
     },
     {
       "id": "es-en-t-opiniones-y-acuerdos-005",
@@ -2492,7 +2492,7 @@
         "es-en-fe809c048f8a813aa3e8",
         "es-en-3f88051b1ffa42927738"
       ],
-      "title": "Advertencia, persuadir y convencer"
+      "title": "Opiniones y acuerdos · Parte 5"
     },
     {
       "id": "es-en-t-opiniones-y-acuerdos-006",
@@ -2507,7 +2507,7 @@
         "es-en-db4a218d527dc1472a71",
         "es-en-f4bb7b387087e1423dbb"
       ],
-      "title": "Excusa, agradecer y gracias"
+      "title": "Opiniones y acuerdos · Parte 6"
     },
     {
       "id": "es-en-t-opiniones-y-acuerdos-007",
@@ -2522,7 +2522,7 @@
         "es-en-ab07bce4d5761c89ba90",
         "es-en-03e7666b4936828d159f"
       ],
-      "title": "Criticar, crítica y culpar"
+      "title": "Opiniones y acuerdos · Parte 7"
     },
     {
       "id": "es-en-t-opiniones-y-acuerdos-008",
@@ -2537,7 +2537,7 @@
         "es-en-1865950cf52eb152c336",
         "es-en-5b2b77be9d557ac0b973"
       ],
-      "title": "De acuerdo, dar a entender y implicación"
+      "title": "Opiniones y acuerdos · Parte 8"
     }
   ],
   "voz-y-expresion": [
@@ -2555,7 +2555,7 @@
         "es-en-66707d62383d9f4755f6",
         "es-en-2c4233baa339f4c141e0"
       ],
-      "title": "Voz, en voz alta y fuerte"
+      "title": "Voz y expresión · Parte 1"
     },
     {
       "id": "es-en-t-voz-y-expresion-002",
@@ -2571,7 +2571,7 @@
         "es-en-cc99e273216a273f3043",
         "es-en-1290b2f2443c4b0e1250"
       ],
-      "title": "Gritar, llorar y soltar de repente"
+      "title": "Voz y expresión · Parte 2"
     },
     {
       "id": "es-en-t-voz-y-expresion-003",
@@ -2587,7 +2587,7 @@
         "es-en-98a941c5230652bd2eb1",
         "es-en-92ac5c98c635a4798d3b"
       ],
-      "title": "Canto, tono y énfasis"
+      "title": "Voz y expresión · Parte 3"
     },
     {
       "id": "es-en-t-voz-y-expresion-004",
@@ -2602,7 +2602,7 @@
         "es-en-2966ae67425efbd71ece",
         "es-en-2cb5863c96fff44f253c"
       ],
-      "title": "Referencia, señalar y indicar"
+      "title": "Voz y expresión · Parte 4"
     }
   ],
   "arte-y-espectaculos": [
@@ -2620,7 +2620,7 @@
         "es-en-097db7f7cd8f1652c0ce",
         "es-en-6846baaad4f7a0f305f3"
       ],
-      "title": "Arte, artístico y artísticamente"
+      "title": "Arte y espectáculos · Parte 1"
     },
     {
       "id": "es-en-t-arte-y-espectaculos-002",
@@ -2636,7 +2636,7 @@
         "es-en-2f9df79d09816c8b40c3",
         "es-en-84accb98fc85f0eff45e"
       ],
-      "title": "Fotografía, estatua y exponer"
+      "title": "Arte y espectáculos · Parte 2"
     },
     {
       "id": "es-en-t-arte-y-espectaculos-003",
@@ -2652,7 +2652,7 @@
         "es-en-b922568213b7d9090401",
         "es-en-0b49ecd5679a5e094621"
       ],
-      "title": "Ritmo, banda y concierto"
+      "title": "Arte y espectáculos · Parte 3"
     },
     {
       "id": "es-en-t-arte-y-espectaculos-004",
@@ -2668,7 +2668,7 @@
         "es-en-ca0ddc722afbd4cb88c9",
         "es-en-f8bb391860a350f5c9cb"
       ],
-      "title": "Cine, película y sala de cine"
+      "title": "Arte y espectáculos · Parte 4"
     },
     {
       "id": "es-en-t-arte-y-espectaculos-005",
@@ -2684,7 +2684,7 @@
         "es-en-0b78dac4f0162cf17094",
         "es-en-f38a5a963bbed73b195a"
       ],
-      "title": "Drama, dramático y dramáticamente"
+      "title": "Arte y espectáculos · Parte 5"
     },
     {
       "id": "es-en-t-arte-y-espectaculos-006",
@@ -2700,7 +2700,7 @@
         "es-en-d97eec83f4fc18115d0b",
         "es-en-7be43f59314233004c41"
       ],
-      "title": "Diversión, disfrutar y agradable"
+      "title": "Arte y espectáculos · Parte 6"
     }
   ],
   "libros-y-medios": [
@@ -2717,7 +2717,7 @@
         "es-en-c77685aea7cb9bf7a0a2",
         "es-en-c8161dc08f3027a1bba8"
       ],
-      "title": "En directo, historia y novela"
+      "title": "Libros y medios · Parte 1"
     },
     {
       "id": "es-en-t-libros-y-medios-002",
@@ -2732,7 +2732,7 @@
         "es-en-d6e3050dfd95b8404953",
         "es-en-855aaebed7d9b27529f5"
       ],
-      "title": "Contenido, artículo y revista"
+      "title": "Libros y medios · Parte 2"
     },
     {
       "id": "es-en-t-libros-y-medios-003",
@@ -2746,7 +2746,7 @@
         "es-en-3ce699713b047a85978a",
         "es-en-491d94bfcf38d6432874"
       ],
-      "title": "Medios de comunicación, transmitir y radio"
+      "title": "Libros y medios · Parte 3"
     },
     {
       "id": "es-en-t-libros-y-medios-004",
@@ -2760,7 +2760,7 @@
         "es-en-b6ecf125244cf05ec5f4",
         "es-en-6d9dd70c2c8a11924d95"
       ],
-      "title": "Canal, música pop y fama"
+      "title": "Libros y medios · Parte 4"
     }
   ],
   "deportes-y-juegos": [
@@ -2777,7 +2777,7 @@
         "es-en-0cb5500ab87c4ddb762c",
         "es-en-f4ff0dff3945307d0024"
       ],
-      "title": "Entrenador, deporte y juego"
+      "title": "Deportes y juegos · Parte 1"
     },
     {
       "id": "es-en-t-deportes-y-juegos-002",
@@ -2792,7 +2792,7 @@
         "es-en-9d55518ae9c18367ffd0",
         "es-en-94aa43a26f5a3f72d2d4"
       ],
-      "title": "Nadar, natación y piscina"
+      "title": "Deportes y juegos · Parte 2"
     },
     {
       "id": "es-en-t-deportes-y-juegos-003",
@@ -2807,7 +2807,7 @@
         "es-en-a97be994e62b4c2a4cbb",
         "es-en-07bbfd52c669dc625662"
       ],
-      "title": "Ciclismo, subir y escalada"
+      "title": "Deportes y juegos · Parte 3"
     },
     {
       "id": "es-en-t-deportes-y-juegos-004",
@@ -2822,7 +2822,7 @@
         "es-en-ad03ec18a0e2f07df291",
         "es-en-588af4fae83432cef21d"
       ],
-      "title": "Competitivo, oponente y rival"
+      "title": "Deportes y juegos · Parte 4"
     },
     {
       "id": "es-en-t-deportes-y-juegos-005",
@@ -2836,7 +2836,7 @@
         "es-en-5bc0c4728670c0548d5e",
         "es-en-834e8c0062a893bd1651"
       ],
-      "title": "Puntuación, final y desafío"
+      "title": "Deportes y juegos · Parte 5"
     },
     {
       "id": "es-en-t-deportes-y-juegos-006",
@@ -2850,7 +2850,7 @@
         "es-en-3153da7bbaab2ea1c101",
         "es-en-750cd0239583f64f9f38"
       ],
-      "title": "Pasar el rato, liga y lanzamiento"
+      "title": "Deportes y juegos · Parte 6"
     }
   ],
   "reloj-y-calendario": [
@@ -2867,7 +2867,7 @@
         "es-en-1e637d6667093fa02ce3",
         "es-en-38fc241c8223a0d42b11"
       ],
-      "title": "Tiempo, segundo y minuto"
+      "title": "Reloj y calendario · Parte 1"
     },
     {
       "id": "es-en-t-reloj-y-calendario-002",
@@ -2882,7 +2882,7 @@
         "es-en-72df695eb98a46404d99",
         "es-en-a930249d43bcdea1a840"
       ],
-      "title": "Década, siglo y fecha"
+      "title": "Reloj y calendario · Parte 2"
     },
     {
       "id": "es-en-t-reloj-y-calendario-003",
@@ -2897,7 +2897,7 @@
         "es-en-55428708997f9d442fa4",
         "es-en-0e0034e19dbff2821737"
       ],
-      "title": "Jueves, viernes y sábado"
+      "title": "Reloj y calendario · Parte 3"
     },
     {
       "id": "es-en-t-reloj-y-calendario-004",
@@ -2912,7 +2912,7 @@
         "es-en-18c1ec68c2a9c7021d24",
         "es-en-5e8de291176a98dea7f1"
       ],
-      "title": "Junio, julio y agosto"
+      "title": "Reloj y calendario · Parte 4"
     },
     {
       "id": "es-en-t-reloj-y-calendario-005",
@@ -2927,7 +2927,7 @@
         "es-en-9462126ae4d58842f534",
         "es-en-47bbdb2305b298de3839"
       ],
-      "title": "Tarde-noche, noche y mediodía"
+      "title": "Reloj y calendario · Parte 5"
     },
     {
       "id": "es-en-t-reloj-y-calendario-006",
@@ -2941,7 +2941,7 @@
         "es-en-290de9b5677a08ace185",
         "es-en-ddddca37bbdee42a2dff"
       ],
-      "title": "Ayer, esta noche y aniversario"
+      "title": "Reloj y calendario · Parte 6"
     }
   ],
   "secuencia-y-duracion": [
@@ -2959,7 +2959,7 @@
         "es-en-66f8fc5cd2b1d7af781a",
         "es-en-eee0b4d74387602ba5a3"
       ],
-      "title": "Antes, después y entonces"
+      "title": "Secuencia y duración · Parte 1"
     },
     {
       "id": "es-en-t-secuencia-y-duracion-002",
@@ -2975,7 +2975,7 @@
         "es-en-127a116f68fa6c960bc8",
         "es-en-4c631ad8f499e76c0763"
       ],
-      "title": "Este último, último y reciente"
+      "title": "Secuencia y duración · Parte 2"
     },
     {
       "id": "es-en-t-secuencia-y-duracion-003",
@@ -2991,7 +2991,7 @@
         "es-en-a7985ec94ec7d982c61c",
         "es-en-0a4a85149973d0199f5b"
       ],
-      "title": "Actual, presente y pasado"
+      "title": "Secuencia y duración · Parte 3"
     },
     {
       "id": "es-en-t-secuencia-y-duracion-004",
@@ -3006,7 +3006,7 @@
         "es-en-9d09dab871a5a709594b",
         "es-en-8326dd633ca23cb9630b"
       ],
-      "title": "Tarde, inmediatamente y inmediato"
+      "title": "Secuencia y duración · Parte 4"
     },
     {
       "id": "es-en-t-secuencia-y-duracion-005",
@@ -3021,7 +3021,7 @@
         "es-en-f07915b4d0cd09f7365c",
         "es-en-2d2bf69fe60603bf494d"
       ],
-      "title": "Permanentemente, breve y brevemente"
+      "title": "Secuencia y duración · Parte 5"
     },
     {
       "id": "es-en-t-secuencia-y-duracion-006",
@@ -3036,7 +3036,7 @@
         "es-en-e184989bc87d395b1e79",
         "es-en-97a735f702e1a4699cce"
       ],
-      "title": "Hasta, desde y mientras tanto"
+      "title": "Secuencia y duración · Parte 6"
     },
     {
       "id": "es-en-t-secuencia-y-duracion-007",
@@ -3051,7 +3051,7 @@
         "es-en-2964672019571b6e8b02",
         "es-en-2b39c52db5c3fd371184"
       ],
-      "title": "Rápido, rápidamente y lento"
+      "title": "Secuencia y duración · Parte 7"
     },
     {
       "id": "es-en-t-secuencia-y-duracion-008",
@@ -3066,7 +3066,7 @@
         "es-en-1521dcad9cbd24b3ab16",
         "es-en-b0ba4bf98a1612bff8dc"
       ],
-      "title": "Para siempre, gradualmente y pasar el tiempo"
+      "title": "Secuencia y duración · Parte 8"
     },
     {
       "id": "es-en-t-secuencia-y-duracion-009",
@@ -3081,7 +3081,7 @@
         "es-en-32a8246b0cb708c9ef1e",
         "es-en-533d3475a9a324033d50"
       ],
-      "title": "Pasajero, pausa y rápido"
+      "title": "Secuencia y duración · Parte 9"
     }
   ],
   "frecuencia-y-habitos": [
@@ -3099,7 +3099,7 @@
         "es-en-39e09ad51ae1aaf418b9",
         "es-en-03b2cffecbb1f2218c4b"
       ],
-      "title": "Siempre, normalmente y habitual"
+      "title": "Frecuencia y hábitos · Parte 1"
     },
     {
       "id": "es-en-t-frecuencia-y-habitos-002",
@@ -3115,7 +3115,7 @@
         "es-en-ca649ed86f3e8707284c",
         "es-en-2aa9f111cf6a665557d1"
       ],
-      "title": "Ocasionalmente, raro y raramente"
+      "title": "Frecuencia y hábitos · Parte 2"
     },
     {
       "id": "es-en-t-frecuencia-y-habitos-003",
@@ -3131,7 +3131,7 @@
         "es-en-94d3109cd7cdd4ca1109",
         "es-en-56f7e0c1ead70d7f5af2"
       ],
-      "title": "Constante, constantemente y continuo"
+      "title": "Frecuencia y hábitos · Parte 3"
     }
   ],
   "cantidades-y-ordinales": [
@@ -3149,7 +3149,7 @@
         "es-en-bf8ac5b7abadacbc50ad",
         "es-en-41d29e87b7a23ddd83d1"
       ],
-      "title": "Cero, uno y dos"
+      "title": "Cantidades y ordinales · Parte 1"
     },
     {
       "id": "es-en-t-cantidades-y-ordinales-002",
@@ -3165,7 +3165,7 @@
         "es-en-c53b0a486cccd4be5e27",
         "es-en-9edbfef3f729e6c49ed8"
       ],
-      "title": "Diez, once y doce"
+      "title": "Cantidades y ordinales · Parte 2"
     },
     {
       "id": "es-en-t-cantidades-y-ordinales-003",
@@ -3181,7 +3181,7 @@
         "es-en-bc27761c640a83d29669",
         "es-en-744cab4e7772a1c60ebe"
       ],
-      "title": "Veinte, treinta y cuarenta"
+      "title": "Cantidades y ordinales · Parte 3"
     },
     {
       "id": "es-en-t-cantidades-y-ordinales-004",
@@ -3197,7 +3197,7 @@
         "es-en-b281c1bcb90dae671a9d",
         "es-en-545d0c7438766b544d08"
       ],
-      "title": "Millón, mil millones y primero"
+      "title": "Cantidades y ordinales · Parte 4"
     },
     {
       "id": "es-en-t-cantidades-y-ordinales-005",
@@ -3213,7 +3213,7 @@
         "es-en-61c0f00e76cb2122a0b1",
         "es-en-1265c7b1697f588096e8"
       ],
-      "title": "Décimo, undécimo y duodécimo"
+      "title": "Cantidades y ordinales · Parte 5"
     },
     {
       "id": "es-en-t-cantidades-y-ordinales-006",
@@ -3228,7 +3228,7 @@
         "es-en-ff0a2b5ec67c18202d15",
         "es-en-883cdf9781052c638b73"
       ],
-      "title": "Cuadragésimo, quincuagésimo y sexagésimo"
+      "title": "Cantidades y ordinales · Parte 6"
     }
   ],
   "medir-y-calcular": [
@@ -3245,7 +3245,7 @@
         "es-en-0a05596fba2e3e407f00",
         "es-en-c8c0be7a5eafd6107f72"
       ],
-      "title": "Número, cantidad y contar"
+      "title": "Medir y calcular · Parte 1"
     },
     {
       "id": "es-en-t-medir-y-calcular-002",
@@ -3260,7 +3260,7 @@
         "es-en-92a123c8beddd9ae5ec8",
         "es-en-58831994b1c3860c57e5"
       ],
-      "title": "Sumar, ascender a y multiplicar"
+      "title": "Medir y calcular · Parte 2"
     },
     {
       "id": "es-en-t-medir-y-calcular-003",
@@ -3275,7 +3275,7 @@
         "es-en-fe85b753ef5d897f98dc",
         "es-en-5802cfee41f0087a4ded"
       ],
-      "title": "Promedio, mitad y cuarto"
+      "title": "Medir y calcular · Parte 3"
     },
     {
       "id": "es-en-t-medir-y-calcular-004",
@@ -3290,7 +3290,7 @@
         "es-en-32555c36c668488911c6",
         "es-en-c98d5bd351f7142eb13d"
       ],
-      "title": "Metro, centímetro y milímetro"
+      "title": "Medir y calcular · Parte 4"
     },
     {
       "id": "es-en-t-medir-y-calcular-005",
@@ -3305,7 +3305,7 @@
         "es-en-5901ec1bee3eb6f163dc",
         "es-en-1be5d2e826275833734b"
       ],
-      "title": "Litro, pinta y peso"
+      "title": "Medir y calcular · Parte 5"
     },
     {
       "id": "es-en-t-medir-y-calcular-006",
@@ -3320,7 +3320,7 @@
         "es-en-32a685ab5e6de72a7591",
         "es-en-739cc2e5b5f03f25daad"
       ],
-      "title": "Más, docena y impar"
+      "title": "Medir y calcular · Parte 6"
     },
     {
       "id": "es-en-t-medir-y-calcular-007",
@@ -3334,7 +3334,7 @@
         "es-en-f368d11c365065ae5778",
         "es-en-fa967cc6775790bc6d31"
       ],
-      "title": "Kilogramo, kilómetro y masa"
+      "title": "Medir y calcular · Parte 7"
     }
   ],
   "cuanto-y-cuantos": [
@@ -3352,7 +3352,7 @@
         "es-en-6487947485b14baa8be5",
         "es-en-67f8425e8a3edd08b7cc"
       ],
-      "title": "Muchos, mucho y más"
+      "title": "Cuánto y cuántos · Parte 1"
     },
     {
       "id": "es-en-t-cuanto-y-cuantos-002",
@@ -3367,7 +3367,7 @@
         "es-en-803f48f74793be5c414c",
         "es-en-4bb9c4021bad5e91053a"
       ],
-      "title": "Cualquier, todo y ambos"
+      "title": "Cuánto y cuántos · Parte 2"
     },
     {
       "id": "es-en-t-cuanto-y-cuantos-003",
@@ -3382,7 +3382,7 @@
         "es-en-a122e49de19d7ae23e7b",
         "es-en-6e5a6ce256276e0a5ad7"
       ],
-      "title": "Otro, suficiente y mucho"
+      "title": "Cuánto y cuántos · Parte 3"
     },
     {
       "id": "es-en-t-cuanto-y-cuantos-004",
@@ -3397,7 +3397,7 @@
         "es-en-170953baf424d837c097",
         "es-en-622101c49fe433df0cb7"
       ],
-      "title": "Mayoría, minoría y entero"
+      "title": "Cuánto y cuántos · Parte 4"
     },
     {
       "id": "es-en-t-cuanto-y-cuantos-005",
@@ -3412,7 +3412,7 @@
         "es-en-054ef689aebacb078070",
         "es-en-9a4d7c2e31a1f7d1f722"
       ],
-      "title": "Extra, adicional y añadir como extra"
+      "title": "Cuánto y cuántos · Parte 5"
     },
     {
       "id": "es-en-t-cuanto-y-cuantos-006",
@@ -3427,7 +3427,7 @@
         "es-en-5c6e77c928b64d8827ae",
         "es-en-ba3b147ab908b7d2541c"
       ],
-      "title": "Restante, restos y casi"
+      "title": "Cuánto y cuántos · Parte 6"
     },
     {
       "id": "es-en-t-cuanto-y-cuantos-007",
@@ -3442,7 +3442,7 @@
         "es-en-11cc9be1b55ea98390f5",
         "es-en-65154b9f2973ed737b06"
       ],
-      "title": "En gran parte, mero y simplemente"
+      "title": "Cuánto y cuántos · Parte 7"
     }
   ],
   "orientacion-y-ubicacion": [
@@ -3460,7 +3460,7 @@
         "es-en-e38d062f932d6e43f1db",
         "es-en-fd9e0cc80b1262e3e027"
       ],
-      "title": "Espacio, posición y dirección"
+      "title": "Orientación y ubicación · Parte 1"
     },
     {
       "id": "es-en-t-orientacion-y-ubicacion-002",
@@ -3476,7 +3476,7 @@
         "es-en-e7efdcdba5b8d895d037",
         "es-en-34c7c8ebe4f4ba194285"
       ],
-      "title": "Occidental, izquierda y arriba"
+      "title": "Orientación y ubicación · Parte 2"
     },
     {
       "id": "es-en-t-orientacion-y-ubicacion-003",
@@ -3491,7 +3491,7 @@
         "es-en-f290c4e456d614b5c082",
         "es-en-60eef3150b7f49a33c7a"
       ],
-      "title": "Frente, parte trasera y hacia atrás"
+      "title": "Orientación y ubicación · Parte 3"
     },
     {
       "id": "es-en-t-orientacion-y-ubicacion-004",
@@ -3506,7 +3506,7 @@
         "es-en-dd36b8b0d29d2a652c9f",
         "es-en-e9d6a7b6df0e33036671"
       ],
-      "title": "Debajo de, sobre y entre"
+      "title": "Orientación y ubicación · Parte 4"
     },
     {
       "id": "es-en-t-orientacion-y-ubicacion-005",
@@ -3521,7 +3521,7 @@
         "es-en-76ef47491627df5f30a7",
         "es-en-948c51f435065f61ff41"
       ],
-      "title": "Cerca, lejos y más lejos"
+      "title": "Orientación y ubicación · Parte 5"
     },
     {
       "id": "es-en-t-orientacion-y-ubicacion-006",
@@ -3536,7 +3536,7 @@
         "es-en-f344c0c418a879647be4",
         "es-en-45e8a0d04aee8ff6b157"
       ],
-      "title": "Lejos, alrededor y a lo largo de"
+      "title": "Orientación y ubicación · Parte 6"
     },
     {
       "id": "es-en-t-orientacion-y-ubicacion-007",
@@ -3551,7 +3551,7 @@
         "es-en-68adbcbecabc9884b2f5",
         "es-en-d80e2b11671624da8e30"
       ],
-      "title": "Dentro, interior y exterior"
+      "title": "Orientación y ubicación · Parte 7"
     },
     {
       "id": "es-en-t-orientacion-y-ubicacion-008",
@@ -3566,7 +3566,7 @@
         "es-en-513f76795c57669e1d40",
         "es-en-702fe0bd24e0b32a40d7"
       ],
-      "title": "Central, borde y frontera"
+      "title": "Orientación y ubicación · Parte 8"
     },
     {
       "id": "es-en-t-orientacion-y-ubicacion-009",
@@ -3581,7 +3581,7 @@
         "es-en-0265a24b781a0c9cd070",
         "es-en-a887d0064e5f046c97fd"
       ],
-      "title": "Más allá, dentro de y bajo el agua"
+      "title": "Orientación y ubicación · Parte 9"
     },
     {
       "id": "es-en-t-orientacion-y-ubicacion-010",
@@ -3596,7 +3596,7 @@
         "es-en-c0fbb03c3c92b6368687",
         "es-en-8f075300c8defbfb4e4a"
       ],
-      "title": "Bajo, indirecto y indirectamente"
+      "title": "Orientación y ubicación · Parte 10"
     }
   ],
   "formas-y-tamanos": [
@@ -3614,7 +3614,7 @@
         "es-en-06bb2a30fc0bf2a65984",
         "es-en-a3277f61457ae3402f17"
       ],
-      "title": "Redondo, figura y forma"
+      "title": "Formas y tamaños · Parte 1"
     },
     {
       "id": "es-en-t-formas-y-tamanos-002",
@@ -3629,7 +3629,7 @@
         "es-en-0a86d3117d0a10ec630e",
         "es-en-49fa53e7e6f734fecb5a"
       ],
-      "title": "Enorme, masivo y alto"
+      "title": "Formas y tamaños · Parte 2"
     },
     {
       "id": "es-en-t-formas-y-tamanos-003",
@@ -3644,7 +3644,7 @@
         "es-en-258e9136091c123c0534",
         "es-en-cf135ad9f663936721a4"
       ],
-      "title": "Grueso, de forma espesa y grosor"
+      "title": "Formas y tamaños · Parte 3"
     },
     {
       "id": "es-en-t-formas-y-tamanos-004",
@@ -3659,7 +3659,7 @@
         "es-en-c36abc2812084d249366",
         "es-en-b27de570e7b6aad8835e"
       ],
-      "title": "Triángulo, ángulo y curva"
+      "title": "Formas y tamaños · Parte 4"
     },
     {
       "id": "es-en-t-formas-y-tamanos-005",
@@ -3674,7 +3674,7 @@
         "es-en-cfe3f373bfd3ccc90877",
         "es-en-1c6eeee44ad4e4c94ee2"
       ],
-      "title": "Pendiente, nivel y línea"
+      "title": "Formas y tamaños · Parte 5"
     },
     {
       "id": "es-en-t-formas-y-tamanos-006",
@@ -3689,7 +3689,7 @@
         "es-en-316c15018b6eaa3de13b",
         "es-en-4aba78d4822d7c45dbb4"
       ],
-      "title": "Hueco, sólido y marco"
+      "title": "Formas y tamaños · Parte 6"
     },
     {
       "id": "es-en-t-formas-y-tamanos-007",
@@ -3704,7 +3704,7 @@
         "es-en-4d44cc126793d2857248",
         "es-en-269dc3345a063fc50241"
       ],
-      "title": "Extenso, alcance y gigante"
+      "title": "Formas y tamaños · Parte 7"
     }
   ],
   "alegria-y-afecto": [
@@ -3722,7 +3722,7 @@
         "es-en-0c7f6926f9602127b660",
         "es-en-e041f73207a652eea38d"
       ],
-      "title": "Feliz, felicidad y contento"
+      "title": "Alegría y afecto · Parte 1"
     },
     {
       "id": "es-en-t-alegria-y-afecto-002",
@@ -3738,7 +3738,7 @@
         "es-en-9d28cab4446d5c3d2a4e",
         "es-en-636bd01ab0f69504bddc"
       ],
-      "title": "Encantador, amante y gustar"
+      "title": "Alegría y afecto · Parte 2"
     },
     {
       "id": "es-en-t-alegria-y-afecto-003",
@@ -3754,7 +3754,7 @@
         "es-en-7c10506f02822b49d417",
         "es-en-a8104eac09bfc4bbbcf3"
       ],
-      "title": "Emocionante, emoción y entusiasmo"
+      "title": "Alegría y afecto · Parte 3"
     },
     {
       "id": "es-en-t-alegria-y-afecto-004",
@@ -3770,7 +3770,7 @@
         "es-en-a2cbcdd8d8372070525f",
         "es-en-d9a350906338f7276bc7"
       ],
-      "title": "Satisfecho, satisfacer y satisfactorio"
+      "title": "Alegría y afecto · Parte 4"
     },
     {
       "id": "es-en-t-alegria-y-afecto-005",
@@ -3786,7 +3786,7 @@
         "es-en-e8df07a8b4a17d0cb7d2",
         "es-en-e7fa9f78990ece1aac08"
       ],
-      "title": "Alegría, animado y entusiasta"
+      "title": "Alegría y afecto · Parte 5"
     }
   ],
   "miedo-y-preocupacion": [
@@ -3803,7 +3803,7 @@
         "es-en-da7715439b5127e819bb",
         "es-en-c126f125ec458807d205"
       ],
-      "title": "Estrés, asustado y miedo"
+      "title": "Miedo y preocupación · Parte 1"
     },
     {
       "id": "es-en-t-miedo-y-preocupacion-002",
@@ -3817,7 +3817,7 @@
         "es-en-03f5b7aaead1c4194510",
         "es-en-59695fdc768b414fa063"
       ],
-      "title": "Ahuyentar, ansiedad y ansioso"
+      "title": "Miedo y preocupación · Parte 2"
     },
     {
       "id": "es-en-t-miedo-y-preocupacion-003",
@@ -3831,7 +3831,7 @@
         "es-en-b6ffc45a21c10f97fa27",
         "es-en-c811ab2b09a043b12034"
       ],
-      "title": "Con nerviosismo, estresado y tensión"
+      "title": "Miedo y preocupación · Parte 3"
     },
     {
       "id": "es-en-t-miedo-y-preocupacion-004",
@@ -3845,7 +3845,7 @@
         "es-en-fa7843451877d0796db0",
         "es-en-9540505072f149a205c5"
       ],
-      "title": "Conmoción, conmocionado y impactante"
+      "title": "Miedo y preocupación · Parte 4"
     }
   ],
   "tristeza-y-frustracion": [
@@ -3863,7 +3863,7 @@
         "es-en-e53bab744565df5246bf",
         "es-en-f06dd1e33273dd05f619"
       ],
-      "title": "Triste, tristemente y tristeza"
+      "title": "Tristeza y frustración · Parte 1"
     },
     {
       "id": "es-en-t-tristeza-y-frustracion-002",
@@ -3879,7 +3879,7 @@
         "es-en-a8a388f3c7002b506e8e",
         "es-en-daa6cdc2dda90648bc14"
       ],
-      "title": "Decepcionante, decepción y lamentar"
+      "title": "Tristeza y frustración · Parte 2"
     },
     {
       "id": "es-en-t-tristeza-y-frustracion-003",
@@ -3895,7 +3895,7 @@
         "es-en-a8c4b631ba0e080b4c03",
         "es-en-3ffeac9a47a24c7eb2c7"
       ],
-      "title": "Molesto, irritar y irritado"
+      "title": "Tristeza y frustración · Parte 3"
     },
     {
       "id": "es-en-t-tristeza-y-frustracion-004",
@@ -3911,7 +3911,7 @@
         "es-en-08825315ccbf911d6d9b",
         "es-en-5025ccfd5576a41a2b28"
       ],
-      "title": "No gustar, rencor y avergonzado"
+      "title": "Tristeza y frustración · Parte 4"
     },
     {
       "id": "es-en-t-tristeza-y-frustracion-005",
@@ -3927,7 +3927,7 @@
         "es-en-e9702219eb55f6a07a60",
         "es-en-bb795b3ad4a7a7cbe637"
       ],
-      "title": "Decepcionar, compasión y comprensivo"
+      "title": "Tristeza y frustración · Parte 5"
     },
     {
       "id": "es-en-t-tristeza-y-frustracion-006",
@@ -3942,7 +3942,7 @@
         "es-en-8d4a0097b01d6747ba71",
         "es-en-ae4075237040619bddcb"
       ],
-      "title": "Molestar, con frialdad y perturbador"
+      "title": "Tristeza y frustración · Parte 6"
     }
   ],
   "interes-y-sorpresa": [
@@ -3959,7 +3959,7 @@
         "es-en-6e341a4c63baf57e1dd1",
         "es-en-cfadac993978875a1984"
       ],
-      "title": "Interesado, interesante y aburrir"
+      "title": "Interés y sorpresa · Parte 1"
     },
     {
       "id": "es-en-t-interes-y-sorpresa-002",
@@ -3974,7 +3974,7 @@
         "es-en-91d8c1e2afc9d0e8bc93",
         "es-en-25d7f0a193a2227f0475"
       ],
-      "title": "Sorprendente, sorprendentemente y asombrar"
+      "title": "Interés y sorpresa · Parte 2"
     },
     {
       "id": "es-en-t-interes-y-sorpresa-003",
@@ -3988,7 +3988,7 @@
         "es-en-f76256ba90bacf44f4f4",
         "es-en-4783c1cbfb56d9187140"
       ],
-      "title": "Misterioso, preguntarse y maravilloso"
+      "title": "Interés y sorpresa · Parte 3"
     },
     {
       "id": "es-en-t-interes-y-sorpresa-004",
@@ -4002,7 +4002,7 @@
         "es-en-b60507f4329233981a41",
         "es-en-8f25c004a1161bf1130a"
       ],
-      "title": "Humorístico, broma y gracioso"
+      "title": "Interés y sorpresa · Parte 4"
     }
   ],
   "color-y-textura": [
@@ -4019,7 +4019,7 @@
         "es-en-67315bae1adcf91cecb4",
         "es-en-b62077592d7f4ed9b44a"
       ],
-      "title": "Color, de color y negro"
+      "title": "Color y textura · Parte 1"
     },
     {
       "id": "es-en-t-color-y-textura-002",
@@ -4034,7 +4034,7 @@
         "es-en-e7444f3a333f3c20cfc5",
         "es-en-08c67c6de2b09d145111"
       ],
-      "title": "Rosa, morado y gris"
+      "title": "Color y textura · Parte 2"
     },
     {
       "id": "es-en-t-color-y-textura-003",
@@ -4049,7 +4049,7 @@
         "es-en-524092c79a111d44c208",
         "es-en-920bd8a569aa9725eabe"
       ],
-      "title": "Con brillo, brillante y brillar"
+      "title": "Color y textura · Parte 3"
     },
     {
       "id": "es-en-t-color-y-textura-004",
@@ -4064,7 +4064,7 @@
         "es-en-fcdb4ea32d2cc818f3e0",
         "es-en-7bfb1d5246dbbf82f6e0"
       ],
-      "title": "Suave, suavemente y firmemente"
+      "title": "Color y textura · Parte 4"
     },
     {
       "id": "es-en-t-color-y-textura-005",
@@ -4078,7 +4078,7 @@
         "es-en-0acb45fdb158565e2040",
         "es-en-0824c6da6bef538aa64c"
       ],
-      "title": "Puramente, sencillo y en blanco"
+      "title": "Color y textura · Parte 5"
     },
     {
       "id": "es-en-t-color-y-textura-006",
@@ -4092,7 +4092,7 @@
         "es-en-6c00723feec5db82029d",
         "es-en-6ab2120f96cf642378e7"
       ],
-      "title": "Firmemente, duro y delicado"
+      "title": "Color y textura · Parte 6"
     }
   ],
   "valorar-y-comparar": [
@@ -4110,7 +4110,7 @@
         "es-en-21c8038029394fae8c2d",
         "es-en-0bf359ac90fcb5a189af"
       ],
-      "title": "Bueno, malo y mejor"
+      "title": "Valorar y comparar · Parte 1"
     },
     {
       "id": "es-en-t-valorar-y-comparar-002",
@@ -4126,7 +4126,7 @@
         "es-en-523dce912bd09f16a5c8",
         "es-en-c9e48909d2ad1134a81b"
       ],
-      "title": "Bien, finamente y excelente"
+      "title": "Valorar y comparar · Parte 2"
     },
     {
       "id": "es-en-t-valorar-y-comparar-003",
@@ -4142,7 +4142,7 @@
         "es-en-66a7febda936151b7580",
         "es-en-721c9bcacb8bf909d40c"
       ],
-      "title": "Negativo, ventaja y desventaja"
+      "title": "Valorar y comparar · Parte 3"
     },
     {
       "id": "es-en-t-valorar-y-comparar-004",
@@ -4158,7 +4158,7 @@
         "es-en-eb28d28cd052e839df3e",
         "es-en-7dac11ff3138d7c45518"
       ],
-      "title": "Apropiado, adecuado y conveniente"
+      "title": "Valorar y comparar · Parte 4"
     },
     {
       "id": "es-en-t-valorar-y-comparar-005",
@@ -4174,7 +4174,7 @@
         "es-en-168bdc62dbcd9cb109ca",
         "es-en-dd85e8a57dc2ecf9c3e1"
       ],
-      "title": "Con precisión, preciso y precisamente"
+      "title": "Valorar y comparar · Parte 5"
     },
     {
       "id": "es-en-t-valorar-y-comparar-006",
@@ -4190,7 +4190,7 @@
         "es-en-4aaf739439ab10781ab9",
         "es-en-8d130f4511e260186aff"
       ],
-      "title": "Extrañamente, típico y típicamente"
+      "title": "Valorar y comparar · Parte 6"
     },
     {
       "id": "es-en-t-valorar-y-comparar-007",
@@ -4206,7 +4206,7 @@
         "es-en-6c260807295811d3e560",
         "es-en-5800593145a3cf95d713"
       ],
-      "title": "General, generalmente y común"
+      "title": "Valorar y comparar · Parte 7"
     },
     {
       "id": "es-en-t-valorar-y-comparar-008",
@@ -4222,7 +4222,7 @@
         "es-en-dc3645db5b17fd301557",
         "es-en-c2285d9f9506d3813538"
       ],
-      "title": "Diferente, de manera diferente y diferencia"
+      "title": "Valorar y comparar · Parte 8"
     },
     {
       "id": "es-en-t-valorar-y-comparar-009",
@@ -4237,7 +4237,7 @@
         "es-en-cb9d0b02722bf48d2163",
         "es-en-fee7c284a9263e50563d"
       ],
-      "title": "Equivalente, variado y variedad"
+      "title": "Valorar y comparar · Parte 9"
     },
     {
       "id": "es-en-t-valorar-y-comparar-010",
@@ -4252,7 +4252,7 @@
         "es-en-a00755fddb747e3883f8",
         "es-en-502f7508aaba8c557ef4"
       ],
-      "title": "Culpa, útil y ideal"
+      "title": "Valorar y comparar · Parte 10"
     },
     {
       "id": "es-en-t-valorar-y-comparar-011",
@@ -4267,7 +4267,7 @@
         "es-en-bd780e437066914ecde3",
         "es-en-edb5f02ec3f6d30458a9"
       ],
-      "title": "Llamativo, estable y de manera constante"
+      "title": "Valorar y comparar · Parte 11"
     }
   ],
   "intensidad-y-relevancia": [
@@ -4285,7 +4285,7 @@
         "es-en-7bb4bcb507ef621e4806",
         "es-en-2f02afdc11186eea5409"
       ],
-      "title": "Importante, de manera importante y importancia"
+      "title": "Intensidad y relevancia · Parte 1"
     },
     {
       "id": "es-en-t-intensidad-y-relevancia-002",
@@ -4301,7 +4301,7 @@
         "es-en-a4b2ab7aa0019ffe6d58",
         "es-en-0bb56a86a71ccd68c9ea"
       ],
-      "title": "Primario, principalmente y esencial"
+      "title": "Intensidad y relevancia · Parte 2"
     },
     {
       "id": "es-en-t-intensidad-y-relevancia-003",
@@ -4317,7 +4317,7 @@
         "es-en-40d031fe93a4822075d3",
         "es-en-eea620ba931d8233d975"
       ],
-      "title": "Necesario, necesariamente y innecesario"
+      "title": "Intensidad y relevancia · Parte 3"
     },
     {
       "id": "es-en-t-intensidad-y-relevancia-004",
@@ -4333,7 +4333,7 @@
         "es-en-40f176ea3d6eda5d5b48",
         "es-en-6cc1aac54d161540bd32"
       ],
-      "title": "Poderoso, severo y gravemente"
+      "title": "Intensidad y relevancia · Parte 4"
     },
     {
       "id": "es-en-t-intensidad-y-relevancia-005",
@@ -4349,7 +4349,7 @@
         "es-en-1c4b8ed76c10a68898d5",
         "es-en-3fd8b4238925dfc05007"
       ],
-      "title": "Minuciosamente, considerable y considerablemente"
+      "title": "Intensidad y relevancia · Parte 5"
     },
     {
       "id": "es-en-t-intensidad-y-relevancia-006",
@@ -4365,7 +4365,7 @@
         "es-en-6f75a69529a014864cb6",
         "es-en-da04fe8314a832a2dc37"
       ],
-      "title": "Intensamente, muy y bastante"
+      "title": "Intensidad y relevancia · Parte 6"
     },
     {
       "id": "es-en-t-intensidad-y-relevancia-007",
@@ -4380,7 +4380,7 @@
         "es-en-49a38604fb01e1c77e7d",
         "es-en-94d3530e4be7faac4f9a"
       ],
-      "title": "Destacado, perceptible y relevante"
+      "title": "Intensidad y relevancia · Parte 7"
     }
   ],
   "gobierno-y-ciudadania": [
@@ -4398,7 +4398,7 @@
         "es-en-5cd51af5012d5f153a90",
         "es-en-a3e9482bae811486011d"
       ],
-      "title": "Sociedad, social y socialmente"
+      "title": "Gobierno y ciudadanía · Parte 1"
     },
     {
       "id": "es-en-t-gobierno-y-ciudadania-002",
@@ -4414,7 +4414,7 @@
         "es-en-f9017d54660b5ffc0b9d",
         "es-en-a6e40f306fbd0fe17650"
       ],
-      "title": "Políticamente, política y parlamento"
+      "title": "Gobierno y ciudadanía · Parte 2"
     },
     {
       "id": "es-en-t-gobierno-y-ciudadania-003",
@@ -4429,7 +4429,7 @@
         "es-en-8c9ab6dedf1c6f5e3614",
         "es-en-1dcc8d598039e36c0f1d"
       ],
-      "title": "Alcalde, consejo y elección"
+      "title": "Gobierno y ciudadanía · Parte 3"
     },
     {
       "id": "es-en-t-gobierno-y-ciudadania-004",
@@ -4444,7 +4444,7 @@
         "es-en-fb50cfda2ec829923b9d",
         "es-en-d681a3354e126177c3b7"
       ],
-      "title": "De la realeza, rey y reina"
+      "title": "Gobierno y ciudadanía · Parte 4"
     },
     {
       "id": "es-en-t-gobierno-y-ciudadania-005",
@@ -4459,7 +4459,7 @@
         "es-en-4f389df59e3e26c2e185",
         "es-en-0c826a07193e18a0d025"
       ],
-      "title": "Oficialmente, autoridad y privado"
+      "title": "Gobierno y ciudadanía · Parte 5"
     },
     {
       "id": "es-en-t-gobierno-y-ciudadania-006",
@@ -4474,7 +4474,7 @@
         "es-en-721efbcbfb45d68e00f8",
         "es-en-6c4d3bde9cf89199e17e"
       ],
-      "title": "Regulación, candidato y civil"
+      "title": "Gobierno y ciudadanía · Parte 6"
     }
   ],
   "leyes-y-justicia": [
@@ -4492,7 +4492,7 @@
         "es-en-74babc41501a043d3353",
         "es-en-8d772dac665c998f322c"
       ],
-      "title": "Derecho, ley y legal"
+      "title": "Leyes y justicia · Parte 1"
     },
     {
       "id": "es-en-t-leyes-y-justicia-002",
@@ -4507,7 +4507,7 @@
         "es-en-bbcf58f80410500ac5af",
         "es-en-d8b10e9145e9bc20b191"
       ],
-      "title": "Crimen, criminal y policía"
+      "title": "Leyes y justicia · Parte 2"
     },
     {
       "id": "es-en-t-leyes-y-justicia-003",
@@ -4522,7 +4522,7 @@
         "es-en-b6a9fad65509201dfa54",
         "es-en-2b93ffb70d5b623304bd"
       ],
-      "title": "Castigo, asesinato y robar"
+      "title": "Leyes y justicia · Parte 3"
     },
     {
       "id": "es-en-t-leyes-y-justicia-004",
@@ -4537,7 +4537,7 @@
         "es-en-c3ab5510558918f2df99",
         "es-en-9b8a18dd67486a33dc8d"
       ],
-      "title": "Víctima, testigo y evidencia"
+      "title": "Leyes y justicia · Parte 4"
     },
     {
       "id": "es-en-t-leyes-y-justicia-005",
@@ -4552,7 +4552,7 @@
         "es-en-12de3d7c2dc242d6c578",
         "es-en-4f74f2751f96a0addbb2"
       ],
-      "title": "Permitir, permiso y tener en cuenta"
+      "title": "Leyes y justicia · Parte 5"
     },
     {
       "id": "es-en-t-leyes-y-justicia-006",
@@ -4567,7 +4567,7 @@
         "es-en-cc43166f7ed60be3c397",
         "es-en-5d0db1725bc4644d6756"
       ],
-      "title": "Dar derecho a, salir impune de y justicia"
+      "title": "Leyes y justicia · Parte 6"
     }
   ],
   "conflictos-y-seguridad": [
@@ -4584,7 +4584,7 @@
         "es-en-76ecb889f3bb606eb95d",
         "es-en-fd57f6ba81e7cd895495"
       ],
-      "title": "Guerra, paz y pacífico"
+      "title": "Conflictos y seguridad · Parte 1"
     },
     {
       "id": "es-en-t-conflictos-y-seguridad-002",
@@ -4599,7 +4599,7 @@
         "es-en-913f3dd80901eb68c667",
         "es-en-7a8622aeb1d10cb72f17"
       ],
-      "title": "Ataque, arma y bomba"
+      "title": "Conflictos y seguridad · Parte 2"
     },
     {
       "id": "es-en-t-conflictos-y-seguridad-003",
@@ -4614,7 +4614,7 @@
         "es-en-1fd827261b6a9362e534",
         "es-en-6eea52fc3196e00b5a8c"
       ],
-      "title": "Explotar, explosión y violencia"
+      "title": "Conflictos y seguridad · Parte 3"
     },
     {
       "id": "es-en-t-conflictos-y-seguridad-004",
@@ -4629,7 +4629,7 @@
         "es-en-99b68238575c3bedff11",
         "es-en-a0cda65afdf60e305649"
       ],
-      "title": "Enemigo, aliado y ocupar"
+      "title": "Conflictos y seguridad · Parte 4"
     },
     {
       "id": "es-en-t-conflictos-y-seguridad-005",
@@ -4644,7 +4644,7 @@
         "es-en-44960b9df0022038889e",
         "es-en-26fd3439148eb4f453f4"
       ],
-      "title": "Seguridad, seguro y de forma segura"
+      "title": "Conflictos y seguridad · Parte 5"
     },
     {
       "id": "es-en-t-conflictos-y-seguridad-006",
@@ -4659,7 +4659,7 @@
         "es-en-921922c29e8f5b85d425",
         "es-en-c473a209f8564fea097e"
       ],
-      "title": "Protección, guardia y desastre"
+      "title": "Conflictos y seguridad · Parte 6"
     },
     {
       "id": "es-en-t-conflictos-y-seguridad-007",
@@ -4674,7 +4674,7 @@
         "es-en-42893d849250aa31716e",
         "es-en-6b83cfb647075e5f2faa"
       ],
-      "title": "Héroe, matar y matanza"
+      "title": "Conflictos y seguridad · Parte 7"
     }
   ],
   "creencias-y-tradiciones": [
@@ -4691,7 +4691,7 @@
         "es-en-87f3deed7cf9586a71e1",
         "es-en-139541e0e37de747c606"
       ],
-      "title": "Cultura, cultural y tradición"
+      "title": "Creencias y tradiciones · Parte 1"
     },
     {
       "id": "es-en-t-creencias-y-tradiciones-002",
@@ -4706,7 +4706,7 @@
         "es-en-33fea3eb803350131d23",
         "es-en-9b18be29304f73099d9e"
       ],
-      "title": "Celebración, religión y religioso"
+      "title": "Creencias y tradiciones · Parte 2"
     },
     {
       "id": "es-en-t-creencias-y-tradiciones-003",
@@ -4720,7 +4720,7 @@
         "es-en-7c0d7e31c10bfeb1da0a",
         "es-en-106c3d34744c5427018b"
       ],
-      "title": "Alma, sagrado y cielo"
+      "title": "Creencias y tradiciones · Parte 3"
     },
     {
       "id": "es-en-t-creencias-y-tradiciones-004",
@@ -4734,7 +4734,7 @@
         "es-en-04bea7a049e347a3d21b",
         "es-en-1b72e7ce89e66bcea7ef"
       ],
-      "title": "Magia, historia y histórico"
+      "title": "Creencias y tradiciones · Parte 4"
     }
   ],
   "investigacion-y-descubrimientos": [
@@ -4750,7 +4750,7 @@
         "es-en-2179a4d05b69aa6eb346",
         "es-en-9cae0689dc917a14c18b"
       ],
-      "title": "Ciencia, científico y investigación"
+      "title": "Investigación y descubrimientos · Parte 1"
     },
     {
       "id": "es-en-t-investigacion-y-descubrimientos-002",
@@ -4764,7 +4764,7 @@
         "es-en-dbed62c194e3b8e83cd8",
         "es-en-24fb193d4bd6e8bc48b9"
       ],
-      "title": "Encuesta, observar y observación"
+      "title": "Investigación y descubrimientos · Parte 2"
     },
     {
       "id": "es-en-t-investigacion-y-descubrimientos-003",
@@ -4778,7 +4778,7 @@
         "es-en-c08f690a095386cc888e",
         "es-en-d43da958c4cca3c9a7e9"
       ],
-      "title": "Tecnología, examinar y muestra"
+      "title": "Investigación y descubrimientos · Parte 3"
     },
     {
       "id": "es-en-t-investigacion-y-descubrimientos-004",
@@ -4791,7 +4791,7 @@
         "es-en-91e908c9fb49b88d2a39",
         "es-en-e37312d2924b0fda16ad"
       ],
-      "title": "Laboratorio, inventar y invento"
+      "title": "Investigación y descubrimientos · Parte 4"
     }
   ],
   "materia-y-energia": [
@@ -4808,7 +4808,7 @@
         "es-en-716b9bae875333ddaa5d",
         "es-en-312d3a9273d9fa1bd48e"
       ],
-      "title": "Física, química y químico"
+      "title": "Materia y energía · Parte 1"
     },
     {
       "id": "es-en-t-materia-y-energia-002",
@@ -4823,7 +4823,7 @@
         "es-en-e288a78486abe0067afa",
         "es-en-ce7ace34eb40e7c28ae0"
       ],
-      "title": "Líquido, sustancia y elemento"
+      "title": "Materia y energía · Parte 2"
     },
     {
       "id": "es-en-t-materia-y-energia-003",
@@ -4838,7 +4838,7 @@
         "es-en-11b99e239f94598abcba",
         "es-en-2600bca297e3c23175a7"
       ],
-      "title": "Goma, de madera y hormigón"
+      "title": "Materia y energía · Parte 3"
     },
     {
       "id": "es-en-t-materia-y-energia-004",
@@ -4853,7 +4853,7 @@
         "es-en-b6d224e5345cc45b5e6b",
         "es-en-876faf34502efae92635"
       ],
-      "title": "Nuclear, calor y fuego"
+      "title": "Materia y energía · Parte 4"
     },
     {
       "id": "es-en-t-materia-y-energia-005",
@@ -4868,7 +4868,7 @@
         "es-en-4766c9c3d8a595c2a93a",
         "es-en-5dc14998d447b620ba28"
       ],
-      "title": "Luna, estrella y planeta"
+      "title": "Materia y energía · Parte 5"
     }
   ],
   "informatica-y-dispositivos": [
@@ -4886,7 +4886,7 @@
         "es-en-6cf361670779ae405ae8",
         "es-en-307aae16308c9af4a41a"
       ],
-      "title": "Aplicación, ordenador y teclado"
+      "title": "Informática y dispositivos · Parte 1"
     },
     {
       "id": "es-en-t-informatica-y-dispositivos-002",
@@ -4902,7 +4902,7 @@
         "es-en-1d51e01e9ba4f206ab1c",
         "es-en-e021d9474673d6b8b8a0"
       ],
-      "title": "Sitio web, red y Internet"
+      "title": "Informática y dispositivos · Parte 2"
     },
     {
       "id": "es-en-t-informatica-y-dispositivos-003",
@@ -4918,7 +4918,7 @@
         "es-en-aa4d3a70d4aca98256b5",
         "es-en-508768ece9a31982f1ee"
       ],
-      "title": "Archivo, documento y código"
+      "title": "Informática y dispositivos · Parte 3"
     },
     {
       "id": "es-en-t-informatica-y-dispositivos-004",
@@ -4933,7 +4933,7 @@
         "es-en-d2f7d8c9cc9ed0ce2082",
         "es-en-404aa053af431d3dbedb"
       ],
-      "title": "Video, cámara y registro"
+      "title": "Informática y dispositivos · Parte 4"
     },
     {
       "id": "es-en-t-informatica-y-dispositivos-005",
@@ -4948,7 +4948,7 @@
         "es-en-29f6438d72d82aed3a77",
         "es-en-20c5dd3d79a2d8c7f4bb"
       ],
-      "title": "Herramienta, cable y alambre"
+      "title": "Informática y dispositivos · Parte 5"
     },
     {
       "id": "es-en-t-informatica-y-dispositivos-006",
@@ -4963,7 +4963,7 @@
         "es-en-77d144d080c5ad2a0961",
         "es-en-2b4720377188c8b2bbf4"
       ],
-      "title": "Automático, automáticamente y encender"
+      "title": "Informática y dispositivos · Parte 6"
     }
   ],
   "moverse-y-desplazarse": [
@@ -4981,7 +4981,7 @@
         "es-en-04d764573db9653b84fc",
         "es-en-513bb2c18340764ab828"
       ],
-      "title": "Hundirse, volar y equilibrio"
+      "title": "Moverse y desplazarse · Parte 1"
     },
     {
       "id": "es-en-t-moverse-y-desplazarse-002",
@@ -4997,7 +4997,7 @@
         "es-en-e26ad3f14e61089f3e60",
         "es-en-d6adbf5588bc1e5e8df0"
       ],
-      "title": "Caminata, saltar y paso"
+      "title": "Moverse y desplazarse · Parte 2"
     },
     {
       "id": "es-en-t-moverse-y-desplazarse-003",
@@ -5013,7 +5013,7 @@
         "es-en-dd651705fb8aed99ac31",
         "es-en-6220fc56a0efc4170c1e"
       ],
-      "title": "Acercarse, entrar y salida"
+      "title": "Moverse y desplazarse · Parte 3"
     },
     {
       "id": "es-en-t-moverse-y-desplazarse-004",
@@ -5029,7 +5029,7 @@
         "es-en-52cf4367f2d4063a4710",
         "es-en-6a24de4ebf614e966697"
       ],
-      "title": "Atravesar, caer y subir"
+      "title": "Moverse y desplazarse · Parte 4"
     },
     {
       "id": "es-en-t-moverse-y-desplazarse-005",
@@ -5044,7 +5044,7 @@
         "es-en-d0e5ec1309c6f45ce586",
         "es-en-86e016355fc5a38c2566"
       ],
-      "title": "Girar, darse la vuelta y dar media vuelta"
+      "title": "Moverse y desplazarse · Parte 5"
     },
     {
       "id": "es-en-t-moverse-y-desplazarse-006",
@@ -5059,7 +5059,7 @@
         "es-en-f65e3024840ce53dd928",
         "es-en-9181aa75c5d98375cc33"
       ],
-      "title": "Inclinarse, estirar y estar de pie"
+      "title": "Moverse y desplazarse · Parte 6"
     },
     {
       "id": "es-en-t-moverse-y-desplazarse-007",
@@ -5074,7 +5074,7 @@
         "es-en-7ade7c9cd528e883cca1",
         "es-en-506395e2fa882379401f"
       ],
-      "title": "Estar tirado, balancearse y sacudir"
+      "title": "Moverse y desplazarse · Parte 7"
     },
     {
       "id": "es-en-t-moverse-y-desplazarse-008",
@@ -5089,7 +5089,7 @@
         "es-en-d412d37881d9ce45f733",
         "es-en-8606c45d2c201028fecb"
       ],
-      "title": "Volver, volver a y entrar"
+      "title": "Moverse y desplazarse · Parte 8"
     },
     {
       "id": "es-en-t-moverse-y-desplazarse-009",
@@ -5104,7 +5104,7 @@
         "es-en-5fce2a71111aa102a351",
         "es-en-2a674a0e10f5d646ea7b"
       ],
-      "title": "Dar una vuelta, atravesar y ir a"
+      "title": "Moverse y desplazarse · Parte 9"
     },
     {
       "id": "es-en-t-moverse-y-desplazarse-010",
@@ -5119,7 +5119,7 @@
         "es-en-2a74d8576d399f7f5808",
         "es-en-ae32d164bee55023e8fc"
       ],
-      "title": "Surgir, acercarse a y hacerse a un lado"
+      "title": "Moverse y desplazarse · Parte 10"
     },
     {
       "id": "es-en-t-moverse-y-desplazarse-011",
@@ -5134,7 +5134,7 @@
         "es-en-15dd5bcf4cd6d380847b",
         "es-en-4310ebf13632a6ebd8d6"
       ],
-      "title": "Comenzar, ponerse en marcha y emprender un viaje"
+      "title": "Moverse y desplazarse · Parte 11"
     }
   ],
   "sujetar-y-manipular": [
@@ -5152,7 +5152,7 @@
         "es-en-fa5de6338097a50469b9",
         "es-en-2a792d26742a427c7462"
       ],
-      "title": "Enrollar, golpear y tomar"
+      "title": "Sujetar y manipular · Parte 1"
     },
     {
       "id": "es-en-t-sujetar-y-manipular-002",
@@ -5168,7 +5168,7 @@
         "es-en-a8b4a64a5537acafc01b",
         "es-en-bd04af4e556341378307"
       ],
-      "title": "No entrar, mantenerse fuera de y mantener el ritmo"
+      "title": "Sujetar y manipular · Parte 2"
     },
     {
       "id": "es-en-t-sujetar-y-manipular-003",
@@ -5184,7 +5184,7 @@
         "es-en-fd85376d29ae9a172352",
         "es-en-f047cf4b35a41f44f01e"
       ],
-      "title": "Traer, traer de vuelta y reducir"
+      "title": "Sujetar y manipular · Parte 3"
     },
     {
       "id": "es-en-t-sujetar-y-manipular-004",
@@ -5200,7 +5200,7 @@
         "es-en-33dfcd18db04c0a675f7",
         "es-en-0d932d5d8c095eeb81f3"
       ],
-      "title": "Guardar en su sitio, dejar en el suelo y proponer"
+      "title": "Sujetar y manipular · Parte 4"
     },
     {
       "id": "es-en-t-sujetar-y-manipular-005",
@@ -5215,7 +5215,7 @@
         "es-en-ddd7b1b956092c4bee35",
         "es-en-d4d20d00b9335084b749"
       ],
-      "title": "Poner, colgar y esperar un momento"
+      "title": "Sujetar y manipular · Parte 5"
     },
     {
       "id": "es-en-t-sujetar-y-manipular-006",
@@ -5230,7 +5230,7 @@
         "es-en-eb8310fa8629c8903d76",
         "es-en-3abf22f6c08bbb29312d"
       ],
-      "title": "Intimidar, impulsar y tirar"
+      "title": "Sujetar y manipular · Parte 6"
     },
     {
       "id": "es-en-t-sujetar-y-manipular-007",
@@ -5245,7 +5245,7 @@
         "es-en-e5060324383c6f21bdd7",
         "es-en-f81c7633427c2ddc12a6"
       ],
-      "title": "Golpear, dar una paliza y patear"
+      "title": "Sujetar y manipular · Parte 7"
     },
     {
       "id": "es-en-t-sujetar-y-manipular-008",
@@ -5260,7 +5260,7 @@
         "es-en-6ee91b0a9f3cfdb28176",
         "es-en-270c5a8264f58fc44b12"
       ],
-      "title": "Caricia, rasgar y hacer pedazos"
+      "title": "Sujetar y manipular · Parte 8"
     },
     {
       "id": "es-en-t-sujetar-y-manipular-009",
@@ -5275,7 +5275,7 @@
         "es-en-b284ea1ebd432d1ead2d",
         "es-en-f91bc5eb0448a4e52b4d"
       ],
-      "title": "Ceñirse a, sobresalir y atar"
+      "title": "Sujetar y manipular · Parte 9"
     },
     {
       "id": "es-en-t-sujetar-y-manipular-010",
@@ -5290,7 +5290,7 @@
         "es-en-df8bab29de6d8da61682",
         "es-en-3ad30485084ade0d9856"
       ],
-      "title": "Doblar, plegable y abrir"
+      "title": "Sujetar y manipular · Parte 10"
     },
     {
       "id": "es-en-t-sujetar-y-manipular-011",
@@ -5305,7 +5305,7 @@
         "es-en-36b978fe11e7e2ff6f62",
         "es-en-eb6909cf0a44def0b2fa"
       ],
-      "title": "Retorcido, cerrado y encajar"
+      "title": "Sujetar y manipular · Parte 11"
     }
   ],
   "crear-y-transformar": [
@@ -5323,7 +5323,7 @@
         "es-en-4d999bc51444a349fed8",
         "es-en-3fe0c4f9a8db222b558b"
       ],
-      "title": "Desaparecer un efecto, desgastar por erosión y hacer"
+      "title": "Crear y transformar · Parte 1"
     },
     {
       "id": "es-en-t-crear-y-transformar-002",
@@ -5339,7 +5339,7 @@
         "es-en-5bd6466e4f4df4458643",
         "es-en-c991d07a711981af19bc"
       ],
-      "title": "Expandir, extender y extensión"
+      "title": "Crear y transformar · Parte 2"
     },
     {
       "id": "es-en-t-crear-y-transformar-003",
@@ -5355,7 +5355,7 @@
         "es-en-8776d52906cb0da80a78",
         "es-en-235d49f88ed6b7014b0f"
       ],
-      "title": "Cambiar de sitio, alterar y transformar"
+      "title": "Crear y transformar · Parte 3"
     },
     {
       "id": "es-en-t-crear-y-transformar-004",
@@ -5371,7 +5371,7 @@
         "es-en-d28b55ac128cb8eb1fb4",
         "es-en-7197c858bf99e8675693"
       ],
-      "title": "Averiarse, entrar por la fuerza y estallar"
+      "title": "Crear y transformar · Parte 4"
     },
     {
       "id": "es-en-t-crear-y-transformar-005",
@@ -5387,7 +5387,7 @@
         "es-en-36cf485a51bd219b8b82",
         "es-en-2a09aa5710eec8d5f8e7"
       ],
-      "title": "Estropear, derrumbarse y aplastar"
+      "title": "Crear y transformar · Parte 5"
     },
     {
       "id": "es-en-t-crear-y-transformar-006",
@@ -5403,7 +5403,7 @@
         "es-en-c44ab476127eede2d70f",
         "es-en-b81bf454c31ac160a49e"
       ],
-      "title": "Por separado, separación y combinar"
+      "title": "Crear y transformar · Parte 6"
     },
     {
       "id": "es-en-t-crear-y-transformar-007",
@@ -5418,7 +5418,7 @@
         "es-en-cf4f12a31a93bfb0ca03",
         "es-en-b977ad41592ed58916e3"
       ],
-      "title": "Llenar, rellenar un formulario y llenar por completo"
+      "title": "Crear y transformar · Parte 7"
     },
     {
       "id": "es-en-t-crear-y-transformar-008",
@@ -5433,7 +5433,7 @@
         "es-en-1b8ac7c74612562d4ccc",
         "es-en-a4bf986acef7b489ba24"
       ],
-      "title": "Montón, amontonarse y recoger"
+      "title": "Crear y transformar · Parte 8"
     },
     {
       "id": "es-en-t-crear-y-transformar-009",
@@ -5448,7 +5448,7 @@
         "es-en-4f9eb13291d0df922c76",
         "es-en-f67fb709d7bda16ac41b"
       ],
-      "title": "Crecimiento, convertir en y inventar"
+      "title": "Crear y transformar · Parte 9"
     }
   ],
   "dar-recibir-y-conservar": [
@@ -5466,7 +5466,7 @@
         "es-en-d12df15630a290292e5b",
         "es-en-2c35448c91d46b8a7804"
       ],
-      "title": "Dar, regalar y devolver"
+      "title": "Dar, recibir y conservar · Parte 1"
     },
     {
       "id": "es-en-t-dar-recibir-y-conservar-002",
@@ -5482,7 +5482,7 @@
         "es-en-54e210ae92b886e33f50",
         "es-en-e27bd1632718f9e0bf41"
       ],
-      "title": "Adquirir, ganar y perdido"
+      "title": "Dar, recibir y conservar · Parte 2"
     },
     {
       "id": "es-en-t-dar-recibir-y-conservar-003",
@@ -5498,7 +5498,7 @@
         "es-en-7255cc93619528c1ec71",
         "es-en-c2963de4d92f6e2eceb1"
       ],
-      "title": "Buscar información, cuidar de y menospreciar"
+      "title": "Dar, recibir y conservar · Parte 3"
     },
     {
       "id": "es-en-t-dar-recibir-y-conservar-004",
@@ -5513,7 +5513,7 @@
         "es-en-96ef8aa6408a40c57ed9",
         "es-en-109ecc67902e6af32efe"
       ],
-      "title": "Entrega, enviar y mandar llamar"
+      "title": "Dar, recibir y conservar · Parte 4"
     },
     {
       "id": "es-en-t-dar-recibir-y-conservar-005",
@@ -5528,7 +5528,7 @@
         "es-en-062a242c0a91b7212d87",
         "es-en-3ab85c8b298f21db3a76"
       ],
-      "title": "Transmitir, desmayarse y pasar de mano en mano"
+      "title": "Dar, recibir y conservar · Parte 5"
     },
     {
       "id": "es-en-t-dar-recibir-y-conservar-006",
@@ -5543,7 +5543,7 @@
         "es-en-6c3f2703edf9d4098294",
         "es-en-5d0144a565db519b2a28"
       ],
-      "title": "Contribución, retener y permanecer"
+      "title": "Dar, recibir y conservar · Parte 6"
     },
     {
       "id": "es-en-t-dar-recibir-y-conservar-007",
@@ -5558,7 +5558,7 @@
         "es-en-5e5926c4e5ba04492636",
         "es-en-2f1630c78eed052e6851"
       ],
-      "title": "Incluir, incluyendo y excluir"
+      "title": "Dar, recibir y conservar · Parte 7"
     },
     {
       "id": "es-en-t-dar-recibir-y-conservar-008",
@@ -5573,7 +5573,7 @@
         "es-en-23adfcedf192a6bf3954",
         "es-en-ed0e45b6d91a3aaa6b09"
       ],
-      "title": "Aparecer, surgir y exponer"
+      "title": "Dar, recibir y conservar · Parte 8"
     },
     {
       "id": "es-en-t-dar-recibir-y-conservar-009",
@@ -5588,7 +5588,7 @@
         "es-en-4b7f97dfd0e0a11828ab",
         "es-en-14b7068d27491449158f"
       ],
-      "title": "Mostrar, presentación y representar"
+      "title": "Dar, recibir y conservar · Parte 9"
     },
     {
       "id": "es-en-t-dar-recibir-y-conservar-010",
@@ -5603,7 +5603,7 @@
         "es-en-b9df917c4146a0fa8b3b",
         "es-en-1bdffc6a41cd85585dc6"
       ],
-      "title": "Omitir, librar de y llevarse"
+      "title": "Dar, recibir y conservar · Parte 10"
     }
   ],
   "pensar-y-recordar": [
@@ -5621,7 +5621,7 @@
         "es-en-7a7d1cc6e1d7e7b7b85b",
         "es-en-f6bd2f28c73bab0d96f8"
       ],
-      "title": "Pensar, pensamiento y pensar en"
+      "title": "Pensar y recordar · Parte 1"
     },
     {
       "id": "es-en-t-pensar-y-recordar-002",
@@ -5637,7 +5637,7 @@
         "es-en-3f94f0521f250568e97e",
         "es-en-8529d2aaa2fac86e1a07"
       ],
-      "title": "Desconocido, entender y comprensión"
+      "title": "Pensar y recordar · Parte 2"
     },
     {
       "id": "es-en-t-pensar-y-recordar-003",
@@ -5653,7 +5653,7 @@
         "es-en-621851ff1e3d8e7e93a3",
         "es-en-8c55ad9aaf81379490e4"
       ],
-      "title": "Consideración, reflejar y recordar"
+      "title": "Pensar y recordar · Parte 3"
     },
     {
       "id": "es-en-t-pensar-y-recordar-004",
@@ -5669,7 +5669,7 @@
         "es-en-4e165b6b8d425e2329d2",
         "es-en-d5d725b8225d4eaed705"
       ],
-      "title": "Idea, concepto y lógica"
+      "title": "Pensar y recordar · Parte 4"
     },
     {
       "id": "es-en-t-pensar-y-recordar-005",
@@ -5684,7 +5684,7 @@
         "es-en-a436630805c5ead12b4f",
         "es-en-a39607aae73f7b60644f"
       ],
-      "title": "Concentrarse, concentrarse en y concentración"
+      "title": "Pensar y recordar · Parte 5"
     },
     {
       "id": "es-en-t-pensar-y-recordar-006",
@@ -5699,7 +5699,7 @@
         "es-en-e0ee7df144c56c784496",
         "es-en-bc8cd41cd10d81c1d52b"
       ],
-      "title": "Distinguir, conocido y averiguar"
+      "title": "Pensar y recordar · Parte 6"
     },
     {
       "id": "es-en-t-pensar-y-recordar-007",
@@ -5714,7 +5714,7 @@
         "es-en-1ae04118c23bd09ebfd0",
         "es-en-fc5afc545fe0b148a2cf"
       ],
-      "title": "Confundir, tonterías y ocurrírsele a alguien"
+      "title": "Pensar y recordar · Parte 7"
     }
   ],
   "elegir-y-planear": [
@@ -5732,7 +5732,7 @@
         "es-en-b80899dd8ea2c0298a2a",
         "es-en-8eb8357e43404d809cdd"
       ],
-      "title": "Elegir, elección y seleccionar"
+      "title": "Elegir y planear · Parte 1"
     },
     {
       "id": "es-en-t-elegir-y-planear-002",
@@ -5748,7 +5748,7 @@
         "es-en-a0fd362d7fb2ea5e5997",
         "es-en-c56723b34c1a3fb7ccb8"
       ],
-      "title": "Plan, planificación y preparar"
+      "title": "Elegir y planear · Parte 2"
     },
     {
       "id": "es-en-t-elegir-y-planear-003",
@@ -5764,7 +5764,7 @@
         "es-en-49a87b3c52609201e103",
         "es-en-82fdeb47f5338dde075b"
       ],
-      "title": "Esperado, expectativa y predecir"
+      "title": "Elegir y planear · Parte 3"
     },
     {
       "id": "es-en-t-elegir-y-planear-004",
@@ -5779,7 +5779,7 @@
         "es-en-bcb46541fc3f723d6a0d",
         "es-en-360afb8a51de8e196d7b"
       ],
-      "title": "Desear, querer y deseo"
+      "title": "Elegir y planear · Parte 4"
     },
     {
       "id": "es-en-t-elegir-y-planear-005",
@@ -5794,7 +5794,7 @@
         "es-en-330c2fce0f776b3f6b7a",
         "es-en-d4a3613bc39575e8dc60"
       ],
-      "title": "Poco dispuesto, de mala gana y listo"
+      "title": "Elegir y planear · Parte 5"
     },
     {
       "id": "es-en-t-elegir-y-planear-006",
@@ -5809,7 +5809,7 @@
         "es-en-a9c388c7bab4a0a7a204",
         "es-en-ea082e386e2881d0a6e6"
       ],
-      "title": "Potencialmente, posible y posiblemente"
+      "title": "Elegir y planear · Parte 6"
     },
     {
       "id": "es-en-t-elegir-y-planear-007",
@@ -5824,7 +5824,7 @@
         "es-en-250c9dd2ea7be08554a5",
         "es-en-a7fab0a6c168aef5c318"
       ],
-      "title": "Ciertamente, incierto y duda"
+      "title": "Elegir y planear · Parte 7"
     },
     {
       "id": "es-en-t-elegir-y-planear-008",
@@ -5839,7 +5839,7 @@
         "es-en-1275cd0d70c13682f904",
         "es-en-2fb640f73a0ea6731ffd"
       ],
-      "title": "Definitivo, definitivamente y dudar"
+      "title": "Elegir y planear · Parte 8"
     }
   ],
   "causas-y-relaciones": [
@@ -5857,7 +5857,7 @@
         "es-en-c433babc74cc95c8b32d",
         "es-en-4b19e8ff868f5d82753f"
       ],
-      "title": "Tipo, mentir y razón"
+      "title": "Causas y relaciones · Parte 1"
     },
     {
       "id": "es-en-t-causas-y-relaciones-002",
@@ -5873,7 +5873,7 @@
         "es-en-5fe78f7b2966420ca79e",
         "es-en-e276080aa3c02211492d"
       ],
-      "title": "Así, por lo tanto y porque"
+      "title": "Causas y relaciones · Parte 2"
     },
     {
       "id": "es-en-t-causas-y-relaciones-003",
@@ -5889,7 +5889,7 @@
         "es-en-78651d73c5eca25fe7c9",
         "es-en-a8772f99d3784adbbf3b"
       ],
-      "title": "Relacionado, relacionarse con y asociación"
+      "title": "Causas y relaciones · Parte 3"
     },
     {
       "id": "es-en-t-causas-y-relaciones-004",
@@ -5905,7 +5905,7 @@
         "es-en-293cf01a8b9d5d0ac9b2",
         "es-en-9ccac9e31897dd541003"
       ],
-      "title": "Origen, original y originalmente"
+      "title": "Causas y relaciones · Parte 4"
     },
     {
       "id": "es-en-t-causas-y-relaciones-005",
@@ -5921,7 +5921,7 @@
         "es-en-6a970c2d113ac3f0a94a",
         "es-en-c63a65531d71404bfb73"
       ],
-      "title": "Factor, aspecto y característica"
+      "title": "Causas y relaciones · Parte 5"
     },
     {
       "id": "es-en-t-causas-y-relaciones-006",
@@ -5937,7 +5937,7 @@
         "es-en-7138c7dbeecd7e7b2a5f",
         "es-en-d57e1247673d162503e8"
       ],
-      "title": "Caso, ejemplo y por ejemplo"
+      "title": "Causas y relaciones · Parte 6"
     },
     {
       "id": "es-en-t-causas-y-relaciones-007",
@@ -5953,7 +5953,7 @@
         "es-en-520bfbc08f4d21cafaf1",
         "es-en-96d6a26bee1c24b2826f"
       ],
-      "title": "Real, en realidad y realidad"
+      "title": "Causas y relaciones · Parte 7"
     },
     {
       "id": "es-en-t-causas-y-relaciones-008",
@@ -5969,7 +5969,7 @@
         "es-en-f4e6c0bd01e37c108585",
         "es-en-072c37beffecd404cd19"
       ],
-      "title": "Justificado, exagerar y exagerado"
+      "title": "Causas y relaciones · Parte 8"
     },
     {
       "id": "es-en-t-causas-y-relaciones-009",
@@ -5985,7 +5985,7 @@
         "es-en-2243c2aee8475548ed74",
         "es-en-78a533c38a5e16d540f2"
       ],
-      "title": "Criterio, tener que ver con y excepción"
+      "title": "Causas y relaciones · Parte 9"
     },
     {
       "id": "es-en-t-causas-y-relaciones-010",
@@ -6001,7 +6001,7 @@
         "es-en-4d1e6d586307b1d65352",
         "es-en-7d683d609a70d694d488"
       ],
-      "title": "Asunto, medios y ocurrir"
+      "title": "Causas y relaciones · Parte 10"
     }
   ],
   "resolver-y-perseverar": [
@@ -6019,7 +6019,7 @@
         "es-en-cdb8a2b3124e5613aecf",
         "es-en-5e2b25cda60683f5dbd8"
       ],
-      "title": "Difícil, problema y dificultad"
+      "title": "Resolver y perseverar · Parte 1"
     },
     {
       "id": "es-en-t-resolver-y-perseverar-002",
@@ -6035,7 +6035,7 @@
         "es-en-6cbb1f299284e6385857",
         "es-en-f0ad4ad4a73941e9735a"
       ],
-      "title": "Simple, simplemente y solución"
+      "title": "Resolver y perseverar · Parte 2"
     },
     {
       "id": "es-en-t-resolver-y-perseverar-003",
@@ -6051,7 +6051,7 @@
         "es-en-761fd54a4e7e0e8baade",
         "es-en-b7030518ba7da4a7104c"
       ],
-      "title": "Superar, soportar y resistir"
+      "title": "Resolver y perseverar · Parte 3"
     },
     {
       "id": "es-en-t-resolver-y-perseverar-004",
@@ -6067,7 +6067,7 @@
         "es-en-e7900b1a28d42660c3c5",
         "es-en-c5271237186e92caa335"
       ],
-      "title": "Dejar, cesar y terminar"
+      "title": "Resolver y perseverar · Parte 4"
     },
     {
       "id": "es-en-t-resolver-y-perseverar-005",
@@ -6083,7 +6083,7 @@
         "es-en-22963127286957ea5659",
         "es-en-83c1091d7b1771e017a2"
       ],
-      "title": "Empezar, comienzo y poner en marcha"
+      "title": "Resolver y perseverar · Parte 5"
     },
     {
       "id": "es-en-t-resolver-y-perseverar-006",
@@ -6099,7 +6099,7 @@
         "es-en-0405281d9c9ea0f3618c",
         "es-en-33aa7b2d78ca1ef4b493"
       ],
-      "title": "Involucrado, participación y asistir"
+      "title": "Resolver y perseverar · Parte 6"
     },
     {
       "id": "es-en-t-resolver-y-perseverar-007",
@@ -6115,7 +6115,7 @@
         "es-en-0e6aa71c6ce5f5a7252d",
         "es-en-d5a9c38352eb5d202015"
       ],
-      "title": "Abandonado, abandonar y cancelar"
+      "title": "Resolver y perseverar · Parte 7"
     },
     {
       "id": "es-en-t-resolver-y-perseverar-008",
@@ -6130,7 +6130,7 @@
         "es-en-f0edad02f25c62865792",
         "es-en-e4986c25fffb9884a14c"
       ],
-      "title": "Necesitar, obligado y requerir"
+      "title": "Resolver y perseverar · Parte 8"
     },
     {
       "id": "es-en-t-resolver-y-perseverar-009",
@@ -6145,7 +6145,7 @@
         "es-en-89c260ebe6bd7eb44a58",
         "es-en-b50143d7b03ab61499ed"
       ],
-      "title": "Recurrir a, ocuparse de y resolver"
+      "title": "Resolver y perseverar · Parte 9"
     }
   ],
   "pronombres-y-determinantes": [
@@ -6162,7 +6162,7 @@
         "es-en-13715eaadd8dd92758b4",
         "es-en-f3d3147efea5f2d72ef9"
       ],
-      "title": "Yo, tú y él"
+      "title": "Pronombres y determinantes · Parte 1"
     },
     {
       "id": "es-en-t-pronombres-y-determinantes-002",
@@ -6177,7 +6177,7 @@
         "es-en-a8ee8354ff708737fc7a",
         "es-en-a99d54f311cac94c0d71"
       ],
-      "title": "A ella, nos y a ellos"
+      "title": "Pronombres y determinantes · Parte 2"
     },
     {
       "id": "es-en-t-pronombres-y-determinantes-003",
@@ -6192,7 +6192,7 @@
         "es-en-086c3b4ed4e8b2dc5ffe",
         "es-en-89e5e24e3a627af8b8c4"
       ],
-      "title": "Mío, tuyo y suyo"
+      "title": "Pronombres y determinantes · Parte 3"
     },
     {
       "id": "es-en-t-pronombres-y-determinantes-004",
@@ -6207,7 +6207,7 @@
         "es-en-34bd151827d8c9238e77",
         "es-en-8b64abee25a6ede28a26"
       ],
-      "title": "Sí mismo, nosotros mismos y ellos mismos"
+      "title": "Pronombres y determinantes · Parte 4"
     },
     {
       "id": "es-en-t-pronombres-y-determinantes-005",
@@ -6222,7 +6222,7 @@
         "es-en-50e8b4b1242dc7798233",
         "es-en-37445a3a356457047e62"
       ],
-      "title": "Alguien, algo y en algún lugar"
+      "title": "Pronombres y determinantes · Parte 5"
     },
     {
       "id": "es-en-t-pronombres-y-determinantes-006",
@@ -6237,7 +6237,7 @@
         "es-en-af356f0014245d3b2245",
         "es-en-925c800610f93dbb8514"
       ],
-      "title": "Todos, todo y en todas partes"
+      "title": "Pronombres y determinantes · Parte 6"
     },
     {
       "id": "es-en-t-pronombres-y-determinantes-007",
@@ -6251,7 +6251,7 @@
         "es-en-92f0e911299b652de14d",
         "es-en-b3ace56cdf4277598ce4"
       ],
-      "title": "Cuyo, qué y cuál"
+      "title": "Pronombres y determinantes · Parte 7"
     }
   ],
   "conectores-y-preposiciones": [
@@ -6268,7 +6268,7 @@
         "es-en-9561f1f6f1bfa07f7172",
         "es-en-cb6b2220c834567f28a8"
       ],
-      "title": "Siempre que, y y o"
+      "title": "Conectores y preposiciones · Parte 1"
     },
     {
       "id": "es-en-t-conectores-y-preposiciones-002",
@@ -6283,7 +6283,7 @@
         "es-en-ce8b2b919a13f2079045",
         "es-en-3ad72db8e5b6de6f0522"
       ],
-      "title": "Sin embargo, mientras y mientras que"
+      "title": "Conectores y preposiciones · Parte 2"
     },
     {
       "id": "es-en-t-conectores-y-preposiciones-003",
@@ -6298,7 +6298,7 @@
         "es-en-698fdf4cf91159835ce9",
         "es-en-aedbd78d8b651b963559"
       ],
-      "title": "Dónde, dondequiera y por qué"
+      "title": "Conectores y preposiciones · Parte 3"
     },
     {
       "id": "es-en-t-conectores-y-preposiciones-004",
@@ -6313,7 +6313,7 @@
         "es-en-b9a70072c79f74bb557e",
         "es-en-b7bd47bca78b2d284930"
       ],
-      "title": "Para, de y en"
+      "title": "Conectores y preposiciones · Parte 4"
     },
     {
       "id": "es-en-t-conectores-y-preposiciones-005",
@@ -6328,7 +6328,7 @@
         "es-en-91b725cd9c26dfe3cce2",
         "es-en-21fc817575c4fb4ff741"
       ],
-      "title": "Sobre, por cada y vía"
+      "title": "Conectores y preposiciones · Parte 5"
     },
     {
       "id": "es-en-t-conectores-y-preposiciones-006",
@@ -6343,7 +6343,7 @@
         "es-en-fb56cc1f093052575127",
         "es-en-43af1bacdd5192449b36"
       ],
-      "title": "En lugar de, según y con respecto a"
+      "title": "Conectores y preposiciones · Parte 6"
     }
   ],
   "auxiliares-y-expresiones-basicas": [
@@ -6360,7 +6360,7 @@
         "es-en-d218f8837769b0f46927",
         "es-en-b9f3d8aa71c9c3a07cff"
       ],
-      "title": "Ser/estar, tener y poder"
+      "title": "Auxiliares y expresiones básicas · Parte 1"
     },
     {
       "id": "es-en-t-auxiliares-y-expresiones-basicas-002",
@@ -6375,7 +6375,7 @@
         "es-en-ada84fdbe99fe29a2fb1",
         "es-en-076fe3ce75c788faebb4"
       ],
-      "title": "Debería, tener que y acostumbrado"
+      "title": "Auxiliares y expresiones básicas · Parte 2"
     },
     {
       "id": "es-en-t-auxiliares-y-expresiones-basicas-003",
@@ -6390,7 +6390,7 @@
         "es-en-9a3002deeaba8e4da52d",
         "es-en-7556b9f0e0f3dc8b16cd"
       ],
-      "title": "Por favor, sí y bien"
+      "title": "Auxiliares y expresiones básicas · Parte 3"
     },
     {
       "id": "es-en-t-auxiliares-y-expresiones-basicas-004",
@@ -6405,7 +6405,7 @@
         "es-en-33353cd84eaa7eceac8d",
         "es-en-a510852eedf0029b34f9"
       ],
-      "title": "Contrario a, anterior y a mitad de"
+      "title": "Auxiliares y expresiones básicas · Parte 4"
     }
   ],
   "herramientas-y-materiales": [
@@ -6423,7 +6423,7 @@
         "es-en-80a79d9d4da3177cdcc7",
         "es-en-f3d7f1acf87af24c5ebe"
       ],
-      "title": "Tabla, marca y palo"
+      "title": "Herramientas y materiales · Parte 1"
     },
     {
       "id": "es-en-t-herramientas-y-materiales-002",
@@ -6438,7 +6438,7 @@
         "es-en-784f552dfe5e8d35b70e",
         "es-en-7ab0b763845bb9149175"
       ],
-      "title": "Tornillo, aguja y tijeras"
+      "title": "Herramientas y materiales · Parte 2"
     },
     {
       "id": "es-en-t-herramientas-y-materiales-003",
@@ -6453,7 +6453,7 @@
         "es-en-54fe8fb135249697792d",
         "es-en-51f7079d691fd1e8aa0d"
       ],
-      "title": "Poste, tubería y tubo"
+      "title": "Herramientas y materiales · Parte 3"
     },
     {
       "id": "es-en-t-herramientas-y-materiales-004",
@@ -6468,7 +6468,7 @@
         "es-en-24c9d4d127f7b6340206",
         "es-en-ed2d83bd9e8019f0709e"
       ],
-      "title": "Estaño, caja y paquete pequeño"
+      "title": "Herramientas y materiales · Parte 4"
     },
     {
       "id": "es-en-t-herramientas-y-materiales-005",
@@ -6483,7 +6483,7 @@
         "es-en-f82e50429e05ab69ecce",
         "es-en-858678d22c560b0cbcf2"
       ],
-      "title": "Montón, bulto y par"
+      "title": "Herramientas y materiales · Parte 5"
     }
   ]
 }

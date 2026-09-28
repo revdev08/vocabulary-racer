@@ -54,29 +54,6 @@ def build():
     if set(previous) - set(topics):
         raise ValueError('An existing topic was removed; an explicit migration is required')
     manifest = {}
-    used_titles = set()
-
-    def lesson_title(ids):
-        # Real learning targets give every ticket a distinct, concise title.
-        labels = []
-        for wid in ids:
-            label = words[wid]['spanish'].split(' / ')[0].split(' (')[0].strip('¡!')
-            if len(label) <= 22 and label.casefold() not in {s.casefold() for s in labels}:
-                labels.append(label)
-        for count in (3, 2, 1):
-            for start in range(max(0, len(labels) - count + 1)):
-                chosen = labels[start:start + count]
-                title = (', '.join(chosen[:-1]) + ' y ' + chosen[-1]) if count > 1 else chosen[0]
-                title = title[0].upper() + title[1:]
-                if len(title) <= 52 and title.casefold() not in used_titles:
-                    used_titles.add(title.casefold())
-                    return title
-        title = 'Expresión: ' + words[ids[0]]['correct']
-        if title.casefold() in used_titles:
-            raise ValueError(f'Provide a distinct lesson title for {ids}')
-        used_titles.add(title.casefold())
-        return title
-
     for topic in topics.values():
         ids = sorted(topic['wordIds'], key=lambda wid: rank.get(words[wid]['correct'], len(rank)))
         races = previous.get(topic['id'], [])
@@ -94,8 +71,9 @@ def build():
                 end = offset + size + (index < extras)
                 races.append({'id': f"es-en-t-{topic['id']}-{len(races)+1:03d}", 'wordIds': remaining[offset:end]})
                 offset = end
-        for race in races:
-            race['title'] = lesson_title(race['wordIds'])
+        for index, race in enumerate(races, 1):
+            # Name the full learning theme, not a sample of three vocabulary items.
+            race['title'] = topic['title'] + (f' · Parte {index}' if len(races) > 1 else '')
         topic['races'] = races
         del topic['wordIds']
         manifest[topic['id']] = races
