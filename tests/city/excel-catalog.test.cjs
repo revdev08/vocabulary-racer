@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const { createHash } = require('node:crypto');
 const translationReview = require('../../content/es-en/translation-review.json');
 const { excelCatalog } = require('../../.qa/geometry/data/excelCatalog.js');
-const { vocabulary, importedUnits, levels } = require('../../.qa/geometry/data/vocabulary.js');
+const { vocabulary, originalImportedUnits: importedUnits, levels, historicalLevels } = require('../../.qa/geometry/data/vocabulary.js');
 const { vocabulary: legacy } = require('../../.qa/geometry/data/legacyVocabulary.js');
 const { dueWordIndices } = require('../../.qa/geometry/gameplay/curriculum.js');
 const { withDueReviews } = require('../../.qa/geometry/gameplay/reviews.js');
@@ -30,7 +30,7 @@ test('all workbook rows, unit names and distractors are retained without fabrica
 test('translation corrections preserve every pre-existing review ID, word position and race membership', () => {
   const digest = value => createHash('sha256').update(JSON.stringify(value)).digest('hex');
   assert.equal(digest(vocabulary.map(word => word.id)), 'd78a3d48e1efc4c348c9b56e0523147514bdf4617325a992104d40493318a6fc');
-  assert.equal(digest(levels.map(({ id, indices }) => ({ id, indices }))), '7ba5af2f2dee651d5aa495ec34a521060a0545a06f00a1615a3133a67186c037');
+  assert.equal(digest(historicalLevels.map(({ id, indices }) => ({ id, indices }))), '7ba5af2f2dee651d5aa495ec34a521060a0545a06f00a1615a3133a67186c037');
   const word = vocabulary.find(word => word.correct === 'look forward to');
   assert.equal(word.spanish, 'esperar con ilusión');
   const savedReviews = { [word.id]: { dueAt: 172800000, stage: 2 } };
@@ -55,7 +55,7 @@ test('original word IDs and positions remain compatible with saved progress', ()
   legacy.forEach((word, index) => assert.equal(vocabulary[index].id, word.id));
   assert.equal(levels[0].id, 'essentials');
   assert.equal(levels[11].id, 'ideas');
-  assert.equal(levels[12].id, 'es-en-u01-r001');
+  assert.equal(historicalLevels[12].id, 'es-en-u01-r001');
 });
 test('an imported word becomes due on its saved date and can appear in another level', () => {
   const index = importedUnits[22].levels[0].indices[0];

@@ -8,7 +8,7 @@ test('initial page contains two genuine four-level units and retains remaining c
   assert.deepEqual(page.units.map(unit => unit.data.length), [4,4]);
   assert.equal(page.nextCursor, 2);
   assert.equal(readJourneyPage(page.nextCursor).units.length, 2);
-  assert.equal(new Set(journeyUnits.flatMap(unit => unit.data.map(level => level.id))).size, 407);
+  assert.equal(new Set(journeyUnits.flatMap(unit => unit.data.map(level => level.id))).size, levels.length);
   assert.ok(vocabularyGroups.every(group => group.indices.length > 0 && group.indices.length <= 10));
 });
 test('selection cannot change progression; completion unlocks next level', () => {
@@ -48,10 +48,10 @@ test('extending the catalog creates units without changing existing keys or numb
   const extended = buildJourneyUnits([...levels, ...extra]);
   assert.deepEqual(extended.flatMap(unit => unit.data).slice(0, levels.length), journeyUnits.flatMap(unit => unit.data));
   assert.deepEqual(extended.slice(0, journeyUnits.length).map(unit => unit.key), journeyUnits.map(unit => unit.key));
-  assert.equal(extended.length, 251);
-  assert.equal(extended.at(-1).data.length, 1);
-  assert.equal(extended.at(-1).data[0].number, 1001);
-  assert.equal(new Set(extended.map(unit => unit.key)).size, 251);
+  assert.equal(extended.length, journeyUnits.length + Math.ceil(extra.length / 4));
+  assert.equal(extended.at(-1).data.length, extra.length % 4 || 4);
+  assert.equal(extended.at(-1).data.at(-1).number, 1001);
+  assert.equal(new Set(extended.map(unit => unit.key)).size, extended.length);
   assert.deepEqual(buildJourneyUnits([]), []);
 });
 

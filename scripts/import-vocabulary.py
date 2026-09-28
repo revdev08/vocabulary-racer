@@ -5,6 +5,7 @@ import hashlib
 import json
 import openpyxl
 import re
+import runpy
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'content/es-en/espanol-ingles.xlsx'
@@ -105,3 +106,5 @@ report = {'sourceRows': sum(len(word['sourceRows']) for word in entries.values()
 (SOURCE.parent / 'import-report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
 print(json.dumps({key: value for key, value in report.items() if key not in ('duplicates', 'translationWarnings', 'reviewedSameSpellingRows')}, indent=2))
 print(f'{len(duplicates)} duplicate pairs consolidated; {len(warnings)} translations flagged, preserved verbatim.')
+if (SOURCE.parent / 'topic-lexicon.tsv').exists():
+    runpy.run_path(str(ROOT / 'scripts/build-topic-catalog.py'), run_name='__main__')

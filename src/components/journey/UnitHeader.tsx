@@ -6,7 +6,7 @@ import { journeyPalette as c } from './theme';
 export function UnitHeader({ unit, completed }: { unit: JourneyUnit; completed: number }) {
   return <View style={s.root}>
     <View style={s.stamp}><TravelStamp/></View>
-    <Text style={s.eyebrow}>UNIDAD {String(unit.number).padStart(2, '0')} · {unit.number === 1 ? 'ARRANQUE' : 'EN RUTA'}</Text>
+    <Text style={s.eyebrow}>UNIDAD {String(unit.number).padStart(2, '0')} · {unit.category?.toLocaleUpperCase() ?? (unit.number === 1 ? 'ARRANQUE' : 'EN RUTA')}</Text>
     <Text accessibilityRole="header" style={s.title}>{unit.title}</Text>
     <View style={s.progress}>
       <View style={s.segments}>{unit.data.map((level, index) => <View key={level.id} style={[s.segment, index < completed && s.filled]}/>)}</View>

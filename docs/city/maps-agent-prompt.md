@@ -4,7 +4,7 @@ Copia todo lo que hay debajo de la línea y dáselo a tu agente. Está pensado p
 
 ---
 
-Eres responsable de añadir **nuevos mapas (escenarios)** al juego Vocab Racer (Expo / React Native + Skia) que **encajen exactamente** con la cámara, la carretera y el estilo del mapa de ciudad actual. No cambies la jugabilidad, el motor, el HUD, los portales, el carro del jugador, el tráfico ni las barreras.
+Eres responsable de añadir **nuevos mapas (escenarios)** al juego Dashword (Expo / React Native + Skia) que **encajen exactamente** con la cámara, la carretera y el estilo del mapa de ciudad actual. No cambies la jugabilidad, el motor, el HUD, los portales, el carro del jugador, el tráfico ni las barreras.
 
 ## 1. Antes de generar nada, estudia el mapa actual
 

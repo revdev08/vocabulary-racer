@@ -1,5 +1,7 @@
 # Español → inglés
 
+**Ruta actual:** 24 categorías, 72 subtemas y 416 carreras temáticas, además de la introducción. Ver [la organización temática y la compatibilidad del progreso](CATEGORIES.md). Las cifras y grupos originales descritos abajo se conservan como referencia del importador y del recorrido histórico.
+
 `espanol-ingles.xlsx` is the editorial source, originally supplied by the user and subsequently reviewed for translation errors. The app bundles generated TypeScript; it does not open Excel at runtime.
 
 ## Import

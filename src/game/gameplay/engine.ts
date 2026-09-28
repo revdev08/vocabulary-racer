@@ -1,6 +1,6 @@
 import { driving } from '../config/driving';
 import { gameplay, objectVisuals } from '../config/gameplay';
-import { levels, vocabulary } from '../data/vocabulary';
+import { levels, playableLevels, vocabulary } from '../data/vocabulary';
 import { clamp } from '../geometry/perspective';
 import { advanceLateral, type Lane } from '../motion/simulation';
 import type { GameView, Question, RunState, WorldObject } from './types';
@@ -57,7 +57,7 @@ export function streakMultiplier(streak: number) {
 
 export function createRun(seed = 1, runId = 1, levelId = 'essentials', reviewDeck?: number[]): RunState {
   'worklet';
-  const level = levels.find(item => item.id === levelId) ?? levels[0];
+  const level = playableLevels.find(item => item.id === levelId) ?? levels[0];
   const run = startTraffic({ levelId: level.id, mode: reviewDeck ? 'review' : 'level', deck: reviewDeck ?? [...level.indices],
     completed: false, firstCorrect: 0, reviewCount: 0, currentIsReview: false, runId, revision: 0, seed: Math.max(1, Math.floor(seed) % 2147483647),
     phase: 'traffic', phaseTime: 0, elapsed: 0, distance: 0, lateral: 0,

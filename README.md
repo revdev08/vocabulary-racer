@@ -1,10 +1,12 @@
-> El MVP urbano incluye 12 niveles / 120 entradas, carreras finitas, repasos locales y pronunciación con Expo Speech. Reglas y ruta hacia 3000 palabras: [niveles y repetición](docs/repetition.md).
+> La ruta actual incluye 12 niveles introductorios y 416 carreras temáticas: 24 categorías y 72 subtemas, con repasos locales y pronunciación. Consulta [categorías y compatibilidad del progreso](content/es-en/CATEGORIES.md). El resto de este documento conserva la descripción inicial del MVP.
 
 > Actualización: la carrera activa es el mapa urbano importado. Consulta [la integración](docs/city-migration.md). El mapa costero descrito más abajo queda como referencia histórica. La carpeta `basegame` puede eliminarse.
 
-# Vocab Racer — primera carrera
+# Dashword — primera carrera
 
-Prototipo móvil Expo / React Native, español → inglés. Tres carriles, diez palabras, carretera costera, tres obstáculos, tres vidas, combos, pausa y resultados. Nombre provisional.
+Prototipo móvil Expo / React Native, español → inglés. Tres carriles, diez palabras, carretera costera, tres obstáculos, tres vidas, combos, pausa y resultados.
+
+El nombre público es **Dashword**. El slug interno `vocab-racer` y las claves locales se conservan para mantener la identidad del proyecto y los datos guardados. Se admite `dashword://` y se mantiene `vocab-racer://` por compatibilidad.
 
 ## Ejecutar
 

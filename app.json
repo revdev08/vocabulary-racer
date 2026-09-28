@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Vocab Racer",
+    "name": "Dashword",
     "slug": "vocab-racer",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -25,6 +25,6 @@
     "plugins": [
       "expo-router"
     ],
-    "scheme": "vocab-racer"
+    "scheme": ["dashword", "vocab-racer"]
   }
 }

@@ -1,0 +1,443 @@
+{
+  "version": 2,
+  "words": 3847,
+  "categories": 24,
+  "topics": 72,
+  "races": 416,
+  "unclassified": 0,
+  "wordIdFingerprint": "21e941c5895c4cad1a46e5fe68034d89c445c34e4d9f02e5703bbb441c96b2d5",
+  "distribution": [
+    {
+      "topic": "Familia y parentesco",
+      "category": "Personas",
+      "words": 43,
+      "races": 5
+    },
+    {
+      "topic": "Etapas de la vida",
+      "category": "Personas",
+      "words": 36,
+      "races": 4
+    },
+    {
+      "topic": "Identidad y comunidad",
+      "category": "Personas",
+      "words": 40,
+      "races": 4
+    },
+    {
+      "topic": "Amistad y convivencia",
+      "category": "Personas",
+      "words": 48,
+      "races": 5
+    },
+    {
+      "topic": "Conducta y valores",
+      "category": "Personas",
+      "words": 71,
+      "races": 8
+    },
+    {
+      "topic": "Partes del cuerpo",
+      "category": "Cuerpo y salud",
+      "words": 49,
+      "races": 5
+    },
+    {
+      "topic": "Sentidos y descanso",
+      "category": "Cuerpo y salud",
+      "words": 46,
+      "races": 5
+    },
+    {
+      "topic": "Enfermedades y síntomas",
+      "category": "Cuerpo y salud",
+      "words": 46,
+      "races": 5
+    },
+    {
+      "topic": "Cuidados y medicina",
+      "category": "Cuerpo y salud",
+      "words": 24,
+      "races": 3
+    },
+    {
+      "topic": "Habitaciones y vivienda",
+      "category": "Hogar",
+      "words": 38,
+      "races": 4
+    },
+    {
+      "topic": "Muebles y objetos domésticos",
+      "category": "Hogar",
+      "words": 39,
+      "races": 4
+    },
+    {
+      "topic": "Limpieza y mantenimiento",
+      "category": "Hogar",
+      "words": 40,
+      "races": 4
+    },
+    {
+      "topic": "Frutas y verduras",
+      "category": "Alimentación",
+      "words": 15,
+      "races": 2
+    },
+    {
+      "topic": "Alimentos y bebidas",
+      "category": "Alimentación",
+      "words": 38,
+      "races": 4
+    },
+    {
+      "topic": "Preparar y cocinar",
+      "category": "Alimentación",
+      "words": 35,
+      "races": 4
+    },
+    {
+      "topic": "Comer fuera y en casa",
+      "category": "Alimentación",
+      "words": 28,
+      "races": 3
+    },
+    {
+      "topic": "Prendas y accesorios",
+      "category": "Ropa y estilo",
+      "words": 32,
+      "races": 4
+    },
+    {
+      "topic": "Vestirse y apariencia",
+      "category": "Ropa y estilo",
+      "words": 37,
+      "races": 4
+    },
+    {
+      "topic": "Animales y sus características",
+      "category": "Naturaleza",
+      "words": 28,
+      "races": 3
+    },
+    {
+      "topic": "Paisajes y geografía",
+      "category": "Naturaleza",
+      "words": 54,
+      "races": 6
+    },
+    {
+      "topic": "Clima y estaciones",
+      "category": "Naturaleza",
+      "words": 29,
+      "races": 3
+    },
+    {
+      "topic": "Vehículos y carretera",
+      "category": "Viajes",
+      "words": 49,
+      "races": 5
+    },
+    {
+      "topic": "Vuelos y navegación",
+      "category": "Viajes",
+      "words": 19,
+      "races": 2
+    },
+    {
+      "topic": "Preparar un viaje",
+      "category": "Viajes",
+      "words": 34,
+      "races": 4
+    },
+    {
+      "topic": "Edificios y servicios",
+      "category": "Ciudad",
+      "words": 50,
+      "races": 5
+    },
+    {
+      "topic": "Profesiones y empleo",
+      "category": "Trabajo",
+      "words": 53,
+      "races": 6
+    },
+    {
+      "topic": "Empresas y organización",
+      "category": "Trabajo",
+      "words": 70,
+      "races": 7
+    },
+    {
+      "topic": "Objetivos y resultados",
+      "category": "Trabajo",
+      "words": 64,
+      "races": 7
+    },
+    {
+      "topic": "Comprar y vender",
+      "category": "Dinero",
+      "words": 52,
+      "races": 6
+    },
+    {
+      "topic": "Finanzas y economía",
+      "category": "Dinero",
+      "words": 54,
+      "races": 6
+    },
+    {
+      "topic": "Aula y estudios",
+      "category": "Educación",
+      "words": 54,
+      "races": 6
+    },
+    {
+      "topic": "Idiomas y palabras",
+      "category": "Educación",
+      "words": 31,
+      "races": 4
+    },
+    {
+      "topic": "Conversaciones y mensajes",
+      "category": "Comunicación",
+      "words": 74,
+      "races": 8
+    },
+    {
+      "topic": "Opiniones y acuerdos",
+      "category": "Comunicación",
+      "words": 75,
+      "races": 8
+    },
+    {
+      "topic": "Voz y expresión",
+      "category": "Comunicación",
+      "words": 39,
+      "races": 4
+    },
+    {
+      "topic": "Arte y espectáculos",
+      "category": "Ocio y cultura",
+      "words": 60,
+      "races": 6
+    },
+    {
+      "topic": "Libros y medios",
+      "category": "Ocio y cultura",
+      "words": 34,
+      "races": 4
+    },
+    {
+      "topic": "Deportes y juegos",
+      "category": "Ocio y cultura",
+      "words": 52,
+      "races": 6
+    },
+    {
+      "topic": "Reloj y calendario",
+      "category": "Tiempo",
+      "words": 53,
+      "races": 6
+    },
+    {
+      "topic": "Secuencia y duración",
+      "category": "Tiempo",
+      "words": 84,
+      "races": 9
+    },
+    {
+      "topic": "Frecuencia y hábitos",
+      "category": "Tiempo",
+      "words": 30,
+      "races": 3
+    },
+    {
+      "topic": "Cantidades y ordinales",
+      "category": "Números",
+      "words": 59,
+      "races": 6
+    },
+    {
+      "topic": "Medir y calcular",
+      "category": "Números",
+      "words": 62,
+      "races": 7
+    },
+    {
+      "topic": "Cuánto y cuántos",
+      "category": "Números",
+      "words": 64,
+      "races": 7
+    },
+    {
+      "topic": "Orientación y ubicación",
+      "category": "Espacio",
+      "words": 92,
+      "races": 10
+    },
+    {
+      "topic": "Formas y tamaños",
+      "category": "Espacio",
+      "words": 64,
+      "races": 7
+    },
+    {
+      "topic": "Alegría y afecto",
+      "category": "Emociones",
+      "words": 50,
+      "races": 5
+    },
+    {
+      "topic": "Miedo y preocupación",
+      "category": "Emociones",
+      "words": 33,
+      "races": 4
+    },
+    {
+      "topic": "Tristeza y frustración",
+      "category": "Emociones",
+      "words": 59,
+      "races": 6
+    },
+    {
+      "topic": "Interés y sorpresa",
+      "category": "Emociones",
+      "words": 34,
+      "races": 4
+    },
+    {
+      "topic": "Color y textura",
+      "category": "Cualidades",
+      "words": 52,
+      "races": 6
+    },
+    {
+      "topic": "Valorar y comparar",
+      "category": "Cualidades",
+      "words": 107,
+      "races": 11
+    },
+    {
+      "topic": "Intensidad y relevancia",
+      "category": "Cualidades",
+      "words": 69,
+      "races": 7
+    },
+    {
+      "topic": "Gobierno y ciudadanía",
+      "category": "Sociedad",
+      "words": 56,
+      "races": 6
+    },
+    {
+      "topic": "Leyes y justicia",
+      "category": "Sociedad",
+      "words": 55,
+      "races": 6
+    },
+    {
+      "topic": "Conflictos y seguridad",
+      "category": "Sociedad",
+      "words": 63,
+      "races": 7
+    },
+    {
+      "topic": "Creencias y tradiciones",
+      "category": "Sociedad",
+      "words": 34,
+      "races": 4
+    },
+    {
+      "topic": "Investigación y descubrimientos",
+      "category": "Ciencia y tecnología",
+      "words": 31,
+      "races": 4
+    },
+    {
+      "topic": "Materia y energía",
+      "category": "Ciencia y tecnología",
+      "words": 45,
+      "races": 5
+    },
+    {
+      "topic": "Informática y dispositivos",
+      "category": "Ciencia y tecnología",
+      "words": 57,
+      "races": 6
+    },
+    {
+      "topic": "Moverse y desplazarse",
+      "category": "Acciones",
+      "words": 103,
+      "races": 11
+    },
+    {
+      "topic": "Sujetar y manipular",
+      "category": "Acciones",
+      "words": 103,
+      "races": 11
+    },
+    {
+      "topic": "Crear y transformar",
+      "category": "Acciones",
+      "words": 87,
+      "races": 9
+    },
+    {
+      "topic": "Dar, recibir y conservar",
+      "category": "Acciones",
+      "words": 93,
+      "races": 10
+    },
+    {
+      "topic": "Pensar y recordar",
+      "category": "Ideas y decisiones",
+      "words": 67,
+      "races": 7
+    },
+    {
+      "topic": "Elegir y planear",
+      "category": "Ideas y decisiones",
+      "words": 75,
+      "races": 8
+    },
+    {
+      "topic": "Causas y relaciones",
+      "category": "Ideas y decisiones",
+      "words": 100,
+      "races": 10
+    },
+    {
+      "topic": "Resolver y perseverar",
+      "category": "Ideas y decisiones",
+      "words": 88,
+      "races": 9
+    },
+    {
+      "topic": "Pronombres y determinantes",
+      "category": "Gramática",
+      "words": 62,
+      "races": 7
+    },
+    {
+      "topic": "Conectores y preposiciones",
+      "category": "Gramática",
+      "words": 54,
+      "races": 6
+    },
+    {
+      "topic": "Auxiliares y expresiones básicas",
+      "category": "Gramática",
+      "words": 36,
+      "races": 4
+    },
+    {
+      "topic": "Herramientas y materiales",
+      "category": "Objetos",
+      "words": 46,
+      "races": 5
+    }
+  ]
+}

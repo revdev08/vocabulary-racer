@@ -3,7 +3,7 @@ import { journeyMapCycle, type MapId } from '../config/maps';
 import type { LevelRecords } from '../gameplay/curriculum';
 
 export type JourneyLevel = { id: string; sourceId: string; title: string; number: number; theme: MapId; development?: boolean };
-export type JourneyUnit = { key: string; title: string; number: number; data: JourneyLevel[] };
+export type JourneyUnit = { key: string; title: string; number: number; category?: string; data: JourneyLevel[] };
 export const vocabularyGroups = levels.map(level => ({ id: level.id, indices: level.indices }));
 const definitions = [
   { key: 'departure', title: 'Primeros kilómetros', theme: 'coast' as const },
@@ -13,15 +13,27 @@ const definitions = [
 export const LEVELS_PER_UNIT = 4;
 // Units follow the actual catalog. Appending vocabulary levels requires no screen changes.
 export function buildJourneyUnits(catalog = levels): JourneyUnit[] {
-  return Array.from({ length: Math.ceil(catalog.length / LEVELS_PER_UNIT) }, (_, index) => {
-    const unit = definitions[index];
-    return { key: unit?.key ?? `unit-${index + 1}`, title: unit?.title ?? `Destino ${index + 1}`, number: index + 1,
-      data: catalog.slice(index * LEVELS_PER_UNIT, (index + 1) * LEVELS_PER_UNIT).map((level, i) => {
+  const units: JourneyUnit[] = [];
+  const parts = new Map<string, number>();
+  for (let start = 0; start < catalog.length;) {
+    const first = catalog[start];
+    let end = start + 1;
+    while (end < catalog.length && end - start < LEVELS_PER_UNIT && catalog[end].topicId === first.topicId) end++;
+    const index = units.length;
+    const unit = start < 12 && !first.topicId ? definitions[index] : undefined;
+    const part = (parts.get(first.topicId ?? 'legacy') ?? 0) + 1;
+    parts.set(first.topicId ?? 'legacy', part);
+    units.push({ key: first.topicId ? `${first.topicId}-${part}` : unit?.key ?? `unit-${index + 1}`,
+      title: first.topicTitle ? `${first.topicTitle}${part > 1 ? ` · Etapa ${part}` : ''}` : unit?.title ?? `Destino ${index + 1}`,
+      category: first.category, number: index + 1,
+      data: catalog.slice(start, end).map((level, i) => {
         if (level.indices.some(word => !vocabulary[word])) throw new Error(`Invalid journey vocabulary: ${level.id}`);
-        return { id: level.id, sourceId: level.id, title: level.title, number: index * LEVELS_PER_UNIT + i + 1, theme: unit?.theme ?? journeyMapCycle[index % journeyMapCycle.length] };
+        return { id: level.id, sourceId: level.id, title: level.title, number: start + i + 1, theme: unit?.theme ?? journeyMapCycle[index % journeyMapCycle.length] };
       }),
-    };
-  });
+    });
+    start = end;
+  }
+  return units;
 }
 export const journeyUnits = buildJourneyUnits();
 // Local pages today; a future repository can implement this same cursor contract.

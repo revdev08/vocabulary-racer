@@ -4,7 +4,7 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Animated, { Easing, useAnimatedStyle, useReducedMotion, useSharedValue, withDelay, withSpring, withTiming } from 'react-native-reanimated';
 import Svg, { Defs, LinearGradient, Path, Stop } from 'react-native-svg';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { levels, vocabulary, type VocabularyEntry } from '../data/vocabulary';
+import { levels, playableLevels, vocabulary, type VocabularyEntry } from '../data/vocabulary';
 import { earnedStars, passedLevel } from '../gameplay/curriculum';
 import type { GameView } from '../gameplay/types';
 import { GameIcon } from './GameIcon';
@@ -97,8 +97,8 @@ function Results({ game, onRestart, saveStatus, onSpeak, mistakes, previousBest 
   const passed = passedLevel(game);
   const stars = earnedStars(game);
   const levelIndex = levels.findIndex(level => level.id === game.levelId);
-  const level = levels[levelIndex];
-  const nextLevel = levels[levelIndex + 1];
+  const level = playableLevels.find(level => level.id === game.levelId);
+  const nextLevel = levelIndex >= 0 ? levels[levelIndex + 1] : undefined;
   const goal = Math.ceil(game.wordTarget * .8);
   const tone = !game.completed ? tones.fail : passed || review ? tones.success : tones.neutral;
   const title = emptyReview ? 'Repasos al día' : !game.completed ? 'Sin vidas' : review ? 'Repaso completado' : passed ? '¡Nivel superado!' : 'Recorrido completado';
@@ -116,7 +116,7 @@ function Results({ game, onRestart, saveStatus, onSpeak, mistakes, previousBest 
       <Animated.View style={[styles.card, cardStyle]}>
         <View style={[styles.band, { backgroundColor: tone.band, borderBottomColor: tone.edge }]}>
           <View style={styles.bandShine} />
-          <Text style={[styles.eyebrow, { color: tone.glow }]}>{review ? 'REPASO' : `NIVEL ${String(levelIndex + 1).padStart(2, '0')}`}</Text>
+          <Text style={[styles.eyebrow, { color: tone.glow }]}>{review ? 'REPASO' : levelIndex >= 0 ? `NIVEL ${String(levelIndex + 1).padStart(2, '0')}` : 'RECORRIDO ANTERIOR'}</Text>
           <Text accessibilityRole="header" style={styles.title}>{title}</Text>
           {!review && !!level && <Text numberOfLines={1} style={styles.levelTitle}>{level.title}</Text>}
           {!review && <View accessible accessibilityLabel={`${stars} de 3 estrellas`} style={styles.stars}>

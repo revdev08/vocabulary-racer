@@ -7,7 +7,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { palette, scene } from './config/visual';
 import { getMapTheme, type MapTheme } from './config/maps';
 import { createSceneLayout } from './geometry/perspective';
-import { levels } from './data/vocabulary';
+import { levels, playableLevels } from './data/vocabulary';
 import { GameWorld } from './world/GameWorld';
 import { GameHud } from './ui/GameHud';
 import { WordCard } from './ui/WordCard';
@@ -38,7 +38,7 @@ function RaceSession({ level, review, map }: { level?: string; review: boolean; 
   };
   const levelIndex = levels.findIndex(item => item.id === (level ?? simulation.view.levelId));
   const eyebrow = review ? 'REPASO' : levelIndex >= 0 ? `NIVEL ${String(levelIndex + 1).padStart(2, '0')}` : undefined;
-  const title = review ? 'Palabras pendientes' : levels[levelIndex]?.title;
+  const title = review ? 'Palabras pendientes' : playableLevels.find(item => item.id === simulation.view.levelId)?.title;
   const ready = simulation.worldReady;
   return <View style={styles.root}>
     <View testID="game-screen" style={styles.viewport} onLayout={onLayout}>

@@ -21,7 +21,7 @@ function play(initial, wrongAt = []) {
   return { run, answers };
 }
 test('curriculum covers all imported words in bounded groups with stable unique identifiers', () => {
-  assert.equal(levels.length, 407);
+  assert.equal(levels.length, 428);
   const indices = levels.flatMap(level => level.indices);
   assert.equal(new Set(indices).size, vocabulary.length);
   assert.equal(new Set(levels.map(level => level.id)).size, levels.length);

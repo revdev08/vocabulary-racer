@@ -19,7 +19,8 @@ const starter: readonly VocabularyEntry[] = [
   { id: 'cold', spanish: 'Frío', correct: 'Cold', distractors: ['Hot', 'Warm'] },
 ];
 
-export type VocabularyLevel = { id: string; title: string; difficulty: string; indices: number[] };
+export type VocabularyLevel = { id: string; title: string; difficulty: string; indices: number[];
+  topicId?: string; topicTitle?: string; category?: string };
 // Editorial learning groups, not certified CEFR levels. IDs remain stable across releases.
 const groups = [
   {

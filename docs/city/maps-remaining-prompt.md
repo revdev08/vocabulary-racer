@@ -4,7 +4,7 @@ Copia todo lo que hay debajo de la línea y dáselo a tu agente. Da por hecho qu
 
 ---
 
-Continúa con los mapas del juego Vocab Racer. Ya existen el registro de temas (`src/game/config/maps.ts`), la ciudad y la costa. Tu tarea: añadir **montaña, desierto, atardecer y nieve**, en ese orden y **de uno en uno**. Sigue siendo obligatorio todo lo de `docs/city/maps-agent-prompt.md`: lee sobre todo la sección 4, «Regla de movimiento», y usa las plantillas de imagen de la sección 6. Este documento añade lo aprendido con la costa y el diseño concreto de cada mapa.
+Continúa con los mapas del juego Dashword. Ya existen el registro de temas (`src/game/config/maps.ts`), la ciudad y la costa. Tu tarea: añadir **montaña, desierto, atardecer y nieve**, en ese orden y **de uno en uno**. Sigue siendo obligatorio todo lo de `docs/city/maps-agent-prompt.md`: lee sobre todo la sección 4, «Regla de movimiento», y usa las plantillas de imagen de la sección 6. Este documento añade lo aprendido con la costa y el diseño concreto de cada mapa.
 
 No cambies la jugabilidad, el motor, el HUD, los portales, los coches ni la costa y la ciudad (deben verse igual que ahora).
 

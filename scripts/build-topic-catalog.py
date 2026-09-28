@@ -1,0 +1,116 @@
+"""Build the thematic route from explicit editorial assignments, never a catch-all.
+
+The legacy race manifest stays intact for saved history. Word IDs do not change.
+New thematic race IDs are persisted separately because their questions differ.
+"""
+from collections import OrderedDict
+import hashlib
+import json
+import math
+from pathlib import Path
+import re
+import unicodedata
+
+ROOT = Path(__file__).resolve().parents[1]
+CONTENT = ROOT / 'content/es-en'
+
+
+def slug(text):
+    plain = unicodedata.normalize('NFKD', text).encode('ascii', 'ignore').decode().lower()
+    return re.sub(r'[^a-z0-9]+', '-', plain).strip('-')
+
+
+def build():
+    source = (ROOT / 'src/game/data/excelCatalog.ts').read_text(encoding='utf-8')
+    catalog = json.loads(source.split('export const excelCatalog = ', 1)[1].strip().removesuffix(';'))
+    words = {word['id']: word for word in catalog['words']}
+    topics, assignment, rank = OrderedDict(), {}, {}
+    for line in (CONTENT / 'topic-lexicon.tsv').read_text(encoding='utf-8').splitlines():
+        category, title, labels = line.split('|')
+        key = slug(title)
+        topic = topics.setdefault(key, {'id': key, 'title': title, 'categoryId': slug(category), 'category': category, 'wordIds': []})
+        if (topic['title'], topic['category']) != (title, category):
+            raise ValueError(f'Conflicting topic {key}')
+        for label in labels.split(','):
+            assignment.setdefault(label, key)
+            rank.setdefault(label, len(rank))
+    senses = json.loads((CONTENT / 'topic-senses.json').read_text(encoding='utf-8'))
+    if set(senses) - set(words):
+        raise ValueError('Sense overrides reference unknown word IDs')
+    missing = []
+    word_topics = {}
+    for word in words.values():
+        key = slug(senses[word['id']]) if word['id'] in senses else assignment.get(word['correct'])
+        if key not in topics:
+            missing.append(f"{word['id']}: {word['correct']}")
+            continue
+        topics[key]['wordIds'].append(word['id'])
+        word_topics[word['id']] = key
+    if missing:
+        raise ValueError('Assign every word before publishing; no general fallback: ' + ', '.join(missing))
+
+    manifest_path = CONTENT / 'thematic-race-manifest.json'
+    previous = json.loads(manifest_path.read_text(encoding='utf-8')) if manifest_path.exists() else {}
+    if set(previous) - set(topics):
+        raise ValueError('An existing topic was removed; an explicit migration is required')
+    manifest = {}
+    used_titles = set()
+
+    def lesson_title(ids):
+        # Real learning targets give every ticket a distinct, concise title.
+        labels = []
+        for wid in ids:
+            label = words[wid]['spanish'].split(' / ')[0].split(' (')[0].strip('¡!')
+            if len(label) <= 22 and label.casefold() not in {s.casefold() for s in labels}:
+                labels.append(label)
+        for count in (3, 2, 1):
+            for start in range(max(0, len(labels) - count + 1)):
+                chosen = labels[start:start + count]
+                title = (', '.join(chosen[:-1]) + ' y ' + chosen[-1]) if count > 1 else chosen[0]
+                title = title[0].upper() + title[1:]
+                if len(title) <= 52 and title.casefold() not in used_titles:
+                    used_titles.add(title.casefold())
+                    return title
+        title = 'Expresión: ' + words[ids[0]]['correct']
+        if title.casefold() in used_titles:
+            raise ValueError(f'Provide a distinct lesson title for {ids}')
+        used_titles.add(title.casefold())
+        return title
+
+    for topic in topics.values():
+        ids = sorted(topic['wordIds'], key=lambda wid: rank.get(words[wid]['correct'], len(rank)))
+        races = previous.get(topic['id'], [])
+        assigned = [wid for race in races for wid in race['wordIds']]
+        if len(set(assigned)) != len(assigned) or set(assigned) - set(ids):
+            raise ValueError(f"Existing race membership changed in {topic['id']}; migrate explicitly")
+        remaining = [wid for wid in ids if wid not in set(assigned)]
+        races = [dict(race) for race in races]
+        if remaining:
+            # Balanced batches avoid a final lesson with only one or two words.
+            count = math.ceil(len(remaining) / 10)
+            size, extras = divmod(len(remaining), count)
+            offset = 0
+            for index in range(count):
+                end = offset + size + (index < extras)
+                races.append({'id': f"es-en-t-{topic['id']}-{len(races)+1:03d}", 'wordIds': remaining[offset:end]})
+                offset = end
+        for race in races:
+            race['title'] = lesson_title(race['wordIds'])
+        topic['races'] = races
+        del topic['wordIds']
+        manifest[topic['id']] = races
+    data = {'version': 2, 'topics': list(topics.values()), 'wordTopics': word_topics}
+    generated = '// Generated by scripts/build-topic-catalog.py. Editorial source: content/es-en/topic-lexicon.tsv.\n'
+    generated += 'export const thematicCatalog = ' + json.dumps(data, ensure_ascii=False, separators=(',', ':')) + ';\n'
+    (ROOT / 'src/game/data/thematicCatalog.ts').write_text(generated, encoding='utf-8')
+    manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    report = {'version': 2, 'words': len(words), 'categories': len({topic['categoryId'] for topic in topics.values()}),
+              'topics': len(topics), 'races': sum(len(topic['races']) for topic in topics.values()),
+              'unclassified': len(missing), 'wordIdFingerprint': hashlib.sha256('\n'.join(words).encode()).hexdigest(),
+              'distribution': [{'topic': topic['title'], 'category': topic['category'], 'words': sum(len(race['wordIds']) for race in topic['races']), 'races': len(topic['races'])} for topic in topics.values()]}
+    (CONTENT / 'category-report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    print(json.dumps({key: value for key, value in report.items() if key != 'distribution'}, ensure_ascii=False))
+
+
+if __name__ == '__main__':
+    build()

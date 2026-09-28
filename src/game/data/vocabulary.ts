@@ -1,5 +1,6 @@
 import { vocabulary as legacyWords, levels as legacyLevels } from './legacyVocabulary';
 import { excelCatalog } from './excelCatalog';
+import { thematicCatalog } from './thematicCatalog';
 import type { VocabularyEntry, VocabularyLevel } from './legacyVocabulary';
 export type { VocabularyEntry, VocabularyLevel } from './legacyVocabulary';
 
@@ -16,7 +17,8 @@ for (const entry of excelCatalog.words) {
   excelIndices.set(entry.id, index);
 }
 export const vocabulary: readonly VocabularyEntry[] = words;
-export const importedUnits = excelCatalog.units.map(unit => ({ ...unit,
+// Original membership remains available for history and old race links.
+export const originalImportedUnits = excelCatalog.units.map(unit => ({ ...unit,
   levels: unit.races.map((race, index): VocabularyLevel => ({ id: race.id,
     title: `${unit.title} · ${index + 1}`, difficulty: 'Vocabulario temático',
     indices: race.wordIds.map(id => {
@@ -26,5 +28,18 @@ export const importedUnits = excelCatalog.units.map(unit => ({ ...unit,
     }),
   })),
 }));
-// Keep the original introductory route and its IDs so old completion and review records survive.
+export const historicalLevels: readonly VocabularyLevel[] = [...legacyLevels, ...originalImportedUnits.flatMap(unit => unit.levels)];
+export const importedUnits = thematicCatalog.topics.map(topic => ({ ...topic,
+  levels: topic.races.map((race): VocabularyLevel => ({ id: race.id, title: race.title,
+    difficulty: topic.category, topicId: topic.id, topicTitle: topic.title, category: topic.category,
+    indices: race.wordIds.map(id => {
+      const position = excelIndices.get(id);
+      if (position === undefined) throw new Error(`Missing thematic vocabulary ${id}`);
+      return position;
+    }),
+  })),
+}));
+// The introductory route, word IDs and review positions are unchanged. Regrouped
+// lessons get their own IDs: an old score must not certify a different question set.
 export const levels: readonly VocabularyLevel[] = [...legacyLevels, ...importedUnits.flatMap(unit => unit.levels)];
+export const playableLevels: readonly VocabularyLevel[] = [...levels, ...historicalLevels.slice(legacyLevels.length)];
