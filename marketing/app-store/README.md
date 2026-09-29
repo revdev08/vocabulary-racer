@@ -4,11 +4,11 @@ Entrega en español: **cinco piezas para iPhone y cinco para iPad**, con captura
 
 ## Archivos para subir
 
-- `es/iphone/`: 5 PNG RGB, sRGB, sin transparencia, **1320 × 2868 px** (grupo de pantalla 6,9 pulgadas).
+- `es/iphone/`: 5 PNG RGB, sRGB, sin transparencia, **1284 × 2778 px**.
 - `es/ipad/`: 5 PNG RGB, sRGB, sin transparencia, **2064 × 2752 px** (grupo de pantalla 13 pulgadas).
 - `dashword-app-store-es.zip`: las dos carpetas anteriores.
 
-Medidas verificadas el 28 de septiembre de 2026 en la [documentación de Apple](https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications/).
+Medidas ajustadas a los formatos indicados en App Store Connect por el usuario. El diseño se escala proporcionalmente, sin estirar textos ni capturas.
 
 Orden: elegir traducción, obstáculos, niveles, repetición espaciada y pronunciación. No subir las vistas previas panorámicas: sirven solamente para revisar el conjunto.
 
@@ -21,3 +21,4 @@ El fondo decorativo se generó con IA. Las capturas no se redibujaron: se integr
 `es/editable/` contiene las diez composiciones SVG autónomas. `es/sources/` conserva materiales de trabajo y tomas alternativas; no son piezas para subir a la tienda. `es/manifest.json` registra medidas y fuentes.
 
 Para regenerar: `node marketing/app-store/build-posters.cjs` (requiere sharp; admite el runtime local de Codex). El generador verifica dimensiones y ausencia de transparencia.
+

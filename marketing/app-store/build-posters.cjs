@@ -27,7 +27,7 @@ function build(slide,device){
  const sx=(W-sw)/2, sy=pad?837:840, bezel=pad?25:22, rad=pad?52:62;
  const shot=path.join(src,`${device}-${slide.shot}.png`);
  const border=slide.dark?'#84968D':'#66796F';
- return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+ return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${pad?2064:1284}" height="${pad?2752:2778}" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice">
  <defs>
   <clipPath id="screen"><rect x="${sx}" y="${sy}" width="${sw}" height="${sh}" rx="${rad-12}"/></clipPath>
   <filter id="shadow" x="-30%" y="-20%" width="160%" height="160%"><feDropShadow dx="0" dy="25" stdDeviation="25" flood-color="#041A18" flood-opacity=".36"/></filter>
@@ -60,15 +60,16 @@ function build(slide,device){
    const target=path.join(root,device,slide.id+'.png');
    await sharp(Buffer.from(svg)).flatten({background:slide.color}).removeAlpha().toColourspace('srgb').png().toFile(target);
    const m=await sharp(target).metadata();
-   if(m.width!==(device==='ipad'?2064:1320)||m.height!==(device==='ipad'?2752:2868)||m.hasAlpha)throw Error('Invalid store export '+target);
+   if(m.width!==(device==='ipad'?2064:1284)||m.height!==(device==='ipad'?2752:2778)||m.hasAlpha)throw Error('Invalid store export '+target);
    manifest.push({file:`${device}/${slide.id}.png`,width:m.width,height:m.height,channels:m.channels,title:slide.title.join(' '),source:`sources/${device}-${slide.shot}.png`});
   }
  }
  fs.writeFileSync(path.join(root,'manifest.json'),JSON.stringify(manifest,null,2));
  for(const device of ['iphone','ipad']){
-  const tw=device==='iphone'?264:330, th=device==='iphone'?574:440,gap=18;
+  const tw=device==='iphone'?264:330, th=device==='iphone'?571:440,gap=18;
   const parts=await Promise.all(slides.map(async(s,i)=>({input:await sharp(path.join(root,device,s.id+'.png')).resize(tw,th).toBuffer(),left:gap+i*(tw+gap),top:gap})));
   await sharp({create:{width:5*(tw+gap)+gap,height:th+gap*2,channels:3,background:'#DFE5DC'}}).composite(parts).png().toFile(path.join(root,`preview-${device}.png`));
  }
  console.log('Exported and validated exactly 5 iPhone + 5 iPad promotional PNGs.');
 })().catch(e=>{console.error(e);process.exit(1)});
+
