@@ -21,13 +21,16 @@ import { FrameDiagnostics } from './ui/FrameDiagnostics';
 import { AnswerFeedback } from './ui/AnswerFeedback';
 import { PauseMenu } from './ui/PauseMenu';
 import { Countdown } from './ui/Countdown';
+import { RaceAccessGate } from '../subscriptions/RaceAccessGate';
+import { useSubscription } from '../subscriptions/SubscriptionProvider';
 export default function GameScreen() {
   const params = useLocalSearchParams<{ level?: string; mode?: string; map?: string }>();
   // Development scenery testing keeps the normal race and level-unlock rules.
   const map = __DEV__ && params.map ? getMapTheme(params.map) : undefined;
-  return <RaceSession key={`${params.level ?? 'essentials'}:${params.mode ?? 'level'}:${map?.id ?? 'auto'}`} level={params.level} review={params.mode === 'review'} map={map} />;
+  return <RaceAccessGate key={`${params.level ?? 'essentials'}:${params.mode ?? 'level'}:${map?.id ?? 'auto'}`}><RaceSession level={params.level} review={params.mode === 'review'} map={map} /></RaceAccessGate>;
 }
 function RaceSession({ level, review, map }: { level?: string; review: boolean; map?: MapTheme }) {
+  const { requestAccess } = useSubscription();
   const insets = useSafeAreaInsets();
   const simulation = useDrivingSimulation(level, review);
   const [size, setSize] = useState({ width: 0, height: 0 });
@@ -54,7 +57,7 @@ function RaceSession({ level, review, map }: { level?: string; review: boolean; 
           <AnswerFeedback layout={layout} simulation={simulation} />
           <RunFeedback layout={layout} game={simulation.view} paused={simulation.paused} />
           <Countdown layout={layout} value={simulation.paused ? null : simulation.countdown} />
-          <GameOver game={simulation.view} onRestart={simulation.restart} saveStatus={simulation.saveStatus}
+          <GameOver game={simulation.view} onRestart={() => { void requestAccess().then(allowed => { if (allowed) simulation.restart(); else router.replace('/'); }); }} saveStatus={simulation.saveStatus}
             onSpeak={word => simulation.audio.speak(word, true)} mistakes={simulation.mistakes} previousBest={simulation.previousBest} />
           <FrameDiagnostics simulation={simulation} />
         </>}

@@ -11,10 +11,12 @@ import { UnitHeader } from './UnitHeader';
 import { SelectedLevelPanel } from './SelectedLevelPanel';
 import { RoadIcon } from './LevelTicket';
 import { journeyAssets, journeyPalette as c } from './theme';
+import { useSubscription } from '../../subscriptions/SubscriptionProvider';
 
 const EMPTY_RECORDS: LevelRecords = {};
 
 export default function JourneyScreen() {
+  const subscription = useSubscription();
   const { journeyStress } = useLocalSearchParams<{ journeyStress?: string }>();
   const stress = __DEV__ && journeyStress === '1';
   const insets = useSafeAreaInsets();
@@ -105,11 +107,12 @@ export default function JourneyScreen() {
         <View style={s.routeLabel}><RoadIcon size={20} color={c.green}/><Text style={s.routeText}>{completedCount} niveles completados</Text></View>
         <JourneyAction title="Mi nivel ↓" onPress={returnToCurrent}/>
       </View>
+      {!subscription.developmentPreview && <View style={s.routeBar}>
+        <JourneyAction title={subscription.busy || subscription.loading ? 'Consultando suscripción…' : subscription.active ? 'Plus activo · Gestionar' : 'Activar Dashword Plus'} onPress={() => { if (!subscription.busy) void (subscription.active ? subscription.manage() : subscription.requestAccess()); }}/>
+        <JourneyAction title="Restaurar" onPress={() => void subscription.restore()}/>
+      </View>}
+      {subscription.error && <Text accessibilityRole="alert" style={s.error}>{subscription.error}</Text>}
       {!!due.length && !stress && <JourneyAction title={`Repasar ${due.length} palabras pendientes →`} onPress={() => router.push({ pathname: '/race', params: { mode: 'review', level: currentLevelId } })}/>}
-      {__DEV__ && !stress && <JourneyAction title="Probar montaña →" onPress={() => router.push({ pathname: '/race', params: { map: 'mountain' } })}/>}
-      {__DEV__ && !stress && <JourneyAction title="Probar desierto →" onPress={() => router.push({ pathname: '/race', params: { map: 'desert' } })}/>}
-      {__DEV__ && !stress && <JourneyAction title="Probar atardecer →" onPress={() => router.push({ pathname: '/race', params: { map: 'sunset' } })}/>}
-      {__DEV__ && !stress && <JourneyAction title="Probar nieve →" onPress={() => router.push({ pathname: '/race', params: { map: 'snow' } })}/>}
       {error && <Text accessibilityRole="alert" style={s.error}>No pudimos cargar el progreso. Abre de nuevo esta pantalla para reintentar.</Text>}
       {!progress && !error && <ActivityIndicator accessibilityLabel="Cargando tu viaje" color={c.green}/>}
       {stress && <View><Text style={s.error}>DESARROLLO · 1.000 niveles · no guarda progreso</Text><JourneyAction title="Probar salto al nivel 981" onPress={() => goToUnit(49)}/></View>}

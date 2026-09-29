@@ -4,27 +4,40 @@
     "slug": "vocab-racer",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/branding/dashword-icon.png",
     "userInterfaceStyle": "light",
     "ios": {
-      "supportsTablet": true
+      "icon": "./assets/branding/dashword-icon.png",
+      "supportsTablet": true,
+      "bundleIdentifier": "com.revolutionti.dashword",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
+      "package": "com.revolutionti.dashword",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
+        "backgroundColor": "#061C30",
+        "foregroundImage": "./assets/branding/dashword-adaptive-foreground.png"
       },
       "predictiveBackGestureEnabled": false
     },
     "web": {
-      "favicon": "./assets/favicon.png",
+      "favicon": "./assets/branding/dashword-favicon.png",
       "bundler": "metro"
     },
     "plugins": [
       "expo-router"
     ],
-    "scheme": ["dashword", "vocab-racer"]
+    "scheme": [
+      "dashword",
+      "vocab-racer"
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "fe820972-c3e9-4d01-8fe6-0c43eda87c0c"
+      }
+    }
   }
 }
