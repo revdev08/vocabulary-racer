@@ -11,12 +11,10 @@ import { UnitHeader } from './UnitHeader';
 import { SelectedLevelPanel } from './SelectedLevelPanel';
 import { RoadIcon } from './LevelTicket';
 import { journeyAssets, journeyPalette as c } from './theme';
-import { useSubscription } from '../../subscriptions/SubscriptionProvider';
 
 const EMPTY_RECORDS: LevelRecords = {};
 
 export default function JourneyScreen() {
-  const subscription = useSubscription();
   const { journeyStress } = useLocalSearchParams<{ journeyStress?: string }>();
   const stress = __DEV__ && journeyStress === '1';
   const insets = useSafeAreaInsets();
@@ -102,16 +100,12 @@ export default function JourneyScreen() {
         <Text style={s.brand}>Dash<Text style={{ color: c.green }}>word</Text></Text>
         <View style={s.record}><Text style={s.recordLabel}>Récord</Text><Text style={s.recordNumber}>{progress?.best ?? 0}</Text></View>
         <Pressable accessibilityRole="button" accessibilityLabel="Guía de viaje" onPress={() => openModal('help')} style={s.help}><Text style={s.helpText}>?</Text></Pressable>
+        <Pressable accessibilityRole="button" accessibilityLabel="Mi perfil" onPress={() => router.push('/profile')} style={s.help}><Text style={s.actionText}>Perfil</Text></Pressable>
       </View>
       <View style={s.routeBar}>
         <View style={s.routeLabel}><RoadIcon size={20} color={c.green}/><Text style={s.routeText}>{completedCount} niveles completados</Text></View>
         <JourneyAction title="Mi nivel ↓" onPress={returnToCurrent}/>
       </View>
-      {!subscription.developmentPreview && <View style={s.routeBar}>
-        <JourneyAction title={subscription.busy || subscription.loading ? 'Consultando suscripción…' : subscription.active ? 'Plus activo · Gestionar' : 'Activar Dashword Plus'} onPress={() => { if (!subscription.busy) void (subscription.active ? subscription.manage() : subscription.requestAccess()); }}/>
-        <JourneyAction title="Restaurar" onPress={() => void subscription.restore()}/>
-      </View>}
-      {subscription.error && <Text accessibilityRole="alert" style={s.error}>{subscription.error}</Text>}
       {!!due.length && !stress && <JourneyAction title={`Repasar ${due.length} palabras pendientes →`} onPress={() => router.push({ pathname: '/race', params: { mode: 'review', level: currentLevelId } })}/>}
       {error && <Text accessibilityRole="alert" style={s.error}>No pudimos cargar el progreso. Abre de nuevo esta pantalla para reintentar.</Text>}
       {!progress && !error && <ActivityIndicator accessibilityLabel="Cargando tu viaje" color={c.green}/>}
