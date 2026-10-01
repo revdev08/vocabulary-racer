@@ -43,7 +43,8 @@ export function ProfileScreen({ onClose }: { onClose: () => void }) {
         {sub.busy && <ActivityIndicator color={c.green} accessibilityLabel="Consultando la tienda"/>}
         <Text style={s.detail}>La suscripción se renueva automáticamente hasta que la canceles. Eliminar la app no cancela la suscripción.</Text>
       </View>
-      <View style={s.card}><Text style={s.section}>Privacidad y condiciones</Text>
+      <View style={s.card}><Text style={s.section}>Ayuda y condiciones</Text>
+        {action('Soporte', 'Obtén ayuda con Dashword.', () => void open(legalLinks.support))}
         {action('Política de privacidad', legalLinks.privacy ? 'Cómo se tratan tus datos.' : 'Enlace pendiente de configuración.', () => void open(legalLinks.privacy), !legalLinks.privacy)}
         {action('Términos de uso', legalLinks.terms ? 'Condiciones de uso de Dashword.' : 'Enlace pendiente de configuración.', () => void open(legalLinks.terms), !legalLinks.terms)}
         {Platform.OS === 'ios' && action('Ayuda con suscripciones de Apple', 'Información sobre cómo cancelar tu suscripción.', () => void open('https://support.apple.com/118428'))}
