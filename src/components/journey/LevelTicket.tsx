@@ -33,14 +33,16 @@ export function PaperSurface({ active = false, selected = false, yellow = false,
   const [size, setSize] = useState({ width: 320, height: 110 });
   const w = size.width, h = size.height, outline = ticketPath(w,h,4);
   return <View style={[StyleSheet.absoluteFill, { pointerEvents: 'none' }]} onLayout={({ nativeEvent: { layout } }) => setSize(old => old.width === layout.width && old.height === layout.height ? old : layout)}>
-    <Svg width="100%" height="100%" {...decorativeSvgProps}>
+    {/* Use the measured ticket bounds for both the viewport and its fills.
+        Native percentage heights can resolve against the padded content box. */}
+    <Svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} {...decorativeSvgProps}>
       <Defs><LinearGradient id={`${id}p`} x2="0.4" y2="1"><Stop offset="0" stopColor={locked ? theme === 'city' ? '#F4E2DB' : '#E9EDED' : '#FFFCF1'}/><Stop offset="0.55" stopColor={locked ? theme === 'city' ? '#EED9D0' : '#E0E6E5' : '#FAF0D9'}/><Stop offset="1" stopColor={locked ? theme === 'city' ? '#DDC8C2' : '#CFD9D7' : '#E9DAC0'}/></LinearGradient>
         <LinearGradient id={`${id}y`} x2="0.8" y2="1"><Stop offset="0" stopColor="#FFDA66"/><Stop offset="1" stopColor="#F4BC2A"/></LinearGradient>
         <Pattern id={`${id}g`} width="29" height="23" patternUnits="userSpaceOnUse"><Circle cx="4" cy="7" r=".65" fill="#907E54" opacity=".22"/><Circle cx="19" cy="17" r=".45" fill="#FFFDF6" opacity=".8"/><Path d="M16 21h5M23 4l3 1M7 19h2" stroke="#907E54" strokeWidth=".5" opacity=".19"/></Pattern>
         <ClipPath id={`${id}c`}><Path d={outline}/></ClipPath></Defs>
       <Path d={outline} fill={`url(#${id}p)`}/>
       <G clipPath={`url(#${id}c)`}>
-        {yellow && <Rect width={stubWidth} height="100%" fill={`url(#${id}y)`}/>}
+        {yellow && <Rect x={0} y={0} width={stubWidth} height={h} fill={`url(#${id}y)`}/>}
         {decoration && <Landscape w={w} h={h} theme={theme} active={yellow}/>}
         <Rect x={0} y={0} width={w} height={h} fill={`url(#${id}g)`}/>
       </G>

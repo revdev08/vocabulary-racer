@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { ActivityIndicator, Image, Modal, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { ProfileScreen } from '../profile/ProfileScreen';
+import { ActivityIndicator, Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { journeyAssets, journeyPalette as c } from '../components/journey/theme';
 import { useSubscription } from '../subscriptions/SubscriptionProvider';
@@ -23,7 +23,7 @@ export function OnboardingGate({ children }: { children: ReactNode }) {
   const [saving, setSaving] = useState(false);
   const [storageError, setStorageError] = useState<string>();
   const [dismissed, setDismissed] = useState(false);
-  const [profileVisible, setProfileVisible] = useState(false);
+
   const lock = useRef(false);
   const scroll = useRef<ScrollView>(null);
   useEffect(() => {
@@ -83,15 +83,8 @@ export function OnboardingGate({ children }: { children: ReactNode }) {
       <Pressable accessibilityRole="button" disabled={busy} style={[s.cta, busy && { opacity: .6 }]} onPress={() => {
         if (step < 2) { setStep(step + 1); scroll.current?.scrollTo({ y: 0, animated: false }); }
         else void finish();
-      }}><Text style={s.ctaText}>{busy ? 'Preparando tu acceso…' : step === 2 ? 'Ver planes y comenzar' : step === 0 ? 'Continuar mi viaje' : 'Quiero seguir aprendiendo'}</Text></Pressable>
-      {step === 2 && <Text style={s.disclosure}>Consulta el precio y la prueba disponible en el siguiente paso. La suscripción se renueva hasta que la canceles.</Text>}
-      <View style={s.links}>
-        <Pressable accessibilityRole="button" disabled={busy} onPress={() => setProfileVisible(true)} style={s.link}><Text style={s.linkText}>Perfil y privacidad</Text></Pressable>
-        {step > 0 && <Pressable accessibilityRole="button" disabled={busy} onPress={() => { setStep(step - 1); scroll.current?.scrollTo({ y: 0, animated: false }); }} style={s.link}><Text style={s.linkText}>Atrás</Text></Pressable>}
-        {!sub.developmentPreview && <Pressable accessibilityRole="button" disabled={busy} onPress={() => void sub.restore()} style={s.link}><Text style={s.linkText}>Ya tengo acceso · Restaurar</Text></Pressable>}
-      </View>
+      }}><Text style={s.ctaText}>{busy ? 'Preparando tu acceso…' : step === 2 ? 'Continuar mi aprendizaje' : step === 0 ? 'Continuar mi viaje' : 'Quiero seguir aprendiendo'}</Text></Pressable>
     </View>
-    <Modal visible={profileVisible} animationType="none" onRequestClose={() => setProfileVisible(false)}><ProfileScreen onClose={() => setProfileVisible(false)} /></Modal>
   </View>;
 }
 const s = StyleSheet.create({
@@ -107,7 +100,7 @@ const s = StyleSheet.create({
   ticket: { backgroundColor: '#FFF8E5', borderWidth: 2, borderColor: c.green, borderRadius: 20, padding: 20, gap: 18 }, ticketLabel: { color: c.green, fontSize: 10, fontWeight: '900', letterSpacing: 1.1, flexShrink: 1 },
   route: { flexDirection: 'row', gap: 12, alignItems: 'center' }, marker: { color: c.ink, backgroundColor: c.gold, width: 32, height: 32, borderRadius: 16, textAlign: 'center', lineHeight: 32, fontWeight: '900' }, routeText: { color: c.ink, fontSize: 17, fontWeight: '700', flex: 1 },
   note: { color: '#536558', fontSize: 13, lineHeight: 20 }, passHeader: { flexDirection: 'row', justifyContent: 'space-between', gap: 12, alignItems: 'center' }, plus: { backgroundColor: c.gold, color: c.ink, padding: 6, fontWeight: '900', fontSize: 12 }, passCar: { width: '100%', height: 115 }, passTitle: { fontSize: 24, fontWeight: '900', color: c.ink },
-  footer: { paddingHorizontal: 24, paddingTop: 12, backgroundColor: '#FFFAEC', borderTopWidth: 1, borderColor: '#E5DCC7' }, dots: { flexDirection: 'row', justifyContent: 'center', gap: 6, marginBottom: 14 }, dot: { width: 7, height: 7, borderRadius: 4, backgroundColor: '#C8CFBD' }, dotActive: { width: 25, backgroundColor: c.green },
-  cta: { minHeight: 56, borderRadius: 18, backgroundColor: c.green, padding: 15, alignItems: 'center', justifyContent: 'center' }, ctaText: { color: 'white', fontWeight: '800', fontSize: 17, textAlign: 'center' }, disclosure: { color: '#61706F', fontSize: 11, lineHeight: 16, textAlign: 'center', marginTop: 10 },
-  links: { flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap', gap: 12 }, link: { minHeight: 44, justifyContent: 'center', paddingHorizontal: 5 }, linkText: { color: c.green, fontSize: 13, fontWeight: '700' }, error: { color: '#92432C', fontSize: 14, lineHeight: 21 },
+  footer: { paddingHorizontal: 24, paddingTop: 12, paddingBottom: 16, backgroundColor: '#FFFAEC', borderTopWidth: 1, borderColor: '#E5DCC7' }, dots: { flexDirection: 'row', justifyContent: 'center', gap: 6, marginBottom: 14 }, dot: { width: 7, height: 7, borderRadius: 4, backgroundColor: '#C8CFBD' }, dotActive: { width: 25, backgroundColor: c.green },
+  cta: { minHeight: 56, borderRadius: 18, backgroundColor: c.green, padding: 15, alignItems: 'center', justifyContent: 'center' }, ctaText: { color: 'white', fontWeight: '800', fontSize: 17, textAlign: 'center' },
+  error: { color: '#92432C', fontSize: 14, lineHeight: 21 },
 });
