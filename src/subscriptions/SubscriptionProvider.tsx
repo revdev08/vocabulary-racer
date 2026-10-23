@@ -2,14 +2,19 @@ import { createContext, useCallback, useContext, useEffect, useRef, useState, ty
 import { Alert, AppState } from 'react-native';
 import { createAccessRequest, hasPlus } from './access';
 import { developmentPreview, presentRemotePaywall, purchases, type CustomerInfo } from './billing';
+import { useDemoAccess } from './useDemoAccess';
 
 type SubscriptionState = {
   active: boolean; loading: boolean; busy: boolean; error: string | null; developmentPreview: boolean;
   requestAccess: () => Promise<boolean>; restore: () => Promise<void>; manage: () => Promise<void>;
+  demoActive: boolean; demoAvailable: boolean;
+  redeemDemo: (code: string) => Promise<boolean>; exitDemo: () => Promise<void>;
 };
 const Context = createContext<SubscriptionState | null>(null);
 
 export function SubscriptionProvider({ children }: { children: ReactNode }) {
+  const demo = useDemoAccess();
+  const checkDemo = demo.check;
   const [info, setInfo] = useState<CustomerInfo | null>(null);
   const [loading, setLoading] = useState(!developmentPreview);
   const [busy, setBusy] = useState(false);
@@ -50,12 +55,23 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
     if (accessOperation.current) return accessOperation.current;
     if (operation.current) return Promise.resolve(false);
     setBusy(true); setError(null);
-    const task = createAccessRequest({ read, present: presentRemotePaywall })()
+    const task = (async () => {
+      if (await checkDemo()) return true;
+      return createAccessRequest({ read, present: presentRemotePaywall })();
+    })()
       .catch(cause => { failure(cause); return false; })
       .finally(() => { accessOperation.current = null; operation.current = null; if (mounted.current) setBusy(false); });
     accessOperation.current = task; operation.current = task;
     return task;
-  }, [read, failure]);
+  }, [read, failure, checkDemo]);
+  const redeemDemo = useCallback(async (code: string) => {
+    if (operation.current) return false;
+    setBusy(true);
+    const task = checkDemo(code);
+    operation.current = task;
+    try { return await task; }
+    finally { operation.current = null; if (mounted.current) setBusy(false); }
+  }, [checkDemo]);
   const restore = useCallback(async () => {
     if (operation.current || developmentPreview) return;
     setBusy(true);
@@ -76,7 +92,11 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
     try { await task; } catch (cause) { Alert.alert('Suscripción', failure(cause)); }
     finally { operation.current = null; if (mounted.current) setBusy(false); }
   }, [read, failure]);
-  return <Context.Provider value={{ active: hasPlus(info), loading, busy, error, developmentPreview, requestAccess, restore, manage }}>{children}</Context.Provider>;
+  return <Context.Provider value={{
+    active: hasPlus(info) || demo.active, loading: loading || demo.loading,
+    busy, error: demo.error || error, developmentPreview, requestAccess, restore, manage,
+    demoActive: demo.active, demoAvailable: demo.available, redeemDemo, exitDemo: demo.exit,
+  }}>{children}</Context.Provider>;
 }
 
 export function useSubscription() {

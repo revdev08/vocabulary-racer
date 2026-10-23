@@ -1,0 +1,49 @@
+[
+  {
+    "file": "icon-512.png",
+    "width": 512,
+    "height": 512,
+    "bytes": 622697
+  },
+  {
+    "file": "feature-1024x500.png",
+    "width": 1024,
+    "height": 500,
+    "bytes": 552554
+  },
+  {
+    "file": "phone/01-aprende-jugando.png",
+    "width": 1080,
+    "height": 1920,
+    "bytes": 1793360,
+    "source": "marketing/app-store/es/sources/iphone-choice.png"
+  },
+  {
+    "file": "phone/02-supera-obstaculos.png",
+    "width": 1080,
+    "height": 1920,
+    "bytes": 2079431,
+    "source": "marketing/app-store/es/sources/iphone-traffic-7.png"
+  },
+  {
+    "file": "phone/03-explora-niveles.png",
+    "width": 1080,
+    "height": 1920,
+    "bytes": 2500814,
+    "source": "marketing/app-store/es/sources/iphone-levels.png"
+  },
+  {
+    "file": "phone/04-repasa-palabras.png",
+    "width": 1080,
+    "height": 1920,
+    "bytes": 989048,
+    "source": "marketing/app-store/es/sources/iphone-results.png"
+  },
+  {
+    "file": "phone/05-escucha-pronunciacion.png",
+    "width": 1080,
+    "height": 1920,
+    "bytes": 2003220,
+    "source": "marketing/app-store/es/sources/iphone-audio.png"
+  }
+]

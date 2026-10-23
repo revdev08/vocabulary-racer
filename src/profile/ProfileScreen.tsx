@@ -29,6 +29,13 @@ export function ProfileScreen({ onClose }: { onClose: () => void }) {
     <ScrollView contentContainerStyle={[s.content, { paddingBottom: insets.bottom + 24 }]}>
       <Text style={s.eyebrow}>TU COMPAÑERO DE VIAJE</Text><Text accessibilityRole="header" style={s.title}>Mi perfil</Text>
       <Text style={s.copy}>Tu progreso, tu acceso y tus preferencias de compra.</Text>
+      {sub.demoActive && <View style={s.card}>
+        <Text style={s.section}>Acceso de demostración activo</Text>
+        <Text style={s.copy}>Puedes usar todas las funciones de aprendizaje sin realizar una compra. No se ha creado una suscripción.</Text>
+        {action('Cerrar acceso de demostración', 'Conserva el progreso de este dispositivo.', () => {
+          void sub.exitDemo().catch(() => setError('No pudimos cerrar la sesión. Inténtalo de nuevo.'));
+        }, sub.busy)}
+      </View>}
       <View style={s.card}><Text style={s.section}>Tu recorrido</Text><Text style={s.copy}>Aprendiendo inglés desde el español</Text>
         {progress ? <View style={s.stats}><View><Text style={s.number}>{levels.filter(level => progress.levels[level.id]?.completed).length}</Text><Text style={s.detail}>Niveles completados</Text></View><View><Text style={s.number}>{progress.best}</Text><Text style={s.detail}>Mejor puntuación</Text></View></View> : <ActivityIndicator color={c.green}/>}
         <Text style={s.detail}>Tu progreso se guarda en este dispositivo. Restaurar compras recupera el acceso adquirido, no el progreso de otro dispositivo.</Text>

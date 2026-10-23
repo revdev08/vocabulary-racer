@@ -5,6 +5,7 @@ import { ActivityIndicator, Image, Pressable, ScrollView, StyleSheet, Text, View
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { journeyAssets, journeyPalette as c } from '../components/journey/theme';
 import { useSubscription } from '../subscriptions/SubscriptionProvider';
+import { DemoAccessForm } from './DemoAccessForm';
 
 const KEY = 'dashword:onboarding:v1';
 const pages = [
@@ -54,7 +55,8 @@ export function OnboardingGate({ children }: { children: ReactNode }) {
   return <View style={[s.root, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
     <Image source={journeyAssets.background} style={s.background} accessible={false} />
     <View style={s.header}><Text style={s.brand}>Dash<Text style={{ color: c.green }}>word</Text></Text><Text style={s.count}>{step + 1} / 3</Text></View>
-    <ScrollView ref={scroll} contentContainerStyle={s.content}>
+    <ScrollView ref={scroll} keyboardShouldPersistTaps="handled" contentContainerStyle={s.content}>
+      <DemoAccessForm />
       <Text style={s.eyebrow}>{page.label}</Text>
       <Text accessibilityRole="header" style={s.title}>{page.title}</Text>
       <Text style={s.copy}>{page.copy}</Text>

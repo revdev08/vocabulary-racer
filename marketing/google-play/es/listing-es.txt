@@ -1,0 +1,35 @@
+NOMBRE
+Dashword: Aprende idiomas
+
+DESCRIPCIÓN BREVE
+Aprende vocabulario jugando: conduce, elige traducciones y repasa tus errores.
+
+DESCRIPCIÓN COMPLETA
+Cada palabra abre un nuevo camino. En Dashword, aprender vocabulario se convierte en una aventura al volante: elige el carril con la traducción correcta, esquiva obstáculos y avanza por niveles temáticos.
+
+APRENDE CON CADA DECISIÓN
+Lee la palabra, compara las opciones y conduce hacia tu respuesta. Practica vocabulario de forma activa, con partidas que combinan aprendizaje y habilidad.
+
+MUCHO MÁS QUE MEMORIZAR
+Encuentra coches, barreras y monedas durante el recorrido. Mantén la atención en la carretera mientras superas los retos de cada nivel.
+
+CONSTRUYE TU VOCABULARIO PASO A PASO
+Explora palabras organizadas por temas y sigue tu progreso. Cada nivel es una nueva oportunidad para practicar y reforzar lo que ya sabes.
+
+CONVIERTE LOS ERRORES EN APRENDIZAJE
+Las palabras que te cuestan vuelven a aparecer para que puedas repasarlas. La repetición espaciada te ayuda a reforzar tu vocabulario a lo largo del tiempo.
+
+ESCUCHA Y PRACTICA
+Escucha la pronunciación de las palabras y vuelve a reproducir el audio para familiarizarte con su sonido.
+
+TU APRENDIZAJE, EN MOVIMIENTO
+Combina traducción, escucha y repaso en una experiencia de juego. Avanza a tu ritmo y vuelve para seguir practicando.
+
+ACCESO CON DASHWORD PLUS
+El acceso al contenido requiere una suscripción mensual o anual. El precio y las condiciones se muestran antes de confirmar la compra. Si hay una prueba gratuita disponible y cumples sus requisitos, verás sus detalles en la pantalla de suscripción.
+
+La suscripción se renueva automáticamente salvo que la canceles. Puedes gestionar o cancelar tu suscripción desde Google Play.
+
+Soporte: https://dashwordsupport.netlify.app/
+Privacidad: https://dashwordprivacy.netlify.app/
+Términos: https://dashwordterms.netlify.app/
